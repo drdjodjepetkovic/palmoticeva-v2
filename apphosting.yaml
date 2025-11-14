@@ -1,0 +1,46 @@
+
+# apphosting.yaml
+# This file is used to configure the App Hosting backend.
+# For more information, see the documentation:
+# https://firebase.google.com/docs/app-hosting/control-behavior-with-apphosting-yaml
+# This file is required for all App Hosting backends.
+
+# Specifies the version of the App Hosting configuration schema.
+# This is a required field.
+schemaVersion: v1alpha1
+
+# Defines the environment variables that will be available to the backend.
+env:
+  - variable: SENTRY_AUTH_TOKEN
+    secret: sentry-auth-token
+  - variable: GEMINI_API_KEY
+    secret: gemini-api-key@2
+  - variable: NEXT_PUBLIC_FIREBASE_API_KEY
+    value: AIzaSyAJ4uOND3fqcB_tk5kQOsRlJhwYQPn69AE
+  - variable: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+    value: palmoticeva-portal.firebaseapp.com
+  - variable: NEXT_PUBLIC_FIREBASE_PROJECT_ID
+    value: palmoticeva-portal
+  - variable: NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
+    value: palmoticeva-portal.firebasestorage.app
+  - variable: NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
+    value: '103093476920'
+  - variable: NEXT_PUBLIC_FIREBASE_APP_ID
+    value: 1:103093476920:web:26dc1dcc28a049b56d90cd
+  - variable: NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
+    value: G-KQXYJHTF90
+  - variable: NEXT_PUBLIC_VAPID_KEY
+    value: BNLqFBE5eG05oNCQDFJ4n-1y4Kk9GfJq5lQW4g0p4X6h1s3Y1Z7x6d2m9N8w1t2n2t8Y9c0j0k8J7i6H5g4f3E2d1
+run:
+  # The command to build the application.
+  # This is an optional field.
+  build: npm run build
+  # The command to start the application.
+  # This is a required field.
+  start: npm run start
+  # Set the server timeout to 120 seconds.
+  timeoutSeconds: 120
+cron:
+  - schedule: "every day 09:00"
+    uri: /api/cron/check-cycles
+    timezone: "Europe/Belgrade"

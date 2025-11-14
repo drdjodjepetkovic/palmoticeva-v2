@@ -1,0 +1,18 @@
+
+{
+    "name": "Ordinacija Palmotićeva",
+    "short_name": "Palmotićeva",
+    "description": "Ginekološko akušerska ordinacija u srcu Beograda.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#ffffff",
+    "icons": [
+      {
+        "src": "/pwa/icon-144x144.png",
+        "sizes": "144x144",
+        "type": "image/png"
+      }
+    ]
+  }
+  
