@@ -5,7 +5,7 @@ import { getAuth, GoogleAuthProvider, type Auth } from "firebase/auth";
 import { getFirestore, type Firestore, doc, updateDoc } from "firebase/firestore";
 import { getStorage, type FirebaseStorage } from "firebase/storage";
 import { getAnalytics, logEvent, type Analytics } from "firebase/analytics";
-import { getMessaging, getToken, onMessage, type Messaging } from "firebase/messaging";
+import type { Messaging } from "firebase/messaging";
 import type { User } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -37,23 +37,27 @@ const googleProvider = new GoogleAuthProvider();
 let analytics: Analytics | null = null;
 let messaging: Messaging | null = null;
 
-if (typeof window !== 'undefined' && isFirebaseConfigured(firebaseConfig)) {
-  if (firebaseConfig.measurementId) {
-    analytics = getAnalytics(app);
-  }
-  // Initialize messaging only if all required fields are present
-  if (firebaseConfig.messagingSenderId) {
-    messaging = getMessaging(app);
-  }
+// Use a function to dynamically initialize messaging
+async function initializeMessaging() {
+    if (typeof window !== 'undefined' && isFirebaseConfigured(firebaseConfig) && firebaseConfig.messagingSenderId) {
+        const { getMessaging } = await import("firebase/messaging");
+        messaging = getMessaging(app);
+    }
 }
 
-// Renamed for clarity to avoid conflict with the check function name
-const isConfigured = () => isFirebaseConfigured(firebaseConfig);
+// Call the function to initialize messaging on the client side
+initializeMessaging();
 
+if (typeof window !== 'undefined' && isFirebaseConfigured(firebaseConfig) && firebaseConfig.measurementId) {
+    analytics = getAnalytics(app);
+}
+
+const isConfigured = () => isFirebaseConfigured(firebaseConfig);
 
 const getFCMToken = async () => {
     if (!messaging || !process.env.NEXT_PUBLIC_VAPID_KEY) return null;
     try {
+        const { getToken } = await import("firebase/messaging");
         const status = await Notification.requestPermission();
         if(status === 'granted') {
             const token = await getToken(messaging, { vapidKey: process.env.NEXT_PUBLIC_VAPID_KEY });
@@ -70,19 +74,12 @@ const getFCMToken = async () => {
 const logAnalyticsEvent = (eventName: string, eventParams?: { [key: string]: any }) => {
   if (analytics) {
     logEvent(analytics, eventName, eventParams);
-  } else {
-    // console.log(`Analytics not initialized. Event not logged: ${eventName}`, eventParams);
   }
 };
 
-/**
- * Requests notification permission and saves the FCM token to the user's profile.
- * Should be called after a meaningful user interaction, not on page load.
- * @param user The Firebase user object.
- */
 export const setupNotifications = async (user: User) => {
   if (typeof window === 'undefined' || !isConfigured() || !messaging) return;
-  
+
   try {
       const permission = await Notification.requestPermission();
       if (permission === 'granted') {
