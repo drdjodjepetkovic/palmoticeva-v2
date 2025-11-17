@@ -39,32 +39,40 @@ let messaging: Messaging | null = null;
 
 // Function to check if the browser supports service workers
 function isSupported() {
-    return typeof window !== 'undefined' && 'serviceWorker' in navigator;
+    return typeof window !== 'undefined' && 'serviceWorker' in navigator && navigator.onLine;
 }
 
 // Use a function to dynamically initialize messaging
 async function initializeMessaging() {
     if (isSupported() && isFirebaseConfigured(firebaseConfig) && firebaseConfig.messagingSenderId) {
         try {
-            const { getMessaging } = await import("firebase/messaging");
+            const { getMessaging } from await import("firebase/messaging");
             messaging = getMessaging(app);
         } catch (error) {
-            console.error("Firebase Messaging not supported in this browser:", error);
+            console.error("Firebase Messaging not supported or offline:", error);
         }
     }
 }
 
-// Call the function to initialize messaging on the client side
-initializeMessaging();
-
-if (typeof window !== 'undefined' && isFirebaseConfigured(firebaseConfig) && firebaseConfig.measurementId) {
-    analytics = getAnalytics(app);
+// Use a function to dynamically initialize analytics
+async function initializeAnalytics() {
+    if (typeof window !== 'undefined' && navigator.onLine && isFirebaseConfigured(firebaseConfig) && firebaseConfig.measurementId) {
+        try {
+            analytics = getAnalytics(app);
+        } catch (error) {
+            console.error("Firebase Analytics failed to initialize (possibly offline):", error);
+        }
+    }
 }
+
+// Call the functions to initialize services on the client side
+initializeMessaging();
+initializeAnalytics();
 
 const isConfigured = () => isFirebaseConfigured(firebaseConfig);
 
 const getFCMToken = async () => {
-    if (!messaging || !process.env.NEXT_PUBLIC_VAVAPID_KEY) return null;
+    if (!messaging || !process.env.NEXT_PUBLIC_VAPID_KEY) return null;
     try {
         const { getToken } = await import("firebase/messaging");
         const status = await Notification.requestPermission();
