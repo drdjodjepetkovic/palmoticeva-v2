@@ -46,7 +46,7 @@ function isSupported() {
 async function initializeMessaging() {
     if (isSupported() && isFirebaseConfigured(firebaseConfig) && firebaseConfig.messagingSenderId) {
         try {
-            const { getMessaging } from await import("firebase/messaging");
+            const { getMessaging } = await import("firebase/messaging");
             messaging = getMessaging(app);
         } catch (error) {
             console.error("Firebase Messaging not supported or offline:", error);
