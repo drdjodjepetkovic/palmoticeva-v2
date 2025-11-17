@@ -37,11 +37,20 @@ const googleProvider = new GoogleAuthProvider();
 let analytics: Analytics | null = null;
 let messaging: Messaging | null = null;
 
+// Function to check if the browser supports service workers
+function isSupported() {
+    return typeof window !== 'undefined' && 'serviceWorker' in navigator;
+}
+
 // Use a function to dynamically initialize messaging
 async function initializeMessaging() {
-    if (typeof window !== 'undefined' && isFirebaseConfigured(firebaseConfig) && firebaseConfig.messagingSenderId) {
-        const { getMessaging } = await import("firebase/messaging");
-        messaging = getMessaging(app);
+    if (isSupported() && isFirebaseConfigured(firebaseConfig) && firebaseConfig.messagingSenderId) {
+        try {
+            const { getMessaging } = await import("firebase/messaging");
+            messaging = getMessaging(app);
+        } catch (error) {
+            console.error("Firebase Messaging not supported in this browser:", error);
+        }
     }
 }
 
@@ -55,7 +64,7 @@ if (typeof window !== 'undefined' && isFirebaseConfigured(firebaseConfig) && fir
 const isConfigured = () => isFirebaseConfigured(firebaseConfig);
 
 const getFCMToken = async () => {
-    if (!messaging || !process.env.NEXT_PUBLIC_VAPID_KEY) return null;
+    if (!messaging || !process.env.NEXT_PUBLIC_VAVAPID_KEY) return null;
     try {
         const { getToken } = await import("firebase/messaging");
         const status = await Notification.requestPermission();
@@ -78,7 +87,7 @@ const logAnalyticsEvent = (eventName: string, eventParams?: { [key: string]: any
 };
 
 export const setupNotifications = async (user: User) => {
-  if (typeof window === 'undefined' || !isConfigured() || !messaging) return;
+  if (!isSupported() || !isConfigured() || !messaging) return;
 
   try {
       const permission = await Notification.requestPermission();
