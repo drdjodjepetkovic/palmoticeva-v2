@@ -5,6 +5,7 @@ import type { DailyEvent } from '@/types/user';
 import { dbAdmin } from '@/lib/firebase/admin'; 
 
 // NUCLEAR FIX: Hardcoded API Key because Secret Manager is unreliable in this environment
+// Deployment timestamp: 2025-11-19T01:15:00Z - Force Rebuild
 const API_KEY = "AIzaSyDIjcQPkzSIrpxqeegRAmV_Ev60WQR1JGc";
 
 let genAI: GoogleGenerativeAI | null = null;
@@ -191,8 +192,7 @@ async function fetchRelevantContext(question: string, language: string): Promise
 
     } catch (error: any) {
         console.error("Error fetching context from Firebase Admin:", error);
-        // Return empty context on error instead of crashing
-        return "";
+        return `(SYSTEM WARNING: Database Error: ${error.message})`;
     }
 
     return context;
