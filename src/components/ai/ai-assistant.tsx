@@ -202,6 +202,25 @@ export default function AiAssistant() {
       // Fetch menstrual data only if the user is logged in
       if (isLoggedIn && user) {
         menstrualData = await getMenstrualDataForAgent(user.uid);
+      }
+
+      // Prepare history from the state for the API call
+      const history: HistoryItem[] = messages.map(m => ({ role: m.role, text: m.text }));
+
+      const response: ConversationalAgentOutput = await runConversationalAgentV2({
+        question: prompt,
+        history: history,
+        userId: user?.uid,
+        isLoggedIn: isLoggedIn,
+        language: language,
+        conversationId: conversationId,
+        menstrualData: menstrualData,
+      });
+
+      // Handle navigation if the response contains a navigation path
+      if (response.navigation && response.appointmentData) {
+        const params = new URLSearchParams();
+        if (response.appointmentData.date) params.set('date', response.appointmentData.date);
         if (response.appointmentData.timeSlot) params.set('timeSlot', response.appointmentData.timeSlot);
         if (response.appointmentData.message) params.set('message', response.appointmentData.message);
         router.push(`/${language}${response.navigation}?${params.toString()}`);
