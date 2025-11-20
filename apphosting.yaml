@@ -14,7 +14,7 @@ env:
   - variable: SENTRY_AUTH_TOKEN
     secret: sentry-auth-token
   - variable: GEMINI_API_KEY
-    secret: gemini-api-key@2
+    secret: gemini-api-key
   - variable: NEXT_PUBLIC_FIREBASE_API_KEY
     value: AIzaSyAJ4uOND3fqcB_tk5kQOsRlJhwYQPn69AE
   - variable: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
