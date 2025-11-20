@@ -2,7 +2,7 @@
 "use client";
 
 import './globals.css';
-import { LanguageProvider } from '@/context/language-context';
+import { LanguageProvider, useLanguage } from '@/context/language-context';
 import { AuthProvider } from '@/context/auth-context';
 import { Toaster } from '@/components/ui/toaster';
 import { cn } from '@/lib/utils';
@@ -40,125 +40,131 @@ const APP_URL = "https://ginekologija.palmoticeva.com";
 const OG_IMAGE_URL = "https://firebasestorage.googleapis.com/v0/b/palmoticeva-portal.firebasestorage.app/o/images%2Fog-image.jpg?alt=media&token=d309944a-579c-44a3-9562-b915606e3009";
 
 const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "MedicalClinic",
-    "name": "Ginekološka ordinacija Palmotićeva",
-    "description": APP_DESCRIPTION,
-    "url": APP_URL,
-    "logo": "https://firebasestorage.googleapis.com/v0/b/palmoticeva-portal.firebasestorage.app/o/pwa%2Ficon-512x512.png?alt=media",
-    "image": OG_IMAGE_URL,
-    "telephone": "+381113226040",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Palmotićeva 33",
-      "addressLocality": "Beograd",
-      "postalCode": "11000",
-      "addressCountry": "RS"
+  "@context": "https://schema.org",
+  "@type": "MedicalClinic",
+  "name": "Ginekološka ordinacija Palmotićeva",
+  "description": APP_DESCRIPTION,
+  "url": APP_URL,
+  "logo": "https://firebasestorage.googleapis.com/v0/b/palmoticeva-portal.firebasestorage.app/o/pwa%2Ficon-512x512.png?alt=media",
+  "image": OG_IMAGE_URL,
+  "telephone": "+381113226040",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Palmotićeva 33",
+    "addressLocality": "Beograd",
+    "postalCode": "11000",
+    "addressCountry": "RS"
+  },
+  "founder": {
+    "@type": "Person",
+    "name": "Mr sci. med. Slobodanka Petković"
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "opens": "08:00",
+      "closes": "20:00"
     },
-    "founder": {
-      "@type": "Person",
-      "name": "Mr sci. med. Slobodanka Petković"
-    },
-    "openingHoursSpecification": [
-      {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday"
-        ],
-        "opens": "08:00",
-        "closes": "20:00"
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": "Saturday",
-        "opens": "08:00",
-        "closes": "15:00"
-      }
-    ],
-    "priceRange": "$$$",
-    "medicalSpecialty": "Obstetric"
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Saturday",
+      "opens": "08:00",
+      "closes": "15:00"
+    }
+  ],
+  "priceRange": "$$$",
+  "medicalSpecialty": "Obstetric"
 };
 
+function RootLayoutContent({ children }: { children: React.ReactNode }) {
+  const { language } = useLanguage();
+  const iconUrl = "https://firebasestorage.googleapis.com/v0/b/palmoticeva-portal.firebasestorage.app/o/images%2Fflavicon.ico?alt=media&token=91f4d2eb-869f-48d3-a5fc-c0fc7188753f";
+
+  return (
+    <html lang={language} suppressHydrationWarning>
+      <head>
+        {/* --- CORE METADATA --- */}
+        <title>{`Ginekologija Palmotićeva | 27 godina poverenja i savremene nege`}</title>
+        <meta name="description" content={APP_DESCRIPTION} />
+        <link rel="canonical" href={APP_URL} />
+
+        {/* --- PWA & APP METADATA --- */}
+        <meta name="application-name" content={APP_NAME} />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content={APP_NAME} />
+        <meta name="format-detection" content="telephone=no" />
+        <link rel="manifest" href="/manifest.json" />
+
+        {/* --- FAVICONS & APPLE SPECIFIC ICONS --- */}
+        <link rel="icon" type="image/x-icon" href={iconUrl} />
+        <link rel="apple-touch-icon" href="https://firebasestorage.googleapis.com/v0/b/palmoticeva-portal.firebasestorage.app/o/pwa%2Fapple-touch-icon.png?alt=media" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://firebasestorage.googleapis.com/v0/b/palmoticeva-portal.firebasestorage.app/o/pwa%2Ficon-152x152.png?alt=media" />
+        <link rel="apple-touch-icon" sizes="180x180" href="https://firebasestorage.googleapis.com/v0/b/palmoticeva-portal.firebasestorage.app/o/pwa%2Ficon-192x192.png?alt=media" />
+        <link rel="apple-touch-icon" sizes="167x167" href="https://firebasestorage.googleapis.com/v0/b/palmoticeva-portal.firebasestorage.app/o/pwa%2Ficon-192x192.png?alt=media" />
+
+        {/* --- THEME & VIEWPORT --- */}
+        <meta name="theme-color" content="#FFFFFF" />
+        <meta name="viewport" content="initial-scale=1, viewport-fit=cover, width=device-width" />
+
+        {/* --- SOCIAL MEDIA & SEO (OPEN GRAPH / TWITTER CARDS) --- */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={APP_URL} />
+        <meta property="og:title" content={`Ginekologija Palmotićeva | 27 godina poverenja i savremene nege`} />
+        <meta property="og:description" content={APP_DESCRIPTION} />
+        <meta property="og:image" content={OG_IMAGE_URL} />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`Ginekologija Palmotićeva | 27 godina poverenja i savremene nege`} />
+        <meta name="twitter:description" content={APP_DESCRIPTION} />
+        <meta name="twitter:image" content={OG_IMAGE_URL} />
+
+        {/* --- JSON-LD STRUCTURED DATA --- */}
+        <Script
+          id="json-ld"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
+      <body className={cn(
+        "min-h-screen bg-background text-foreground antialiased",
+        inter.variable,
+        headlineFont.variable,
+        pressStart2P.variable
+      )}>
+        <Suspense fallback={<SplashScreen />}>
+          <UserInteractionHub />
+          <PwaInstallToast />
+          <TourHandler />
+          <AppStateSynchronizer />
+          {children}
+        </Suspense>
+        <Toaster />
+      </body>
+    </html>
+  );
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const iconUrl = "https://firebasestorage.googleapis.com/v0/b/palmoticeva-portal.firebasestorage.app/o/images%2Fflavicon.ico?alt=media&token=91f4d2eb-869f-48d3-a5fc-c0fc7188753f";
-  
   return (
-    <html lang="en" suppressHydrationWarning>
-        <head>
-            {/* --- CORE METADATA --- */}
-            <title>{`Ginekologija Palmotićeva | 27 godina poverenja i savremene nege`}</title>
-            <meta name="description" content={APP_DESCRIPTION} />
-            <link rel="canonical" href={APP_URL} />
-            
-            {/* --- PWA & APP METADATA --- */}
-            <meta name="application-name" content={APP_NAME} />
-            <meta name="apple-mobile-web-app-capable" content="yes" />
-            <meta name="mobile-web-app-capable" content="yes" />
-            <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-            <meta name="apple-mobile-web-app-title" content={APP_NAME} />
-            <meta name="format-detection" content="telephone=no" />
-            <link rel="manifest" href="/manifest.json" />
-            
-            {/* --- FAVICONS & APPLE SPECIFIC ICONS --- */}
-            <link rel="icon" type="image/x-icon" href={iconUrl} />
-            <link rel="apple-touch-icon" href="https://firebasestorage.googleapis.com/v0/b/palmoticeva-portal.firebasestorage.app/o/pwa%2Fapple-touch-icon.png?alt=media" />
-            <link rel="apple-touch-icon" sizes="152x152" href="https://firebasestorage.googleapis.com/v0/b/palmoticeva-portal.firebasestorage.app/o/pwa%2Ficon-152x152.png?alt=media" />
-            <link rel="apple-touch-icon" sizes="180x180" href="https://firebasestorage.googleapis.com/v0/b/palmoticeva-portal.firebasestorage.app/o/pwa%2Ficon-192x192.png?alt=media" />
-            <link rel="apple-touch-icon" sizes="167x167" href="https://firebasestorage.googleapis.com/v0/b/palmoticeva-portal.firebasestorage.app/o/pwa%2Ficon-192x192.png?alt=media" />
-
-            {/* --- THEME & VIEWPORT --- */}
-            <meta name="theme-color" content="#FFFFFF" />
-            <meta name="viewport" content="initial-scale=1, viewport-fit=cover, width=device-width" />
-            
-            {/* --- SOCIAL MEDIA & SEO (OPEN GRAPH / TWITTER CARDS) --- */}
-            <meta property="og:type" content="website" />
-            <meta property="og:url" content={APP_URL} />
-            <meta property="og:title" content={`Ginekologija Palmotićeva | 27 godina poverenja i savremene nege`} />
-            <meta property="og:description" content={APP_DESCRIPTION} />
-            <meta property="og:image" content={OG_IMAGE_URL} />
-
-            <meta name="twitter:card" content="summary_large_image" />
-            <meta name="twitter:title" content={`Ginekologija Palmotićeva | 27 godina poverenja i savremene nege`} />
-            <meta name="twitter:description" content={APP_DESCRIPTION} />
-            <meta name="twitter:image" content={OG_IMAGE_URL} />
-            
-            {/* --- JSON-LD STRUCTURED DATA --- */}
-            <Script
-                id="json-ld"
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-            />
-          </head>
-        <body className={cn(
-          "min-h-screen bg-background text-foreground antialiased",
-           inter.variable, 
-           headlineFont.variable, 
-           pressStart2P.variable
-           )}>
-            <EventBusProvider>
-              <AuthProvider>
-                  <LanguageProvider>
-                    <Suspense fallback={<SplashScreen />}>
-                      <UserInteractionHub />
-                      <PwaInstallToast />
-                      <TourHandler />
-                      <AppStateSynchronizer />
-                      {children}
-                    </Suspense>
-                    <Toaster />
-                  </LanguageProvider>
-              </AuthProvider>
-            </EventBusProvider>
-        </body>
-    </html>
+    <EventBusProvider>
+      <AuthProvider>
+        <LanguageProvider>
+          <RootLayoutContent>{children}</RootLayoutContent>
+        </LanguageProvider>
+      </AuthProvider>
+    </EventBusProvider>
   );
 }
