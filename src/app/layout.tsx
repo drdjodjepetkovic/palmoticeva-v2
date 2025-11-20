@@ -99,17 +99,30 @@ function RootLayoutContent({ children }: { children: React.ReactNode }) {
         <meta name="application-name" content={APP_NAME} />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content={APP_NAME} />
         <meta name="format-detection" content="telephone=no" />
         <link rel="manifest" href="/manifest.json" />
 
         {/* --- FAVICONS & APPLE SPECIFIC ICONS --- */}
         <link rel="icon" type="image/x-icon" href={iconUrl} />
-        <link rel="apple-touch-icon" href="https://firebasestorage.googleapis.com/v0/b/palmoticeva-portal.firebasestorage.app/o/pwa%2Fapple-touch-icon.png?alt=media" />
-        <link rel="apple-touch-icon" sizes="152x152" href="https://firebasestorage.googleapis.com/v0/b/palmoticeva-portal.firebasestorage.app/o/pwa%2Ficon-152x152.png?alt=media" />
-        <link rel="apple-touch-icon" sizes="180x180" href="https://firebasestorage.googleapis.com/v0/b/palmoticeva-portal.firebasestorage.app/o/pwa%2Ficon-192x192.png?alt=media" />
-        <link rel="apple-touch-icon" sizes="167x167" href="https://firebasestorage.googleapis.com/v0/b/palmoticeva-portal.firebasestorage.app/o/pwa%2Ficon-192x192.png?alt=media" />
+        <link rel="apple-touch-icon" href="/pwa/apple-touch-icon.png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="/pwa/icon-152x152.png" />
+        <link rel="apple-touch-icon" sizes="167x167" href="/pwa/icon-167x167.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/pwa/icon-180x180.png" />
+
+        {/* --- SPLASH SCREENS --- */}
+        <link rel="apple-touch-startup-image" media="screen and (device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="/pwa/splash/apple-splash-2048-2732.png" />
+        <link rel="apple-touch-startup-image" media="screen and (device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="/pwa/splash/apple-splash-1668-2388.png" />
+        <link rel="apple-touch-startup-image" media="screen and (device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="/pwa/splash/apple-splash-1536-2048.png" />
+        <link rel="apple-touch-startup-image" media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="/pwa/splash/apple-splash-1290-2796.png" />
+        <link rel="apple-touch-startup-image" media="screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="/pwa/splash/apple-splash-1179-2556.png" />
+        <link rel="apple-touch-startup-image" media="screen and (device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="/pwa/splash/apple-splash-1284-2778.png" />
+        <link rel="apple-touch-startup-image" media="screen and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="/pwa/splash/apple-splash-1170-2532.png" />
+        <link rel="apple-touch-startup-image" media="screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="/pwa/splash/apple-splash-1125-2436.png" />
+        <link rel="apple-touch-startup-image" media="screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="/pwa/splash/apple-splash-1242-2688.png" />
+        <link rel="apple-touch-startup-image" media="screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="/pwa/splash/apple-splash-828-1792.png" />
+        <link rel="apple-touch-startup-image" media="screen and (device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="/pwa/splash/apple-splash-750-1334.png" />
 
         {/* --- THEME & VIEWPORT --- */}
         <meta name="theme-color" content="#FFFFFF" />
