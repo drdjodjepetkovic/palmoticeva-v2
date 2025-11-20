@@ -1,0 +1,77 @@
+{
+    "version": 5,
+    "categories": [
+        {
+            "category_key": "examinations_and_consultations",
+            "icon": "Stethoscope",
+            "category_name": {
+                "en": "Examinations and Consultations",
+                "se-lat": "Pregledi i Konsultacije",
+                "se": "Прегледи и Консултације",
+                "ru": "Осмотры и консультации"
+            },
+            "services": [
+                {
+                    "name": {
+                        "se-lat": "OSNOVNI GINEKOLOŠKI PREGLED",
+                        "en": "Basic Gynecological Exam",
+                        "se": "ОСНОВНИ ГИНЕКОЛОШКИ ПРЕГЛЕД",
+                        "ru": "Базовый гинекологический осмотр"
+                    },
+                    "price": "3.000 RSD",
+                    "description": {
+                        "se-lat": "Standardni gin ekološki pregled: razgovor, bimanuelni pregled i pregled pod spekulumom.",
+                        "en": "Standard gynecological exam: interview, bimanual exam, and speculum exam.",
+                        "se": "Стандардни гинеколошки преглед: разговор, бимануелни преглед и преглед под спекулумом.",
+                        "ru": "Стандартный гинекологический осмотр: беседа, бимануальное исследование и осмотр в зеркалах."
+                    }
+                },
+                {
+                    "name": {
+                        "se-lat": "KONTROLNI GINEKOLOŠKI PREGLED",
+                        "en": "Follow-up Gynecological Exam",
+                        "se": "КОНТРОЛНИ ГИНЕКОЛОШКИ ПРЕГЛЕД",
+                        "ru": "Контрольный гинекологический осмотр"
+                    },
+                    "price": "2.000 RSD",
+                    "description": {
+                        "se-lat": "Kraći pregled radi praćenja stanja nakon terapije ili prethodnog pregleda.",
+                        "en": "Shorter exam to monitor condition after therapy or previous exam.",
+                        "se": "Краћи преглед ради праћења стања након терапије или претходног прегледа.",
+                        "ru": "Краткий осмотр для контроля состояния после терапии или предыдущего осмотра."
+                    }
+                },
+                {
+                    "name": {
+                        "se-lat": "KOMPLETAN GINEKOLOŠKI PREGLED",
+                        "en": "Complete Gynecological Exam",
+                        "se": "КОМПЛЕТАН ГИНЕКОЛОШКИ ПРЕГЛЕД",
+                        "ru": "Полный гинекологический осмотр"
+                    },
+                    "price": "8.500 RSD",
+                    "description": {
+                        "se-lat": "Paket: Ultrazvuk, ginekološki pregled, brisevi, kolposkopija i PAPA test.",
+                        "en": "Package: Ultrasound, gynecological exam, swabs, colposcopy, and PAPA test.",
+                        "se": "Пакет: Ултразвук, гинеколошки преглед, брисеви, колпоскопија и ПАПА тест.",
+                        "ru": "Пакет: УЗИ, гинекологический осмотр, мазки, кольпоскопия и ПАП-тест."
+                    }
+                },
+                {
+                    "name": {
+                        "se-lat": "KONSULTACIJA GINEKOLOGA",
+                        "en": "Gynecologist Consultation",
+                        "se": "КОНСУЛТАЦИЈА ГИНЕКОЛОГА",
+                        "ru": "Консультация гинеколога"
+                    },
+                    "price": "2.500 RSD",
+                    "description": {
+                        "se-lat": "Razgovor i savetovanje sa ginekologom bez fizičkog pregleda.",
+                        "en": "Discussion and counseling with a gynecologist without a physical exam.",
+                        "se": "Разговор и саветовање са гинекологом без физичког прегледа.",
+                        "ru": "Беседа и консультирование с гинекологом без физического осмотра."
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -64,10 +64,17 @@ Use this data to answer personal cycle questions like "When is my ovulation?" or
 **YOUR TASK:**
 Answer the user's question below. After your answer, suggest 2-3 follow-up questions they might have (that you can answer from the context).
 
+**SPECIAL ACTION - LOGGING PERIOD:**
+If the user explicitly says their period started (e.g., "Danas mi je počela menstruacija", "Got my period today", "Period started yesterday"), you MUST include an "action" field in your JSON response.
+- Set "type" to "LOG_PERIOD".
+- Set "date" to the specific date mentioned (YYYY-MM-DD). If they say "today", use the current date. If "yesterday", calculate it.
+- In your "answer", confirm that you are logging it (e.g., "U redu, beležim početak menstruacije za danas.").
+
 Format your response as JSON:
 {
   "answer": "your answer here in markdown format",
-  "followUpQuestions": ["question 1", "question 2", "question 3"]
+  "followUpQuestions": ["question 1", "question 2", "question 3"],
+  "action": { "type": "LOG_PERIOD", "date": "YYYY-MM-DD" } // OPTIONAL, only if applicable
 }`;
 
         const genAI = new GoogleGenerativeAI(apiKey);

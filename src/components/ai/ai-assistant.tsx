@@ -225,9 +225,26 @@ export default function AiAssistant() {
         if (response.appointmentData.message) params.set('message', response.appointmentData.message);
         router.push(`/${language}${response.navigation}?${params.toString()}`);
         return;
-      } else if (response.navigation) {
         router.push(`/${language}${response.navigation}`);
         return;
+      }
+
+      // Handle actions
+      if (response.action && response.action.type === 'LOG_PERIOD') {
+        if (isLoggedIn && user) {
+          try {
+            const { logPeriodToFirestore } = await import('@/lib/firebase/cycle');
+            await logPeriodToFirestore(user.uid, new Date(response.action.date));
+            // Emit event to refresh calendar if needed
+            // emit(UserEventType.CycleLogged, { date: response.action.date }); // We might need to add this event later
+
+            // We can also trigger a refresh of the menstrual data for the agent context for the NEXT message
+            // But for now, just letting the user know via the AI response is enough.
+          } catch (e) {
+            console.error("Failed to log period via AI:", e);
+            // Optionally append error message to the AI response
+          }
+        }
       }
 
       const modelMessage: Message = {

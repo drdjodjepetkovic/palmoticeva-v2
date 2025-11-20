@@ -53,4 +53,8 @@ export interface ConversationalAgentOutput {
         timeSlot?: string;
         message?: string;
     };
+    action?: {
+        type: 'LOG_PERIOD';
+        date: string;
+    };
 }
