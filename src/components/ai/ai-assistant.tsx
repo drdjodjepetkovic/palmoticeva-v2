@@ -34,6 +34,9 @@ interface Message {
 
 type MenstrualData = NonNullable<ConversationalAgentInput['menstrualData']>;
 
+import { UserEventType } from '@/lib/events';
+import { useEventBus } from '@/context/event-bus-context';
+
 const contentIds = [
   'aiGreeting',
   'aiGreetingGeneric',
@@ -150,6 +153,7 @@ export default function AiAssistant() {
   const { language } = useLanguage();
   const { content, loading: contentLoading } = useContent(contentIds);
   const { user, userProfile, role } = useAuth();
+  const { emit } = useEventBus();
   const router = useRouter();
 
   const [messages, setMessages] = useState<Message[]>([]);
@@ -225,15 +229,15 @@ export default function AiAssistant() {
         if (response.appointmentData.message) params.set('message', response.appointmentData.message);
         router.push(`/${language}${response.navigation}?${params.toString()}`);
         return;
+      } else if (response.navigation) {
         router.push(`/${language}${response.navigation}`);
         return;
       }
 
       // Handle actions - Server side already handled the DB write, we just need to refresh if needed
       if (response.action && response.action.type === 'LOG_PERIOD') {
-        // Optional: Trigger a refresh of the calendar data if it's visible
-        // For now, the user will see the AI's confirmation message.
-        // If we have a global event bus, we could emit 'cycle_updated' here.
+        // Trigger a refresh of the calendar data
+        emit(UserEventType.CycleLogged, { date: response.action.date });
       }
 
       const modelMessage: Message = {

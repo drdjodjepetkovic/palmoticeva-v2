@@ -77,7 +77,7 @@ function MenstrualCalendarClient() {
   const { user, userProfile } = useAuth();
   const { toast } = useToast();
   const { content, loading: contentLoading } = useContent(contentIds);
-  const { emit } = useEventBus();
+  const { emit, on } = useEventBus();
 
   const t = useCallback((id: string, fallback?: string) => content[id] || fallback || id, [content]);
 
@@ -145,6 +145,16 @@ function MenstrualCalendarClient() {
       fetchData();
     }
   }, [user, userProfile, fetchData]);
+
+  // Listen for cycle logged events (e.g. from AI)
+  useEffect(() => {
+    const unsubscribe = on(UserEventType.CycleLogged, () => {
+      console.log('Cycle logged event received, refreshing data...');
+      fetchData();
+      toast({ title: "Kalendar ažuriran", description: "Novi podaci su učitani." });
+    });
+    return unsubscribe;
+  }, [on, fetchData, toast]);
 
   const saveCycleData = useCallback(async (data: Partial<CycleData>) => {
     if (!user) return;

@@ -21,6 +21,7 @@ export enum UserEventType {
   // User Actions & Profile
   AppointmentInquirySent = 'user:appointment_inquiry_sent',
   FirstCycleLogged = 'user:first_cycle_logged',
+  CycleLogged = 'user:cycle_logged',
   ShareApp = 'user:share_app',
   RateApp = 'user:rate_app',
 }
@@ -42,4 +43,5 @@ export type UserEventPayload = {
   [UserEventType.FirstCycleLogged]: {};
   [UserEventType.ShareApp]: {};
   [UserEventType.RateApp]: {};
+  [UserEventType.CycleLogged]: { date: string };
 };
