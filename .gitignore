@@ -44,3 +44,7 @@ next-env.d.ts
 git-filter-repo
 firestore-debug.log
 *.bat
+
+# secrets
+service-account-key.json
+database_export.json

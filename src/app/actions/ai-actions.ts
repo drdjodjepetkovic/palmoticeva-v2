@@ -155,13 +155,24 @@ Format your response as JSON:
             if (parsedResponse.action && parsedResponse.action.type === 'LOG_PERIOD' && input.userId) {
                 console.log('Executing server-side action: LOG_PERIOD', parsedResponse.action);
                 try {
-                    const { logPeriodToFirestoreServer } = await import('@/lib/firebase/cycle-server');
-                    await logPeriodToFirestoreServer(input.userId, new Date(parsedResponse.action.date));
-                    console.log('Server-side period logging successful');
-                } catch (actionError) {
-                    console.error('Failed to execute server-side action:', actionError);
+                    const actionDate = new Date(parsedResponse.action.date);
+                    const today = new Date();
+
+                    // Prevent logging future dates
+                    if (actionDate > today) {
+                        console.warn(`Attempted to log future date: ${actionDate.toISOString()}. Blocking action.`);
+                        // Optional: We could modify the response text to inform the user, but for now we just block the write.
+                    } else {
+                        const { logPeriodToFirestoreServer } = await import('@/lib/firebase/cycle-server');
+                        await logPeriodToFirestoreServer(input.userId, actionDate);
+                        console.log('Server-side period logging successful');
+                    }
+                } catch (err) {
+                    console.error('Error executing server-side action:', err);
+                    // We don't throw here to allow the text response to still be sent
                 }
             }
+
 
         } catch (e) {
             console.warn('Failed to parse JSON response, using fallback. Raw text:', text);
