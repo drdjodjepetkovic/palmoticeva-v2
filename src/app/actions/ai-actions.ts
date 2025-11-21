@@ -146,6 +146,20 @@ Format your response as JSON:
             // Remove markdown code blocks if present
             const cleanedText = text.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
             parsedResponse = JSON.parse(cleanedText);
+
+            // SERVER-SIDE ACTION HANDLING
+            if (parsedResponse.action && parsedResponse.action.type === 'LOG_PERIOD' && input.userId) {
+                console.log('Executing server-side action: LOG_PERIOD', parsedResponse.action);
+                try {
+                    const { logPeriodToFirestoreServer } = await import('@/lib/firebase/cycle-server');
+                    await logPeriodToFirestoreServer(input.userId, new Date(parsedResponse.action.date));
+                    console.log('Server-side period logging successful');
+                } catch (actionError) {
+                    console.error('Failed to execute server-side action:', actionError);
+                    // We don't fail the whole request, but we might want to inform the user
+                }
+            }
+
         } catch (e) {
             console.warn('Failed to parse JSON response, using fallback');
             // Fallback: use the text as answer

@@ -229,22 +229,11 @@ export default function AiAssistant() {
         return;
       }
 
-      // Handle actions
+      // Handle actions - Server side already handled the DB write, we just need to refresh if needed
       if (response.action && response.action.type === 'LOG_PERIOD') {
-        if (isLoggedIn && user) {
-          try {
-            const { logPeriodToFirestore } = await import('@/lib/firebase/cycle');
-            await logPeriodToFirestore(user.uid, new Date(response.action.date));
-            // Emit event to refresh calendar if needed
-            // emit(UserEventType.CycleLogged, { date: response.action.date }); // We might need to add this event later
-
-            // We can also trigger a refresh of the menstrual data for the agent context for the NEXT message
-            // But for now, just letting the user know via the AI response is enough.
-          } catch (e) {
-            console.error("Failed to log period via AI:", e);
-            // Optionally append error message to the AI response
-          }
-        }
+        // Optional: Trigger a refresh of the calendar data if it's visible
+        // For now, the user will see the AI's confirmation message.
+        // If we have a global event bus, we could emit 'cycle_updated' here.
       }
 
       const modelMessage: Message = {
