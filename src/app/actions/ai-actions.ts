@@ -70,12 +70,16 @@ If the user explicitly says their period started (e.g., "Danas mi je počela men
 - Set "date" to the specific date mentioned (YYYY-MM-DD). If they say "today", use the current date. If "yesterday", calculate it.
 - In your "answer", confirm that you are logging it (e.g., "U redu, beležim početak menstruacije za danas.").
 
-Format your response as JSON:
+IMPORTANT: You must ALWAYS return your response as a valid JSON object.
+Do NOT include any markdown formatting (like \`\`\`json) outside the JSON object.
+Do NOT include any trailing commas.
+The JSON object must have the following structure:
 {
-  "answer": "your answer here in markdown format",
-  "followUpQuestions": ["question 1", "question 2", "question 3"],
-  "action": { "type": "LOG_PERIOD", "date": "YYYY-MM-DD" } // OPTIONAL, only if applicable
-}`;
+  "answer": "Your natural language response to the user...",
+  "followUpQuestions": ["Question 1?", "Question 2?"],
+  "action": { "type": "LOG_PERIOD", "date": "YYYY-MM-DD" } // Optional
+}
+`;
 
         const genAI = new GoogleGenerativeAI(apiKey);
 
@@ -146,7 +150,10 @@ Format your response as JSON:
             // More robust JSON extraction: find the first '{' and the last '}'
             const jsonMatch = text.match(/\{[\s\S]*\}/);
             if (jsonMatch) {
-                parsedResponse = JSON.parse(jsonMatch[0]);
+                let jsonString = jsonMatch[0];
+                // Remove trailing commas before closing braces/brackets (common AI error)
+                jsonString = jsonString.replace(/,(\s*[}\]])/g, '$1');
+                parsedResponse = JSON.parse(jsonString);
             } else {
                 throw new Error('No JSON object found in response');
             }
