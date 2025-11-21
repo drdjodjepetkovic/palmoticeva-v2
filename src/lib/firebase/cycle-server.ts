@@ -1,7 +1,8 @@
-import { dbAdmin } from './admin';
+import { dbAdmin, FieldValue } from './admin';
 import { recalculateAverages } from '@/lib/cycle-utils';
-import { startOfDay, formatISO, isSameDay } from 'date-fns';
+import { startOfDay, isSameDay } from 'date-fns';
 import type { Cycle } from '@/types/user';
+import { Timestamp } from 'firebase-admin/firestore';
 
 export async function logPeriodToFirestoreServer(userId: string, date: Date) {
     const dataRef = dbAdmin.collection('users').doc(userId).collection('cycleData').doc('main');
@@ -16,8 +17,9 @@ export async function logPeriodToFirestoreServer(userId: string, date: Date) {
         if (data) {
             cycles = data.cycles?.map((c: any) => ({
                 id: c.id,
-                startDate: c.startDate.toDate(),
-                endDate: c.endDate ? c.endDate.toDate() : null,
+                // Handle both Firestore Timestamp and regular Date objects
+                startDate: c.startDate instanceof Timestamp ? c.startDate.toDate() : new Date(c.startDate),
+                endDate: c.endDate ? (c.endDate instanceof Timestamp ? c.endDate.toDate() : new Date(c.endDate)) : null,
                 type: c.type || 'regular'
             })) || [];
             avgCycleLength = data.avgCycleLength || 28;
@@ -43,8 +45,15 @@ export async function logPeriodToFirestoreServer(userId: string, date: Date) {
     const newCycles = [...cycles, newCycle].sort((a, b) => a.startDate.getTime() - b.startDate.getTime());
     const { newAvgCycleLength, newAvgPeriodLength } = recalculateAverages(newCycles, avgCycleLength, avgPeriodLength);
 
+    // Convert dates back to Timestamps for storage
+    const cyclesForStorage = newCycles.map(c => ({
+        ...c,
+        startDate: Timestamp.fromDate(c.startDate),
+        endDate: c.endDate ? Timestamp.fromDate(c.endDate) : null
+    }));
+
     await dataRef.set({
-        cycles: newCycles,
+        cycles: cyclesForStorage,
         avgCycleLength: newAvgCycleLength,
         avgPeriodLength: newAvgPeriodLength
     }, { merge: true });
