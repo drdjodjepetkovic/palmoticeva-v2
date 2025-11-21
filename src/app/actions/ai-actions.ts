@@ -143,9 +143,13 @@ Format your response as JSON:
         let parsedResponse: ConversationalAgentOutput;
 
         try {
-            // Remove markdown code blocks if present
-            const cleanedText = text.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
-            parsedResponse = JSON.parse(cleanedText);
+            // More robust JSON extraction: find the first '{' and the last '}'
+            const jsonMatch = text.match(/\{[\s\S]*\}/);
+            if (jsonMatch) {
+                parsedResponse = JSON.parse(jsonMatch[0]);
+            } else {
+                throw new Error('No JSON object found in response');
+            }
 
             // SERVER-SIDE ACTION HANDLING
             if (parsedResponse.action && parsedResponse.action.type === 'LOG_PERIOD' && input.userId) {
@@ -156,15 +160,18 @@ Format your response as JSON:
                     console.log('Server-side period logging successful');
                 } catch (actionError) {
                     console.error('Failed to execute server-side action:', actionError);
-                    // We don't fail the whole request, but we might want to inform the user
                 }
             }
 
         } catch (e) {
-            console.warn('Failed to parse JSON response, using fallback');
-            // Fallback: use the text as answer
+            console.warn('Failed to parse JSON response, using fallback. Raw text:', text);
+            // Fallback: use the text as answer, but try to clean it up if it looks like JSON
+            let fallbackText = text;
+            // If it starts with ```json, remove it for display
+            fallbackText = fallbackText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+
             parsedResponse = {
-                answer: text,
+                answer: fallbackText,
                 followUpQuestions: undefined,
             };
         }
