@@ -165,7 +165,33 @@ The JSON object must have the following structure:
             if (parsedResponse.action && parsedResponse.action.type === 'LOG_PERIOD' && input.userId) {
                 console.log('Executing server-side action: LOG_PERIOD', parsedResponse.action);
                 try {
-                    const actionDate = new Date(parsedResponse.action.date);
+                    let actionDate: Date;
+                    const dateStr = parsedResponse.action.date;
+
+                    // Try standard ISO format (YYYY-MM-DD)
+                    const isoDate = new Date(dateStr);
+                    if (!isNaN(isoDate.getTime()) && dateStr.includes('-')) {
+                        actionDate = isoDate;
+                    } else {
+                        // Try Serbian/European format (DD.MM.YYYY or DD/MM/YYYY)
+                        // Split by dot, slash, or dash if it looks like DD-MM-YYYY
+                        const parts = dateStr.split(/[./-]/);
+                        if (parts.length === 3) {
+                            // Assume DD.MM.YYYY
+                            const day = parseInt(parts[0], 10);
+                            const month = parseInt(parts[1], 10) - 1; // Month is 0-indexed
+                            const year = parseInt(parts[2], 10);
+                            const serbianDate = new Date(year, month, day);
+
+                            if (!isNaN(serbianDate.getTime())) {
+                                actionDate = serbianDate;
+                            } else {
+                                throw new Error(`Invalid date format: ${dateStr}`);
+                            }
+                        } else {
+                            throw new Error(`Unrecognized date format: ${dateStr}`);
+                        }
+                    }
                     // Prevent logging dates too far in the future (allow 2 days buffer for timezones)
                     const maxAllowedDate = new Date();
                     maxAllowedDate.setDate(maxAllowedDate.getDate() + 2);
