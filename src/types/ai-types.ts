@@ -56,5 +56,10 @@ export interface ConversationalAgentOutput {
     action?: {
         type: 'LOG_PERIOD';
         date: string;
+    } | {
+        type: 'PREFILL_BOOKING';
+        date?: string;
+        timeSlot?: string;
+        message?: string;
     };
 }

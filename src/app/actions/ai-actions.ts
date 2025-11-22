@@ -81,6 +81,15 @@ If the user explicitly says their period started (e.g., "Danas mi je počela men
 - Set "date" to the specific date mentioned (YYYY-MM-DD). If they say "today", use the **CURRENT DATE** provided above.
 - In your "answer", confirm that you are logging it (e.g., "U redu, beležim početak menstruacije za danas, 23.11.2025.").
 
+**SPECIAL ACTION - BOOKING APPOINTMENT:**
+If the user expresses intent to book an appointment (e.g., "Zakaži mi pregled", "Book an appointment", "I want to see a doctor"), you MUST include an "action" field in your JSON response.
+- Set "type" to "PREFILL_BOOKING".
+- Extract the following fields if available (or leave undefined):
+    - "date": YYYY-MM-DD (Calculate based on "next Friday", "tomorrow", etc. relative to CURRENT DATE).
+    - "timeSlot": "morning" (08-12), "midday" (12-16), or "afternoon" (16-20).
+    - "message": A brief summary of their reason (e.g., "Bol u stomaku", "Redovna kontrola").
+- In your "answer", say something like: "U redu, prebacujem vas na stranicu za zakazivanje sa popunjenim podacima."
+
 IMPORTANT: You must ALWAYS return your response as a valid JSON object.
 Do NOT include any markdown formatting (like \`\`\`json) outside the JSON object.
 Do NOT include any trailing commas.
@@ -89,7 +98,7 @@ The JSON object must have the following structure:
 {
   "answer": "Your natural language response to the user...",
   "followUpQuestions": ["Question 1?", "Question 2?"],
-  "action": { "type": "LOG_PERIOD", "date": "YYYY-MM-DD" }
+  "action": { "type": "LOG_PERIOD", "date": "YYYY-MM-DD" } OR { "type": "PREFILL_BOOKING", "date": "YYYY-MM-DD", "timeSlot": "morning", "message": "..." }
 }
 `;
 

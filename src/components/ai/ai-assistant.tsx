@@ -234,10 +234,23 @@ export default function AiAssistant() {
         return;
       }
 
-      // Handle actions - Server side already handled the DB write, we just need to refresh if needed
-      if (response.action && response.action.type === 'LOG_PERIOD') {
-        // Trigger a refresh of the calendar data
-        emit(UserEventType.CycleLogged, { date: response.action.date });
+      // Handle actions
+      if (response.action) {
+        if (response.action.type === 'LOG_PERIOD') {
+          // Trigger a refresh of the calendar data
+          emit(UserEventType.CycleLogged, { date: response.action.date });
+        } else if (response.action.type === 'PREFILL_BOOKING') {
+          const params = new URLSearchParams();
+          if (response.action.date) params.set('date', response.action.date);
+          if (response.action.timeSlot) params.set('timeSlot', response.action.timeSlot);
+          if (response.action.message) params.set('message', response.action.message);
+
+          // Redirect to appointments page with pre-filled data
+          router.push(`/${language}/appointments?${params.toString()}`);
+          // We can return here if we want to skip adding the message, but usually it's nice to show the AI's confirmation first.
+          // However, the redirect happens fast, so maybe we just let it redirect.
+          // Let's add the message so the user sees "Redirecting..." if the transition is slow.
+        }
       }
 
       const modelMessage: Message = {
