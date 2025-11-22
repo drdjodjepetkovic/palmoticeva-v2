@@ -3,6 +3,8 @@
 import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from '@google/generative-ai';
 import type { ConversationalAgentInput, ConversationalAgentOutput } from '@/types/ai-types';
 import { getAgentContextData } from '@/lib/data/agent-data';
+import { analyzeCycleHealth } from '@/lib/ai/cycle-health';
+import type { Cycle, DailyEvent } from '@/types/user';
 
 // Renamed function to force fresh execution and avoid caching issues
 export async function runConversationalAgentV2(input: ConversationalAgentInput): Promise<ConversationalAgentOutput> {
@@ -29,6 +31,7 @@ export async function runConversationalAgentV2(input: ConversationalAgentInput):
         } = await getAgentContextData(input.language);
 
         console.log('Agent context retrieved successfully');
+        console.log(`Articles data length: ${articlesDataForAgent.length}`);
 
         // Get current date for the AI in Belgrade Timezone
         const now = new Date();
@@ -37,6 +40,27 @@ export async function runConversationalAgentV2(input: ConversationalAgentInput):
 
         const todayISO = belgradeDateStr;
         const todaySerbian = `${day}.${month}.${year}.`;
+
+        // PREPARE HEALTH REPORT
+        let healthReportText = '';
+        if (input.menstrualData && !input.menstrualData.error) {
+            // Map AI types to User types for analysis
+            const cycles: Cycle[] = (input.menstrualData.pastCycles || []).map((pc, index) => ({
+                id: `temp-cycle-${index}`,
+                startDate: new Date(pc.startDate),
+                endDate: pc.endDate ? new Date(pc.endDate) : null,
+                type: 'regular'
+            }));
+
+            const events: DailyEvent[] = (input.menstrualData.loggedEvents || []).map((le, index) => ({
+                id: `temp-event-${index}`,
+                date: le.date,
+                [le.type]: true
+            }));
+
+            const report = analyzeCycleHealth(cycles, events);
+            healthReportText = report.textSummary;
+        }
 
         // Build system instruction
         const systemInstructionText = `You are a friendly and helpful AI assistant for a gynecological clinic in Belgrade, Serbia. You are NOT a doctor.
@@ -74,7 +98,11 @@ ${articlesDataForAgent}
 ${input.menstrualData && !input.menstrualData.error ? `**USER'S MENSTRUAL DATA:**
 ${JSON.stringify(input.menstrualData, null, 2)}
 
-Use this data to answer personal cycle questions like "When is my ovulation?" or "Am I fertile?"` : ''}
+**CYCLE HEALTH REPORT (Generated Analysis):**
+${healthReportText}
+
+Use the above "CYCLE HEALTH REPORT" to answer questions about the user's health, cycle regularity, or symptoms.
+If the user asks "Kakvo je moje zdravlje?" or "Analiziraj mi cikluse", summarize the report for them.` : ''}
 
 **YOUR TASK:**
 Answer the user's question below. After your answer, suggest 2-3 follow-up questions they might have (that you can answer from the context).
@@ -94,8 +122,25 @@ If the user expresses intent to book an appointment (e.g., "Zakaži mi pregled",
     - "message": A brief summary of their reason (e.g., "Bol u stomaku", "Redovna kontrola").
 - In your "answer", say something like: "U redu, prebacujem vas na stranicu za zakazivanje sa popunjenim podacima."
 
-**RECOMMENDATIONS:**
-If the user's question is related to one of the articles in the **ARTICLES** section, you MUST include a "recommendations" field in your JSON response.
+**RECOMMENDATIONS (CRITICAL):**
+If the user's question is related to one of the articles in the **ARTICLES** section, you **MUST** include a "recommendations" field in your JSON response.
+- It is an array of objects.
+- Example: If user asks about "Histeroskopija", and you have an article with slug "histeroskopija", you MUST recommend it.
+- Structure:
+    - "title": The title of the article.
+    - "slug": The slug of the article.
+    - "reason": A very short explanation (3-5 words) why you recommended it.
+
+IMPORTANT: You must ALWAYS return your response as a valid JSON object.
+Do NOT include any markdown formatting (like \`\`\`json) outside the JSON object.
+Do NOT include any trailing commas.
+Do NOT include comments (like //) inside the JSON object.
+IMPORTANT: If your answer contains newlines, you MUST escape them as \\n. Do NOT use actual line breaks inside the string values.
+The JSON object must have the following structure:
+{
+  "answer": "Your natural language response to the user...",
+  "followUpQuestions": ["Question 1?", "Question 2?"],
+  "recommendations": [{ "title": "Histeroskopija", "slug": "histeroskopija", "reason": "Detaljno o proceduri" }],
   "action": { "type": "LOG_PERIOD", "date": "YYYY-MM-DD" } OR { "type": "PREFILL_BOOKING", "date": "YYYY-MM-DD", "timeSlot": "morning", "message": "..." }
 }
 `;
@@ -106,7 +151,7 @@ If the user's question is related to one of the articles in the **ARTICLES** sec
             model: 'gemini-flash-latest',
             generationConfig: {
                 temperature: 0.7,
-                maxOutputTokens: 1000,
+                maxOutputTokens: 8192,
             },
             safetySettings: [
                 {
@@ -176,18 +221,10 @@ If the user's question is related to one of the articles in the **ARTICLES** sec
                 jsonString = jsonString.replace(/\/\/.*$/gm, '');
 
                 // Attempt to fix unescaped newlines in string values
-                // This is risky but necessary if AI ignores instructions
-                // We look for newlines that are NOT followed by a quote or whitespace+quote (likely end of string)
-                // and NOT preceded by a quote (likely start of string)
-                // Actually, a safer way is to rely on the prompt, but let's try to parse.
-
                 try {
                     parsedResponse = JSON.parse(jsonString);
                 } catch (parseError) {
                     console.warn('JSON parse failed, attempting to sanitize newlines:', parseError);
-                    // Replace actual newlines with \n inside the string
-                    // This is a naive approach: replace all \n with \\n, then fix the structure? No.
-                    // Let's try to just use the fallback if strict parse fails.
                     throw parseError;
                 }
             } else {
@@ -231,7 +268,6 @@ If the user's question is related to one of the articles in the **ARTICLES** sec
 
                     if (actionDate > maxAllowedDate) {
                         console.warn(`Attempted to log future date: ${actionDate.toISOString()}. Blocking action.`);
-                        // Optional: We could modify the response text to inform the user, but for now we just block the write.
                     } else {
                         const { logPeriodToFirestoreServer } = await import('@/lib/firebase/cycle-server');
                         await logPeriodToFirestoreServer(input.userId, actionDate);
@@ -239,7 +275,6 @@ If the user's question is related to one of the articles in the **ARTICLES** sec
                     }
                 } catch (err) {
                     console.error('Error executing server-side action:', err);
-                    // We don't throw here to allow the text response to still be sent
                 }
             }
 
@@ -248,7 +283,7 @@ If the user's question is related to one of the articles in the **ARTICLES** sec
             console.warn('Failed to parse JSON response, using fallback. Raw text:', text);
             // Fallback: use the text as answer, but try to clean it up if it looks like JSON
             let fallbackText = text;
-            // If it starts with ```json, remove it for display
+            // If it starts with \`\`\`json, remove it for display
             fallbackText = fallbackText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
 
             // Try to extract just the "answer" field using regex if JSON parse failed
@@ -258,13 +293,6 @@ If the user's question is related to one of the articles in the **ARTICLES** sec
                     .replace(/\\n/g, '\n')
                     .replace(/\\"/g, '"')
                     .replace(/\\\//g, '/'); // Unescape forward slashes for links
-            } else {
-                // If regex fails, try to strip the JSON braces if they exist at start/end
-                if (fallbackText.startsWith('{') && fallbackText.endsWith('}')) {
-                    // This is a desperate attempt to just show the content if it's a simple JSON
-                    // But if it's complex, this might be ugly. 
-                    // Better to leave it as is or try to find the answer property.
-                }
             }
 
             parsedResponse = {
@@ -283,7 +311,6 @@ If the user's question is related to one of the articles in the **ARTICLES** sec
             ? `Key present (Length: ${process.env.GEMINI_API_KEY.length}, Starts with: ${process.env.GEMINI_API_KEY.substring(0, 4)}...)`
             : 'Key missing';
 
-        // Handle specific API key errors
         if (errorMessage.includes('API Key not found') || errorMessage.includes('API_KEY_INVALID') || !process.env.GEMINI_API_KEY) {
             return {
                 answer: `⚠️ **Problem sa konfiguracijom AI Agenta**
