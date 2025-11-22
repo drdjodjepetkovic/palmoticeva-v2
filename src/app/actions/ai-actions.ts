@@ -29,15 +29,18 @@ export async function runConversationalAgentV2(input: ConversationalAgentInput):
 
         console.log('Agent context retrieved successfully');
 
-        // Get current date for the AI
+        // Get current date for the AI in Belgrade Timezone
         const now = new Date();
-        const todayISO = now.toISOString().split('T')[0]; // YYYY-MM-DD
-        const todaySerbian = `${now.getDate()}.${now.getMonth() + 1}.${now.getFullYear()}.`; // D.M.YYYY.
+        const belgradeDateStr = now.toLocaleDateString('en-CA', { timeZone: 'Europe/Belgrade' }); // YYYY-MM-DD
+        const [year, month, day] = belgradeDateStr.split('-').map(Number);
+
+        const todayISO = belgradeDateStr;
+        const todaySerbian = `${day}.${month}.${year}.`;
 
         // Build system instruction
         const systemInstructionText = `You are a friendly and helpful AI assistant for a gynecological clinic in Belgrade, Serbia. You are NOT a doctor.
 
-**CURRENT DATE:** ${todaySerbian} (YYYY-MM-DD: ${todayISO})
+**CURRENT DATE (Belgrade):** ${todaySerbian} (YYYY-MM-DD: ${todayISO})
 
 **LANGUAGE RULE:** You MUST answer in ${input.language === 'se' ? 'Serbian Cyrillic' : input.language === 'se-lat' ? 'Serbian Latin' : input.language === 'en' ? 'English' : 'Russian'}.
 

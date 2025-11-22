@@ -27,7 +27,9 @@ export async function logPeriodToFirestoreServer(userId: string, date: Date) {
         }
     }
 
-    const dayStart = startOfDay(date);
+    // Set time to noon UTC to avoid timezone issues
+    // This ensures that when converted to local time (e.g. CET or EST), it stays on the same day
+    const dayStart = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), 12, 0, 0, 0));
 
     // Check if cycle already exists on this day
     const existingCycle = cycles.find(c => c.id !== 'predicted' && isSameDay(c.startDate, dayStart));
