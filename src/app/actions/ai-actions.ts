@@ -73,11 +73,12 @@ If the user explicitly says their period started (e.g., "Danas mi je počela men
 IMPORTANT: You must ALWAYS return your response as a valid JSON object.
 Do NOT include any markdown formatting (like \`\`\`json) outside the JSON object.
 Do NOT include any trailing commas.
+Do NOT include comments (like //) inside the JSON object.
 The JSON object must have the following structure:
 {
   "answer": "Your natural language response to the user...",
   "followUpQuestions": ["Question 1?", "Question 2?"],
-  "action": { "type": "LOG_PERIOD", "date": "YYYY-MM-DD" } // Optional
+  "action": { "type": "LOG_PERIOD", "date": "YYYY-MM-DD" }
 }
 `;
 
@@ -153,6 +154,8 @@ The JSON object must have the following structure:
                 let jsonString = jsonMatch[0];
                 // Remove trailing commas before closing braces/brackets (common AI error)
                 jsonString = jsonString.replace(/,(\s*[}\]])/g, '$1');
+                // Remove comments (// ...)
+                jsonString = jsonString.replace(/\/\/.*$/gm, '');
                 parsedResponse = JSON.parse(jsonString);
             } else {
                 throw new Error('No JSON object found in response');
@@ -163,10 +166,11 @@ The JSON object must have the following structure:
                 console.log('Executing server-side action: LOG_PERIOD', parsedResponse.action);
                 try {
                     const actionDate = new Date(parsedResponse.action.date);
-                    const today = new Date();
+                    // Prevent logging dates too far in the future (allow 2 days buffer for timezones)
+                    const maxAllowedDate = new Date();
+                    maxAllowedDate.setDate(maxAllowedDate.getDate() + 2);
 
-                    // Prevent logging future dates
-                    if (actionDate > today) {
+                    if (actionDate > maxAllowedDate) {
                         console.warn(`Attempted to log future date: ${actionDate.toISOString()}. Blocking action.`);
                         // Optional: We could modify the response text to inform the user, but for now we just block the write.
                     } else {
@@ -187,6 +191,22 @@ The JSON object must have the following structure:
             let fallbackText = text;
             // If it starts with ```json, remove it for display
             fallbackText = fallbackText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+
+            // Try to extract just the "answer" field using regex if JSON parse failed
+            const answerMatch = fallbackText.match(/"answer"\s*:\s*"([^"]*)"/);
+            if (answerMatch && answerMatch[1]) {
+                fallbackText = answerMatch[1]
+                    .replace(/\\n/g, '\n')
+                    .replace(/\\"/g, '"')
+                    .replace(/\\\//g, '/'); // Unescape forward slashes for links
+            } else {
+                // If regex fails, try to strip the JSON braces if they exist at start/end
+                if (fallbackText.startsWith('{') && fallbackText.endsWith('}')) {
+                    // This is a desperate attempt to just show the content if it's a simple JSON
+                    // But if it's complex, this might be ugly. 
+                    // Better to leave it as is or try to find the answer property.
+                }
+            }
 
             parsedResponse = {
                 answer: fallbackText,
