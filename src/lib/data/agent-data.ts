@@ -1,10 +1,3 @@
-
-/**
- * @fileoverview
- * Prepares data (pricelist, promos, FAQ, team) in a compact text form
- * for the AI agent, localized by language.
- */
-
 import {
   defaultPricelistData,
   type ServiceCategory,
@@ -13,65 +6,136 @@ import {
 import { defaultAboutPageContent } from './content';
 import { defaultContent } from './default-content';
 import type { LanguageCode } from '@/types/content';
+import { dbAdmin } from '@/lib/firebase/admin';
 
-export function getAgentContextData(lang: LanguageCode) {
-  /* ---------- TEAM ---------- */
-  const teamData = defaultAboutPageContent.team.members
-    .map((member) => {
-      const name =
-        member.name[lang] ?? member.name['se-lat'];
-      const spec =
-        member.specialization[lang] ?? member.specialization['se-lat'];
-      const bio = (member.bio[lang] ?? member.bio['se-lat'])
-        .replace(/\n/g, ' ')
-        .replace(/\*/g, '-');
+export async function getAgentContextData(lang: LanguageCode) {
+  let pricelistDataForAgent = '';
+  let faqDataForAgent = '';
+  let teamDataForAgent = '';
+  let promotionsDataForAgent = '';
 
-      return `Ime: ${name}
+  try {
+    // --- FETCH FROM FIRESTORE ---
+    const [servicesSnap, faqSnap, kbSnap] = await Promise.all([
+      dbAdmin.collection('services').get(),
+      dbAdmin.collection('faq').get(),
+      dbAdmin.collection('knowledge_base').get()
+    ]);
+
+    // 1. PRICELIST (Services)
+    if (!servicesSnap.empty) {
+      const categories: Record<string, string[]> = {};
+
+      servicesSnap.forEach(doc => {
+        const data = doc.data();
+        const categoryKey = data.categoryKey || 'Ostalo';
+        const name = data.name?.[lang] ?? data.name?.['se-lat'] ?? data.name?.['se'] ?? 'Usluga';
+        const price = data.price;
+        const desc = data.description?.[lang] ?? data.description?.['se-lat'] ?? '';
+
+        if (name && price) {
+          if (!categories[categoryKey]) categories[categoryKey] = [];
+          categories[categoryKey].push(`- ${name}: ${price}${desc ? ` (${desc})` : ''}`);
+        }
+      });
+
+      pricelistDataForAgent = Object.entries(categories).map(([cat, items]) => {
+        return `\n### ${cat.toUpperCase()}\n${items.join('\n')}`;
+      }).join('');
+    }
+
+    // 2. FAQ
+    if (!faqSnap.empty) {
+      faqDataForAgent = faqSnap.docs.map(doc => {
+        const data = doc.data();
+        const q = data.question?.[lang] ?? data.question?.['se-lat'] ?? '';
+        const a = data.answer?.[lang] ?? data.answer?.['se-lat'] ?? '';
+        return q && a ? `Pitanje: ${q}\nOdgovor: ${a}` : '';
+      }).filter(Boolean).join('\n\n');
+    }
+
+    // 3. KNOWLEDGE BASE (Extra Info)
+    if (!kbSnap.empty) {
+      const kbInfo = kbSnap.docs.map(doc => {
+        const data = doc.data();
+        const content = data.content?.[lang] ?? data.content?.['se-lat'] ?? '';
+        return content ? `[INFO]: ${content}` : '';
+      }).filter(Boolean).join('\n');
+
+      if (kbInfo) {
+        faqDataForAgent += `\n\n### DODATNE INFORMACIJE\n${kbInfo}`;
+      }
+    }
+
+  } catch (error) {
+    console.error('Error fetching agent data from Firestore:', error);
+    // Fallback to defaults will happen below if strings are empty
+  }
+
+  // --- FALLBACKS (If DB is empty or failed) ---
+
+  /* ---------- TEAM (Static for now, or fetch if added to DB) ---------- */
+  if (!teamDataForAgent) {
+    const teamData = defaultAboutPageContent.team.members
+      .map((member) => {
+        const name =
+          member.name[lang] ?? member.name['se-lat'];
+        const spec =
+          member.specialization[lang] ?? member.specialization['se-lat'];
+        const bio = (member.bio[lang] ?? member.bio['se-lat'])
+          .replace(/\n/g, ' ')
+          .replace(/\*/g, '-');
+
+        return `Ime: ${name}
 Specijalizacija: ${spec}
 Biografija: ${bio}`;
-    })
-    .join('\n\n');
+      })
+      .join('\n\n');
+    teamDataForAgent = `### TIM LEKARA\n${teamData}`;
+  }
 
-  const teamDataForAgent = `### TIM LEKARA\n${teamData}`;
+  /* ---------- PRICELIST FALLBACK ---------- */
+  if (!pricelistDataForAgent) {
+    const formatService = (s: Service): string => {
+      const name = s.name[lang] ?? s.name['se-lat'];
+      const desc = s.description?.[lang] ?? s.description?.['se-lat'] ?? '';
+      return `- ${name}: ${s.price}${desc ? ` (${desc})` : ''}`;
+    };
 
-  /* ---------- PRICELIST ---------- */
-  const formatService = (s: Service): string => {
-    const name = s.name[lang] ?? s.name['se-lat'];
-    const desc = s.description?.[lang] ?? s.description?.['se-lat'] ?? '';
-    return `- ${name}: ${s.price}${desc ? ` (${desc})` : ''}`;
-  };
+    const formatCategory = (cat: ServiceCategory): string => {
+      const catName = cat.category_name[lang] ?? cat.category_name['se-lat'];
+      const services = cat.services.map(formatService).join('\n');
+      return `\n### ${catName}\n${services}`;
+    };
 
-  const formatCategory = (cat: ServiceCategory): string => {
-    const catName = cat.category_name[lang] ?? cat.category_name['se-lat'];
-    const services = cat.services.map(formatService).join('\n');
-    return `\n### ${catName}\n${services}`;
-  };
+    pricelistDataForAgent = defaultPricelistData.categories
+      .map(formatCategory)
+      .join('');
+  }
 
-  const pricelistDataForAgent = defaultPricelistData.categories
-    .map(formatCategory)
-    .join('');
+  /* ---------- FAQ FALLBACK ---------- */
+  if (!faqDataForAgent) {
+    const faqKeys = Object.keys(defaultContent)
+      .filter(key => key.startsWith('faq') && key.endsWith('_q'))
+      .map(key => key.replace('_q', ''));
 
-  /* ---------- FAQ (AUTOMATIC) ---------- */
-  const faqKeys = Object.keys(defaultContent)
-    .filter(key => key.startsWith('faq') && key.endsWith('_q'))
-    .map(key => key.replace('_q', ''));
+    faqDataForAgent = faqKeys
+      .map((key) => {
+        const q =
+          defaultContent[`${key}_q`]?.[lang] ??
+          defaultContent[`${key}_q`]?.['se-lat'] ??
+          '';
+        const a =
+          defaultContent[`${key}_a`]?.[lang] ??
+          defaultContent[`${key}_a`]?.['se-lat'] ??
+          '';
+        return q && a ? `Pitanje: ${q}\nOdgovor: ${a}` : '';
+      })
+      .filter(Boolean)
+      .join('\n\n');
+  }
 
-  const faqDataForAgent = faqKeys
-    .map((key) => {
-      const q =
-        defaultContent[`${key}_q`]?.[lang] ??
-        defaultContent[`${key}_q`]?.['se-lat'] ??
-        '';
-      const a =
-        defaultContent[`${key}_a`]?.[lang] ??
-        defaultContent[`${key}_a`]?.['se-lat'] ??
-        '';
-      return q && a ? `Pitanje: ${q}\nOdgovor: ${a}` : '';
-    })
-    .filter(Boolean)
-    .join('\n\n');
-
-  /* ---------- PROMOTIONS ---------- */
+  /* ---------- PROMOTIONS (Static for now) ---------- */
   const promotions = [
     {
       title: 'Dijagnostička histeroskopija',
@@ -110,7 +174,7 @@ Biografija: ${bio}`;
     },
   ];
 
-  const promotionsDataForAgent = promotions
+  promotionsDataForAgent = promotions
     .map(
       (p) => `Akcija: ${p.title}
 Cena: ${p.price} RSD

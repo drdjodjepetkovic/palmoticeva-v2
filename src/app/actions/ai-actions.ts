@@ -25,7 +25,7 @@ export async function runConversationalAgentV2(input: ConversationalAgentInput):
             promotionsDataForAgent,
             faqDataForAgent,
             teamDataForAgent
-        } = getAgentContextData(input.language);
+        } = await getAgentContextData(input.language);
 
         console.log('Agent context retrieved successfully');
 
