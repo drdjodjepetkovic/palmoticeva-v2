@@ -141,7 +141,7 @@ The JSON object must have the following structure:
   "answer": "Your natural language response to the user...",
   "followUpQuestions": ["Question 1?", "Question 2?"],
   "recommendations": [{ "title": "Histeroskopija", "slug": "histeroskopija", "reason": "Detaljno o proceduri" }],
-  "action": { "type": "LOG_PERIOD", "date": "YYYY-MM-DD" } OR { "type": "PREFILL_BOOKING", "date": "YYYY-MM-DD", "timeSlot": "morning", "message": "..." }
+  "action": { "type": "LOG_PERIOD", "date": "YYYY-MM-DD" } // OPTIONAL: Only if logging period or prefilling booking
 }
 `;
 
@@ -278,12 +278,20 @@ The JSON object must have the following structure:
                 }
             }
 
+            // VALIDATE RECOMMENDATIONS
+            if (parsedResponse.recommendations) {
+                parsedResponse.recommendations = parsedResponse.recommendations.filter(rec =>
+                    rec.title && rec.title.trim() !== '' &&
+                    rec.slug && rec.slug.trim() !== '' &&
+                    rec.reason && rec.reason.trim() !== ''
+                );
+            }
 
         } catch (e) {
             console.warn('Failed to parse JSON response, using fallback. Raw text:', text);
             // Fallback: use the text as answer, but try to clean it up if it looks like JSON
             let fallbackText = text;
-            // If it starts with \`\`\`json, remove it for display
+            // If it starts with ```json, remove it for display
             fallbackText = fallbackText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
 
             // Try to extract just the "answer" field using regex if JSON parse failed
