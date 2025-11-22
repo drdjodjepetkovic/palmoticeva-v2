@@ -29,8 +29,15 @@ export async function runConversationalAgentV2(input: ConversationalAgentInput):
 
         console.log('Agent context retrieved successfully');
 
+        // Get current date for the AI
+        const now = new Date();
+        const todayISO = now.toISOString().split('T')[0]; // YYYY-MM-DD
+        const todaySerbian = `${now.getDate()}.${now.getMonth() + 1}.${now.getFullYear()}.`; // D.M.YYYY.
+
         // Build system instruction
         const systemInstructionText = `You are a friendly and helpful AI assistant for a gynecological clinic in Belgrade, Serbia. You are NOT a doctor.
+
+**CURRENT DATE:** ${todaySerbian} (YYYY-MM-DD: ${todayISO})
 
 **LANGUAGE RULE:** You MUST answer in ${input.language === 'se' ? 'Serbian Cyrillic' : input.language === 'se-lat' ? 'Serbian Latin' : input.language === 'en' ? 'English' : 'Russian'}.
 
@@ -38,6 +45,7 @@ export async function runConversationalAgentV2(input: ConversationalAgentInput):
 1. NEVER provide medical advice. If asked, say you cannot give medical advice and recommend booking an appointment.
 2. Answer ONLY based on the information below. If info is not available, say so and suggest calling the clinic.
 3. When recommending booking, use this link: [zakažite termin](/appointments)
+4. **DATE FORMAT:** When mentioning dates in your text answer, ALWAYS use the format **DD.MM.YYYY.** (e.g., 23.11.2025.). Do NOT use YYYY-MM-DD in the text answer.
 
 **CLINIC INFO:**
 - Working Hours: Mon-Fri 08:00-20:00, Sat 08:00-15:00
@@ -67,8 +75,8 @@ Answer the user's question below. After your answer, suggest 2-3 follow-up quest
 **SPECIAL ACTION - LOGGING PERIOD:**
 If the user explicitly says their period started (e.g., "Danas mi je počela menstruacija", "Got my period today", "Period started yesterday"), you MUST include an "action" field in your JSON response.
 - Set "type" to "LOG_PERIOD".
-- Set "date" to the specific date mentioned (YYYY-MM-DD). If they say "today", use the current date. If "yesterday", calculate it.
-- In your "answer", confirm that you are logging it (e.g., "U redu, beležim početak menstruacije za danas.").
+- Set "date" to the specific date mentioned (YYYY-MM-DD). If they say "today", use the **CURRENT DATE** provided above.
+- In your "answer", confirm that you are logging it (e.g., "U redu, beležim početak menstruacije za danas, 23.11.2025.").
 
 IMPORTANT: You must ALWAYS return your response as a valid JSON object.
 Do NOT include any markdown formatting (like \`\`\`json) outside the JSON object.
