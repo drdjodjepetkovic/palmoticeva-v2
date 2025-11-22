@@ -53,6 +53,11 @@ export interface ConversationalAgentOutput {
         timeSlot?: string;
         message?: string;
     };
+    recommendations?: {
+        title: string;
+        slug: string;
+        reason: string;
+    }[];
     action?: {
         type: 'LOG_PERIOD';
         date: string;

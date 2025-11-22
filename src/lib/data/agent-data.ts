@@ -5,6 +5,7 @@ import {
 } from './pricelist';
 import { defaultAboutPageContent } from './content';
 import { defaultContent } from './default-content';
+import { defaultArticlesData } from './content/articles';
 import type { LanguageCode } from '@/types/content';
 import { dbAdmin } from '@/lib/firebase/admin';
 
@@ -183,11 +184,23 @@ Uključuje: ${p.features.join(', ')}`
     )
     .join('\n\n');
 
+  /* ---------- ARTICLES ---------- */
+  const articlesDataForAgent = defaultArticlesData.articles
+    .map(article => {
+      const title = article.title[lang] ?? article.title['se-lat'];
+      const summary = article.summary[lang] ?? article.summary['se-lat'];
+      return `Naslov: ${title}
+Slug: ${article.slug}
+Opis: ${summary}`;
+    })
+    .join('\n\n');
+
   /* ---------- RETURN ---------- */
   return {
     pricelistDataForAgent,
     promotionsDataForAgent,
     faqDataForAgent,
     teamDataForAgent,
+    articlesDataForAgent,
   };
 }

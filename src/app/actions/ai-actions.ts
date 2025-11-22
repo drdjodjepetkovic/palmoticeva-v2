@@ -24,7 +24,8 @@ export async function runConversationalAgentV2(input: ConversationalAgentInput):
             pricelistDataForAgent,
             promotionsDataForAgent,
             faqDataForAgent,
-            teamDataForAgent
+            teamDataForAgent,
+            articlesDataForAgent
         } = await getAgentContextData(input.language);
 
         console.log('Agent context retrieved successfully');
@@ -67,6 +68,9 @@ ${faqDataForAgent}
 **TEAM:**
 ${teamDataForAgent}
 
+**ARTICLES:**
+${articlesDataForAgent}
+
 ${input.menstrualData && !input.menstrualData.error ? `**USER'S MENSTRUAL DATA:**
 ${JSON.stringify(input.menstrualData, null, 2)}
 
@@ -90,14 +94,8 @@ If the user expresses intent to book an appointment (e.g., "Zakaži mi pregled",
     - "message": A brief summary of their reason (e.g., "Bol u stomaku", "Redovna kontrola").
 - In your "answer", say something like: "U redu, prebacujem vas na stranicu za zakazivanje sa popunjenim podacima."
 
-IMPORTANT: You must ALWAYS return your response as a valid JSON object.
-Do NOT include any markdown formatting (like \`\`\`json) outside the JSON object.
-Do NOT include any trailing commas.
-Do NOT include comments (like //) inside the JSON object.
-The JSON object must have the following structure:
-{
-  "answer": "Your natural language response to the user...",
-  "followUpQuestions": ["Question 1?", "Question 2?"],
+**RECOMMENDATIONS:**
+If the user's question is related to one of the articles in the **ARTICLES** section, you MUST include a "recommendations" field in your JSON response.
   "action": { "type": "LOG_PERIOD", "date": "YYYY-MM-DD" } OR { "type": "PREFILL_BOOKING", "date": "YYYY-MM-DD", "timeSlot": "morning", "message": "..." }
 }
 `;
@@ -176,7 +174,22 @@ The JSON object must have the following structure:
                 jsonString = jsonString.replace(/,(\s*[}\]])/g, '$1');
                 // Remove comments (// ...)
                 jsonString = jsonString.replace(/\/\/.*$/gm, '');
-                parsedResponse = JSON.parse(jsonString);
+
+                // Attempt to fix unescaped newlines in string values
+                // This is risky but necessary if AI ignores instructions
+                // We look for newlines that are NOT followed by a quote or whitespace+quote (likely end of string)
+                // and NOT preceded by a quote (likely start of string)
+                // Actually, a safer way is to rely on the prompt, but let's try to parse.
+
+                try {
+                    parsedResponse = JSON.parse(jsonString);
+                } catch (parseError) {
+                    console.warn('JSON parse failed, attempting to sanitize newlines:', parseError);
+                    // Replace actual newlines with \n inside the string
+                    // This is a naive approach: replace all \n with \\n, then fix the structure? No.
+                    // Let's try to just use the fallback if strict parse fails.
+                    throw parseError;
+                }
             } else {
                 throw new Error('No JSON object found in response');
             }

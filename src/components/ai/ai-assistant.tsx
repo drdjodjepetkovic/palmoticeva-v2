@@ -30,6 +30,11 @@ interface Message {
   text: string;
   followUpQuestions?: string[];
   navigation?: string;
+  recommendations?: {
+    title: string;
+    slug: string;
+    reason: string;
+  }[];
 }
 
 type MenstrualData = NonNullable<ConversationalAgentInput['menstrualData']>;
@@ -257,6 +262,7 @@ export default function AiAssistant() {
         role: 'model',
         text: response.answer,
         followUpQuestions: response.followUpQuestions,
+        recommendations: response.recommendations,
       };
       setMessages([...currentMessages, modelMessage]);
 
@@ -354,6 +360,26 @@ export default function AiAssistant() {
                     dangerouslySetInnerHTML={{ __html: convertMarkdownToHtml(message.text) }}
                     onClick={handleBookingClick}
                   />
+                  {message.role === 'model' && message.recommendations && message.recommendations.length > 0 && (
+                    <div className="mt-4 space-y-2">
+                      <p className="text-xs font-medium opacity-70 uppercase tracking-wider">Preporučeno za čitanje:</p>
+                      <div className="grid gap-2">
+                        {message.recommendations.map((rec, i) => (
+                          <div
+                            key={i}
+                            className="bg-background/50 border border-primary/20 rounded-md p-3 cursor-pointer hover:bg-primary/10 transition-colors group"
+                            onClick={() => router.push(`/${language}/articles/${rec.slug}`)}
+                          >
+                            <div className="flex items-center justify-between">
+                              <h4 className="font-medium text-sm group-hover:text-primary transition-colors">{rec.title}</h4>
+                              <Send className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity text-primary -rotate-45" />
+                            </div>
+                            <p className="text-xs text-muted-foreground mt-1">{rec.reason}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                   {message.role === 'model' && message.followUpQuestions && message.followUpQuestions.length > 0 && (
                     <div className="mt-3 flex flex-wrap gap-2">
                       {message.followUpQuestions?.map((q, i) => (
