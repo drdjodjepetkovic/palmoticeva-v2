@@ -80,7 +80,21 @@ const jsonLd = {
     }
   ],
   "priceRange": "$$$",
-  "medicalSpecialty": "Obstetric"
+  "medicalSpecialty": ["Gynecology", "Obstetrics", "Infertility"],
+  "availableService": [
+    { "@type": "MedicalProcedure", "name": "Histeroskopija" },
+    { "@type": "MedicalProcedure", "name": "Laparoskopija" },
+    { "@type": "MedicalProcedure", "name": "Labioplastika" },
+    { "@type": "MedicalProcedure", "name": "Eksplorativna kiretaža" },
+    { "@type": "MedicalProcedure", "name": "Biopsija grlića materice" },
+    { "@type": "MedicalTest", "name": "PAPA test" },
+    { "@type": "MedicalTest", "name": "Kolposkopija" },
+    { "@type": "MedicalTest", "name": "Ultrazvučni pregled" }
+  ],
+  "isAcceptingNewPatients": true,
+  "paymentAccepted": ["Cash", "Credit Card"],
+  "currenciesAccepted": "RSD",
+  "knowsAbout": ["Women's Health", "Pregnancy", "Menopause", "Infertility"]
 };
 
 function RootLayoutContent({ children }: { children: React.ReactNode }) {

@@ -74,6 +74,25 @@ export default function FAQPage() {
       </header>
 
       <main>
+        {!loading && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                "mainEntity": faqs.map(faq => ({
+                  "@type": "Question",
+                  "name": content[faq.q] || '',
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": content[faq.a] || ''
+                  }
+                })).filter(item => item.name && item.acceptedAnswer.text)
+              })
+            }}
+          />
+        )}
         <Card className="shadow-lg">
           <CardContent className="p-6">
             <Accordion type="single" collapsible className="w-full">
@@ -98,7 +117,7 @@ export default function FAQPage() {
             </Accordion>
           </CardContent>
         </Card>
-        
+
         <Card className="mt-12 bg-muted/50 shadow-lg border-primary/20">
           <CardHeader>
             <CardTitle className="flex items-center gap-3 text-primary">
@@ -120,4 +139,3 @@ export default function FAQPage() {
   );
 }
 
-    
