@@ -5,6 +5,7 @@ import type { ConversationalAgentInput, ConversationalAgentOutput } from '@/type
 import { getAgentContextData } from '@/lib/data/agent-data';
 import { analyzeCycleHealth } from '@/lib/ai/cycle-health';
 import type { Cycle, DailyEvent } from '@/types/user';
+import { dbAdmin, FieldValue } from '@/lib/firebase/admin';
 
 // Renamed function to force fresh execution and avoid caching issues
 export async function runConversationalAgentV2(input: ConversationalAgentInput): Promise<ConversationalAgentOutput> {
@@ -307,6 +308,23 @@ The JSON object must have the following structure:
                 answer: fallbackText,
                 followUpQuestions: undefined,
             };
+        }
+
+        // LOGGING TO FIRESTORE (Admin AI Insights)
+        try {
+            await dbAdmin.collection('ai_logs').add({
+                timestamp: FieldValue.serverTimestamp(),
+                userId: input.userId || 'anonymous',
+                question: input.question,
+                answer: parsedResponse.answer,
+                action: parsedResponse.action || null,
+                language: input.language,
+                model: 'gemini-flash-latest',
+            });
+            console.log('AI interaction logged to Firestore');
+        } catch (logError) {
+            console.error('Failed to log AI interaction:', logError);
+            // Do not throw, just log the error so the user still gets their answer
         }
 
         return parsedResponse;
