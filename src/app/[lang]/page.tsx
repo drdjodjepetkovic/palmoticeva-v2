@@ -11,6 +11,7 @@ import { useAuth } from "@/context/auth-context";
 import { doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { db, logAnalyticsEvent } from '@/lib/firebase/client';
 import type { Cycle } from '@/types/user';
+import * as LucideIcons from "lucide-react";
 import { Award, CalendarCheck, Clock, HeartPulse, Share2, Star, Lightbulb, ClipboardCheck, Bell, Newspaper, ArrowRight, Home, BookOpen, CalendarPlus, Phone, Tag, HelpCircle, Info, Download, CalendarHeart, User } from 'lucide-react';
 import { CycleStats } from '@/components/menstrual-calendar/cycle-stats';
 import { CycleLegend } from '@/components/menstrual-calendar/cycle-legend';
@@ -245,7 +246,7 @@ function HealthCorner({ t, language }: { t: (id: string, fallback?: string) => R
 const iconMap: { [key: string]: React.ElementType } = {
   Tag, HelpCircle, Star, Share2, Home, BookOpen, CalendarPlus, Phone,
   Newspaper,
-  User: User,
+  User: LucideIcons.User,
 };
 
 function HomePageCards({ t, language }: { t: (id: string, fallback?: string) => React.ReactNode; language: string }) {
