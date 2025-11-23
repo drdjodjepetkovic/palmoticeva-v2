@@ -20,17 +20,20 @@ import { PwaInstallToast } from '@/components/pwa-install-toast';
 const inter = Inter({
   subsets: ['latin', 'cyrillic'],
   variable: '--font-body',
+  display: 'swap',
 });
 
 const headlineFont = Inter({
   subsets: ['latin', 'cyrillic'],
   variable: '--font-headline',
+  display: 'swap',
 });
 
 const pressStart2P = Press_Start_2P({
   subsets: ['latin', 'cyrillic'],
   weight: '400',
   variable: '--font-pixel',
+  display: 'swap',
 });
 
 
