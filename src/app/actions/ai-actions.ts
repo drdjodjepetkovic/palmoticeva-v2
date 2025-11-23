@@ -149,7 +149,7 @@ The JSON object must have the following structure:
         const genAI = new GoogleGenerativeAI(apiKey);
 
         const model = genAI.getGenerativeModel({
-            model: 'gemini-flash-latest',
+            model: 'gemini-1.5-flash',
             generationConfig: {
                 temperature: 0.7,
                 maxOutputTokens: 8192,
@@ -319,7 +319,7 @@ The JSON object must have the following structure:
                 answer: parsedResponse.answer,
                 action: parsedResponse.action || null,
                 language: input.language,
-                model: 'gemini-flash-latest',
+                model: 'gemini-1.5-flash',
             });
             console.log('AI interaction logged to Firestore');
         } catch (logError) {
