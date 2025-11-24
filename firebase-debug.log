@@ -1,0 +1,455 @@
+[debug] [2025-11-24T19:15:52.677Z] ----------------------------------------------------------------------
+[debug] [2025-11-24T19:15:52.678Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\djord\OneDrive\Dokumenti\nova\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2025-11-24T19:15:52.679Z] CLI Version:   13.35.1
+[debug] [2025-11-24T19:15:52.679Z] Platform:      win32
+[debug] [2025-11-24T19:15:52.679Z] Node Version:  v20.11.1
+[debug] [2025-11-24T19:15:52.679Z] Time:          Mon Nov 24 2025 20:15:52 GMT+0100 (Srednjeevropsko standardno vreme)
+[debug] [2025-11-24T19:15:52.679Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-11-24T19:15:52.813Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"destination"}
+[debug] [2025-11-24T19:15:52.813Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"function"}
+[debug] [2025-11-24T19:15:52.813Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"function"}
+[debug] [2025-11-24T19:15:52.813Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"glob"}
+[debug] [2025-11-24T19:15:52.813Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"dynamicLinks"}
+[debug] [2025-11-24T19:15:52.813Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"destination"}
+[debug] [2025-11-24T19:15:52.813Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"function"}
+[debug] [2025-11-24T19:15:52.813Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"function"}
+[debug] [2025-11-24T19:15:52.814Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"run"}
+[debug] [2025-11-24T19:15:52.814Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"dynamicLinks"}
+[debug] [2025-11-24T19:15:52.814Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"destination"}
+[debug] [2025-11-24T19:15:52.814Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"function"}
+[debug] [2025-11-24T19:15:52.814Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"function"}
+[debug] [2025-11-24T19:15:52.814Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"regex"}
+[debug] [2025-11-24T19:15:52.814Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"dynamicLinks"}
+[debug] [2025-11-24T19:15:52.814Z] Field "/hosting/rewrites/0" in "firebase.json" is possibly invalid: must match a schema in anyOf
+[debug] [2025-11-24T19:15:52.814Z] Field "/hosting" in "firebase.json" is possibly invalid: must be array
+[debug] [2025-11-24T19:15:52.814Z] Field "/hosting" in "firebase.json" is possibly invalid: must match a schema in anyOf
+[debug] [2025-11-24T19:15:52.817Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-11-24T19:15:52.817Z] > authorizing via signed-in user (djordje007@gmail.com)
+[debug] [2025-11-24T19:15:52.817Z] [iam] checking project palmoticeva-portal for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2025-11-24T19:15:52.818Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:15:52.818Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:15:52.818Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/palmoticeva-portal:testIamPermissions [none]
+[debug] [2025-11-24T19:15:52.818Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/palmoticeva-portal:testIamPermissions x-goog-quota-user=projects/palmoticeva-portal
+[debug] [2025-11-24T19:15:52.819Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/palmoticeva-portal:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-11-24T19:15:53.735Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/palmoticeva-portal:testIamPermissions 200
+[debug] [2025-11-24T19:15:53.735Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/palmoticeva-portal:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-11-24T19:15:53.735Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:15:53.735Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:15:53.736Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/palmoticeva-portal/serviceAccounts/palmoticeva-portal@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2025-11-24T19:15:53.736Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/palmoticeva-portal/serviceAccounts/palmoticeva-portal@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2025-11-24T19:15:54.641Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/palmoticeva-portal/serviceAccounts/palmoticeva-portal@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2025-11-24T19:15:54.641Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/palmoticeva-portal/serviceAccounts/palmoticeva-portal@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2025-11-24T19:15:54.642Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:15:54.642Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:15:54.642Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/palmoticeva-portal [none]
+[debug] [2025-11-24T19:15:55.039Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/palmoticeva-portal 200
+[debug] [2025-11-24T19:15:55.039Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/palmoticeva-portal {"projectId":"palmoticeva-portal","projectNumber":"103093476920","displayName":"Palmoticeva Portal","name":"projects/palmoticeva-portal","resources":{"hostingSite":"palmoticeva-portal"},"state":"ACTIVE","etag":"1_99da18da-f175-45f5-8866-33fca5897cfb"}
+[debug] [2025-11-24T19:16:10.670Z] defaultcredentials: writing to file C:\Users\djord\AppData\Roaming\firebase\djordje007_gmail_com_application_default_credentials.json
+[debug] [2025-11-24T19:16:10.673Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:16:10.673Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:16:10.674Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/palmoticeva-portal/sites pageToken=&pageSize=10
+[debug] [2025-11-24T19:16:11.806Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/palmoticeva-portal/sites 200
+[debug] [2025-11-24T19:16:11.806Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/palmoticeva-portal/sites {"sites":[{"name":"projects/palmoticeva-portal/sites/palmoticeva-portal","defaultUrl":"https://palmoticeva-portal.web.app","appId":"1:103093476920:web:26dc1dcc28a049b56d90cd","type":"DEFAULT_SITE"}]}
+[debug] [2025-11-24T19:16:11.807Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:16:11.807Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:16:11.807Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:103093476920:web:26dc1dcc28a049b56d90cd/config [none]
+[debug] [2025-11-24T19:16:12.524Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:103093476920:web:26dc1dcc28a049b56d90cd/config 200
+[debug] [2025-11-24T19:16:12.525Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:103093476920:web:26dc1dcc28a049b56d90cd/config {"projectId":"palmoticeva-portal","appId":"1:103093476920:web:26dc1dcc28a049b56d90cd","storageBucket":"palmoticeva-portal.firebasestorage.app","apiKey":"AIzaSyAJ4uOND3fqcB_tk5kQOsRlJhwYQPn69AE","authDomain":"palmoticeva-portal.firebaseapp.com","messagingSenderId":"103093476920","measurementId":"G-KQXYJHTF90","projectNumber":"103093476920","version":"2"}
+[info] 
+   Thank you for trying our early preview of Next.js support on Firebase Hosting.
+   During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
+
+   Documentation: https://firebase.google.com/docs/hosting/frameworks/nextjs
+   File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+[debug] [2025-11-24T19:16:52.888Z] SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at findDependency (C:\Users\djord\OneDrive\Dokumenti\nova\node_modules\.pnpm\firebase-tools@13.35.1_@types+node@20.19.25_encoding@0.1.13\node_modules\firebase-tools\lib\frameworks\utils.js:190:23)
+    at getReactVersion (C:\Users\djord\OneDrive\Dokumenti\nova\node_modules\.pnpm\firebase-tools@13.35.1_@types+node@20.19.25_encoding@0.1.13\node_modules\firebase-tools\lib\frameworks\next\index.js:36:45)
+    at build (C:\Users\djord\OneDrive\Dokumenti\nova\node_modules\.pnpm\firebase-tools@13.35.1_@types+node@20.19.25_encoding@0.1.13\node_modules\firebase-tools\lib\frameworks\next\index.js:50:26)
+    at async prepareFrameworks (C:\Users\djord\OneDrive\Dokumenti\nova\node_modules\.pnpm\firebase-tools@13.35.1_@types+node@20.19.25_encoding@0.1.13\node_modules\firebase-tools\lib\frameworks\index.js:224:33)
+    at async deploy (C:\Users\djord\OneDrive\Dokumenti\nova\node_modules\.pnpm\firebase-tools@13.35.1_@types+node@20.19.25_encoding@0.1.13\node_modules\firebase-tools\lib\deploy\index.js:76:9)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2025-11-24T19:21:47.331Z] ----------------------------------------------------------------------
+[debug] [2025-11-24T19:21:47.332Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\djord\OneDrive\Dokumenti\nova\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2025-11-24T19:21:47.332Z] CLI Version:   13.35.1
+[debug] [2025-11-24T19:21:47.332Z] Platform:      win32
+[debug] [2025-11-24T19:21:47.333Z] Node Version:  v20.11.1
+[debug] [2025-11-24T19:21:47.333Z] Time:          Mon Nov 24 2025 20:21:47 GMT+0100 (Srednjeevropsko standardno vreme)
+[debug] [2025-11-24T19:21:47.333Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-11-24T19:21:47.457Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"destination"}
+[debug] [2025-11-24T19:21:47.457Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"function"}
+[debug] [2025-11-24T19:21:47.457Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"function"}
+[debug] [2025-11-24T19:21:47.457Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"glob"}
+[debug] [2025-11-24T19:21:47.457Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"dynamicLinks"}
+[debug] [2025-11-24T19:21:47.457Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"destination"}
+[debug] [2025-11-24T19:21:47.457Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"function"}
+[debug] [2025-11-24T19:21:47.457Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"function"}
+[debug] [2025-11-24T19:21:47.457Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"run"}
+[debug] [2025-11-24T19:21:47.457Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"dynamicLinks"}
+[debug] [2025-11-24T19:21:47.457Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"destination"}
+[debug] [2025-11-24T19:21:47.457Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"function"}
+[debug] [2025-11-24T19:21:47.457Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"function"}
+[debug] [2025-11-24T19:21:47.457Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"regex"}
+[debug] [2025-11-24T19:21:47.457Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"dynamicLinks"}
+[debug] [2025-11-24T19:21:47.458Z] Field "/hosting/rewrites/0" in "firebase.json" is possibly invalid: must match a schema in anyOf
+[debug] [2025-11-24T19:21:47.458Z] Field "/hosting" in "firebase.json" is possibly invalid: must be array
+[debug] [2025-11-24T19:21:47.458Z] Field "/hosting" in "firebase.json" is possibly invalid: must match a schema in anyOf
+[debug] [2025-11-24T19:21:47.460Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-11-24T19:21:47.461Z] > authorizing via signed-in user (djordje007@gmail.com)
+[debug] [2025-11-24T19:21:47.461Z] [iam] checking project palmoticeva-portal for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2025-11-24T19:21:47.461Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:21:47.461Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:21:47.462Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/palmoticeva-portal:testIamPermissions [none]
+[debug] [2025-11-24T19:21:47.462Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/palmoticeva-portal:testIamPermissions x-goog-quota-user=projects/palmoticeva-portal
+[debug] [2025-11-24T19:21:47.462Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/palmoticeva-portal:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-11-24T19:21:48.320Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/palmoticeva-portal:testIamPermissions 200
+[debug] [2025-11-24T19:21:48.320Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/palmoticeva-portal:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-11-24T19:21:48.321Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:21:48.321Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:21:48.321Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/palmoticeva-portal/serviceAccounts/palmoticeva-portal@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2025-11-24T19:21:48.321Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/palmoticeva-portal/serviceAccounts/palmoticeva-portal@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2025-11-24T19:21:49.242Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/palmoticeva-portal/serviceAccounts/palmoticeva-portal@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2025-11-24T19:21:49.242Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/palmoticeva-portal/serviceAccounts/palmoticeva-portal@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2025-11-24T19:21:49.243Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:21:49.243Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:21:49.243Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/palmoticeva-portal [none]
+[debug] [2025-11-24T19:21:49.635Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/palmoticeva-portal 200
+[debug] [2025-11-24T19:21:49.635Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/palmoticeva-portal {"projectId":"palmoticeva-portal","projectNumber":"103093476920","displayName":"Palmoticeva Portal","name":"projects/palmoticeva-portal","resources":{"hostingSite":"palmoticeva-portal"},"state":"ACTIVE","etag":"1_99da18da-f175-45f5-8866-33fca5897cfb"}
+[debug] [2025-11-24T19:22:01.819Z] defaultcredentials: writing to file C:\Users\djord\AppData\Roaming\firebase\djordje007_gmail_com_application_default_credentials.json
+[debug] [2025-11-24T19:22:01.821Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:22:01.821Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:22:01.822Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/palmoticeva-portal/sites pageToken=&pageSize=10
+[debug] [2025-11-24T19:22:03.012Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/palmoticeva-portal/sites 200
+[debug] [2025-11-24T19:22:03.012Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/palmoticeva-portal/sites {"sites":[{"name":"projects/palmoticeva-portal/sites/palmoticeva-portal","defaultUrl":"https://palmoticeva-portal.web.app","appId":"1:103093476920:web:26dc1dcc28a049b56d90cd","type":"DEFAULT_SITE"}]}
+[debug] [2025-11-24T19:22:03.012Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:22:03.012Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:22:03.013Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:103093476920:web:26dc1dcc28a049b56d90cd/config [none]
+[debug] [2025-11-24T19:22:03.846Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:103093476920:web:26dc1dcc28a049b56d90cd/config 200
+[debug] [2025-11-24T19:22:03.846Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:103093476920:web:26dc1dcc28a049b56d90cd/config {"projectId":"palmoticeva-portal","appId":"1:103093476920:web:26dc1dcc28a049b56d90cd","storageBucket":"palmoticeva-portal.firebasestorage.app","apiKey":"AIzaSyAJ4uOND3fqcB_tk5kQOsRlJhwYQPn69AE","authDomain":"palmoticeva-portal.firebaseapp.com","messagingSenderId":"103093476920","measurementId":"G-KQXYJHTF90","projectNumber":"103093476920","version":"2"}
+[info] 
+   Thank you for trying our early preview of Next.js support on Firebase Hosting.
+   During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
+
+   Documentation: https://firebase.google.com/docs/hosting/frameworks/nextjs
+   File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+[debug] [2025-11-24T19:22:33.026Z] SyntaxError: Unterminated string in JSON at position 1048576
+    at JSON.parse (<anonymous>)
+    at findDependency (C:\Users\djord\OneDrive\Dokumenti\nova\node_modules\.pnpm\firebase-tools@13.35.1_@types+node@20.19.25_encoding@0.1.13\node_modules\firebase-tools\lib\frameworks\utils.js:190:23)
+    at getReactVersion (C:\Users\djord\OneDrive\Dokumenti\nova\node_modules\.pnpm\firebase-tools@13.35.1_@types+node@20.19.25_encoding@0.1.13\node_modules\firebase-tools\lib\frameworks\next\index.js:36:45)
+    at build (C:\Users\djord\OneDrive\Dokumenti\nova\node_modules\.pnpm\firebase-tools@13.35.1_@types+node@20.19.25_encoding@0.1.13\node_modules\firebase-tools\lib\frameworks\next\index.js:50:26)
+    at async prepareFrameworks (C:\Users\djord\OneDrive\Dokumenti\nova\node_modules\.pnpm\firebase-tools@13.35.1_@types+node@20.19.25_encoding@0.1.13\node_modules\firebase-tools\lib\frameworks\index.js:224:33)
+    at async deploy (C:\Users\djord\OneDrive\Dokumenti\nova\node_modules\.pnpm\firebase-tools@13.35.1_@types+node@20.19.25_encoding@0.1.13\node_modules\firebase-tools\lib\deploy\index.js:76:9)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2025-11-24T19:28:32.321Z] ----------------------------------------------------------------------
+[debug] [2025-11-24T19:28:32.323Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\djord\OneDrive\Dokumenti\nova\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2025-11-24T19:28:32.323Z] CLI Version:   13.35.1
+[debug] [2025-11-24T19:28:32.323Z] Platform:      win32
+[debug] [2025-11-24T19:28:32.324Z] Node Version:  v20.11.1
+[debug] [2025-11-24T19:28:32.324Z] Time:          Mon Nov 24 2025 20:28:32 GMT+0100 (Srednjeevropsko standardno vreme)
+[debug] [2025-11-24T19:28:32.324Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-11-24T19:28:32.493Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"destination"}
+[debug] [2025-11-24T19:28:32.494Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"function"}
+[debug] [2025-11-24T19:28:32.494Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"function"}
+[debug] [2025-11-24T19:28:32.494Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"glob"}
+[debug] [2025-11-24T19:28:32.494Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"dynamicLinks"}
+[debug] [2025-11-24T19:28:32.494Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"destination"}
+[debug] [2025-11-24T19:28:32.494Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"function"}
+[debug] [2025-11-24T19:28:32.494Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"function"}
+[debug] [2025-11-24T19:28:32.495Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"run"}
+[debug] [2025-11-24T19:28:32.495Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"dynamicLinks"}
+[debug] [2025-11-24T19:28:32.495Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"destination"}
+[debug] [2025-11-24T19:28:32.495Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"function"}
+[debug] [2025-11-24T19:28:32.495Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"function"}
+[debug] [2025-11-24T19:28:32.495Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"regex"}
+[debug] [2025-11-24T19:28:32.495Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"dynamicLinks"}
+[debug] [2025-11-24T19:28:32.495Z] Field "/hosting/rewrites/0" in "firebase.json" is possibly invalid: must match a schema in anyOf
+[debug] [2025-11-24T19:28:32.495Z] Field "/hosting" in "firebase.json" is possibly invalid: must be array
+[debug] [2025-11-24T19:28:32.495Z] Field "/hosting" in "firebase.json" is possibly invalid: must match a schema in anyOf
+[debug] [2025-11-24T19:28:32.499Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-11-24T19:28:32.499Z] > authorizing via signed-in user (djordje007@gmail.com)
+[debug] [2025-11-24T19:28:32.499Z] [iam] checking project palmoticeva-portal for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2025-11-24T19:28:32.500Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:28:32.500Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:28:32.501Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/palmoticeva-portal:testIamPermissions [none]
+[debug] [2025-11-24T19:28:32.501Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/palmoticeva-portal:testIamPermissions x-goog-quota-user=projects/palmoticeva-portal
+[debug] [2025-11-24T19:28:32.501Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/palmoticeva-portal:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-11-24T19:28:33.423Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/palmoticeva-portal:testIamPermissions 200
+[debug] [2025-11-24T19:28:33.423Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/palmoticeva-portal:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-11-24T19:28:33.423Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:28:33.423Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:28:33.423Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/palmoticeva-portal/serviceAccounts/palmoticeva-portal@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2025-11-24T19:28:33.423Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/palmoticeva-portal/serviceAccounts/palmoticeva-portal@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2025-11-24T19:28:34.383Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/palmoticeva-portal/serviceAccounts/palmoticeva-portal@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2025-11-24T19:28:34.383Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/palmoticeva-portal/serviceAccounts/palmoticeva-portal@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2025-11-24T19:28:34.383Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:28:34.383Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:28:34.384Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/palmoticeva-portal [none]
+[debug] [2025-11-24T19:28:34.783Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/palmoticeva-portal 200
+[debug] [2025-11-24T19:28:34.783Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/palmoticeva-portal {"projectId":"palmoticeva-portal","projectNumber":"103093476920","displayName":"Palmoticeva Portal","name":"projects/palmoticeva-portal","resources":{"hostingSite":"palmoticeva-portal"},"state":"ACTIVE","etag":"1_99da18da-f175-45f5-8866-33fca5897cfb"}
+[debug] [2025-11-24T19:28:52.335Z] defaultcredentials: writing to file C:\Users\djord\AppData\Roaming\firebase\djordje007_gmail_com_application_default_credentials.json
+[debug] [2025-11-24T19:28:52.339Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:28:52.339Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:28:52.340Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/palmoticeva-portal/sites pageToken=&pageSize=10
+[debug] [2025-11-24T19:28:53.475Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/palmoticeva-portal/sites 200
+[debug] [2025-11-24T19:28:53.475Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/palmoticeva-portal/sites {"sites":[{"name":"projects/palmoticeva-portal/sites/palmoticeva-portal","defaultUrl":"https://palmoticeva-portal.web.app","appId":"1:103093476920:web:26dc1dcc28a049b56d90cd","type":"DEFAULT_SITE"}]}
+[debug] [2025-11-24T19:28:53.475Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:28:53.475Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:28:53.476Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:103093476920:web:26dc1dcc28a049b56d90cd/config [none]
+[debug] [2025-11-24T19:28:54.244Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:103093476920:web:26dc1dcc28a049b56d90cd/config 200
+[debug] [2025-11-24T19:28:54.244Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:103093476920:web:26dc1dcc28a049b56d90cd/config {"projectId":"palmoticeva-portal","appId":"1:103093476920:web:26dc1dcc28a049b56d90cd","storageBucket":"palmoticeva-portal.firebasestorage.app","apiKey":"AIzaSyAJ4uOND3fqcB_tk5kQOsRlJhwYQPn69AE","authDomain":"palmoticeva-portal.firebaseapp.com","messagingSenderId":"103093476920","measurementId":"G-KQXYJHTF90","projectNumber":"103093476920","version":"2"}
+[info] 
+   Thank you for trying our early preview of Next.js support on Firebase Hosting.
+   During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
+
+   Documentation: https://firebase.google.com/docs/hosting/frameworks/nextjs
+   File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+[debug] [2025-11-24T19:29:32.124Z] SyntaxError: Unterminated string in JSON at position 1048576
+    at JSON.parse (<anonymous>)
+    at findDependency (C:\Users\djord\OneDrive\Dokumenti\nova\node_modules\.pnpm\firebase-tools@13.35.1_@types+node@20.19.25_encoding@0.1.13\node_modules\firebase-tools\lib\frameworks\utils.js:190:23)
+    at getReactVersion (C:\Users\djord\OneDrive\Dokumenti\nova\node_modules\.pnpm\firebase-tools@13.35.1_@types+node@20.19.25_encoding@0.1.13\node_modules\firebase-tools\lib\frameworks\next\index.js:36:45)
+    at build (C:\Users\djord\OneDrive\Dokumenti\nova\node_modules\.pnpm\firebase-tools@13.35.1_@types+node@20.19.25_encoding@0.1.13\node_modules\firebase-tools\lib\frameworks\next\index.js:50:26)
+    at async prepareFrameworks (C:\Users\djord\OneDrive\Dokumenti\nova\node_modules\.pnpm\firebase-tools@13.35.1_@types+node@20.19.25_encoding@0.1.13\node_modules\firebase-tools\lib\frameworks\index.js:224:33)
+    at async deploy (C:\Users\djord\OneDrive\Dokumenti\nova\node_modules\.pnpm\firebase-tools@13.35.1_@types+node@20.19.25_encoding@0.1.13\node_modules\firebase-tools\lib\deploy\index.js:76:9)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2025-11-24T19:30:06.996Z] ----------------------------------------------------------------------
+[debug] [2025-11-24T19:30:06.998Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\djord\OneDrive\Dokumenti\nova\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2025-11-24T19:30:06.998Z] CLI Version:   13.35.1
+[debug] [2025-11-24T19:30:06.998Z] Platform:      win32
+[debug] [2025-11-24T19:30:06.998Z] Node Version:  v20.11.1
+[debug] [2025-11-24T19:30:06.998Z] Time:          Mon Nov 24 2025 20:30:06 GMT+0100 (Srednjeevropsko standardno vreme)
+[debug] [2025-11-24T19:30:06.998Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-11-24T19:30:07.137Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"destination"}
+[debug] [2025-11-24T19:30:07.137Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"function"}
+[debug] [2025-11-24T19:30:07.138Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"function"}
+[debug] [2025-11-24T19:30:07.138Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"glob"}
+[debug] [2025-11-24T19:30:07.138Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"dynamicLinks"}
+[debug] [2025-11-24T19:30:07.138Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"destination"}
+[debug] [2025-11-24T19:30:07.138Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"function"}
+[debug] [2025-11-24T19:30:07.138Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"function"}
+[debug] [2025-11-24T19:30:07.138Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"run"}
+[debug] [2025-11-24T19:30:07.138Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"dynamicLinks"}
+[debug] [2025-11-24T19:30:07.138Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"destination"}
+[debug] [2025-11-24T19:30:07.138Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"function"}
+[debug] [2025-11-24T19:30:07.138Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"function"}
+[debug] [2025-11-24T19:30:07.138Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"regex"}
+[debug] [2025-11-24T19:30:07.138Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"dynamicLinks"}
+[debug] [2025-11-24T19:30:07.138Z] Field "/hosting/rewrites/0" in "firebase.json" is possibly invalid: must match a schema in anyOf
+[debug] [2025-11-24T19:30:07.138Z] Field "/hosting" in "firebase.json" is possibly invalid: must be array
+[debug] [2025-11-24T19:30:07.138Z] Field "/hosting" in "firebase.json" is possibly invalid: must match a schema in anyOf
+[debug] [2025-11-24T19:30:07.141Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-11-24T19:30:07.142Z] > authorizing via signed-in user (djordje007@gmail.com)
+[debug] [2025-11-24T19:30:07.142Z] [iam] checking project palmoticeva-portal for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2025-11-24T19:30:07.142Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:30:07.142Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:30:07.143Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/palmoticeva-portal:testIamPermissions [none]
+[debug] [2025-11-24T19:30:07.143Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/palmoticeva-portal:testIamPermissions x-goog-quota-user=projects/palmoticeva-portal
+[debug] [2025-11-24T19:30:07.143Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/palmoticeva-portal:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-11-24T19:30:08.007Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/palmoticeva-portal:testIamPermissions 200
+[debug] [2025-11-24T19:30:08.007Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/palmoticeva-portal:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-11-24T19:30:08.008Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:30:08.008Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:30:08.008Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/palmoticeva-portal/serviceAccounts/palmoticeva-portal@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2025-11-24T19:30:08.008Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/palmoticeva-portal/serviceAccounts/palmoticeva-portal@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2025-11-24T19:30:08.943Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/palmoticeva-portal/serviceAccounts/palmoticeva-portal@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2025-11-24T19:30:08.943Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/palmoticeva-portal/serviceAccounts/palmoticeva-portal@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2025-11-24T19:30:08.944Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:30:08.944Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:30:08.944Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/palmoticeva-portal [none]
+[debug] [2025-11-24T19:30:09.831Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/palmoticeva-portal 200
+[debug] [2025-11-24T19:30:09.831Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/palmoticeva-portal {"projectId":"palmoticeva-portal","projectNumber":"103093476920","displayName":"Palmoticeva Portal","name":"projects/palmoticeva-portal","resources":{"hostingSite":"palmoticeva-portal"},"state":"ACTIVE","etag":"1_99da18da-f175-45f5-8866-33fca5897cfb"}
+[debug] [2025-11-24T19:30:27.402Z] defaultcredentials: writing to file C:\Users\djord\AppData\Roaming\firebase\djordje007_gmail_com_application_default_credentials.json
+[debug] [2025-11-24T19:30:27.405Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:30:27.405Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:30:27.406Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/palmoticeva-portal/sites pageToken=&pageSize=10
+[debug] [2025-11-24T19:30:28.472Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/palmoticeva-portal/sites 200
+[debug] [2025-11-24T19:30:28.472Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/palmoticeva-portal/sites {"sites":[{"name":"projects/palmoticeva-portal/sites/palmoticeva-portal","defaultUrl":"https://palmoticeva-portal.web.app","appId":"1:103093476920:web:26dc1dcc28a049b56d90cd","type":"DEFAULT_SITE"}]}
+[debug] [2025-11-24T19:30:28.472Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:30:28.472Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:30:28.472Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:103093476920:web:26dc1dcc28a049b56d90cd/config [none]
+[debug] [2025-11-24T19:30:29.058Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:103093476920:web:26dc1dcc28a049b56d90cd/config 200
+[debug] [2025-11-24T19:30:29.058Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:103093476920:web:26dc1dcc28a049b56d90cd/config {"projectId":"palmoticeva-portal","appId":"1:103093476920:web:26dc1dcc28a049b56d90cd","storageBucket":"palmoticeva-portal.firebasestorage.app","apiKey":"AIzaSyAJ4uOND3fqcB_tk5kQOsRlJhwYQPn69AE","authDomain":"palmoticeva-portal.firebaseapp.com","messagingSenderId":"103093476920","measurementId":"G-KQXYJHTF90","projectNumber":"103093476920","version":"2"}
+[info] 
+   Thank you for trying our early preview of Next.js support on Firebase Hosting.
+   During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
+
+   Documentation: https://firebase.google.com/docs/hosting/frameworks/nextjs
+   File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+[debug] [2025-11-24T19:31:07.376Z] SyntaxError: Unterminated string in JSON at position 1048576
+    at JSON.parse (<anonymous>)
+    at findDependency (C:\Users\djord\OneDrive\Dokumenti\nova\node_modules\.pnpm\firebase-tools@13.35.1_@types+node@20.19.25_encoding@0.1.13\node_modules\firebase-tools\lib\frameworks\utils.js:190:23)
+    at getReactVersion (C:\Users\djord\OneDrive\Dokumenti\nova\node_modules\.pnpm\firebase-tools@13.35.1_@types+node@20.19.25_encoding@0.1.13\node_modules\firebase-tools\lib\frameworks\next\index.js:36:45)
+    at build (C:\Users\djord\OneDrive\Dokumenti\nova\node_modules\.pnpm\firebase-tools@13.35.1_@types+node@20.19.25_encoding@0.1.13\node_modules\firebase-tools\lib\frameworks\next\index.js:50:26)
+    at async prepareFrameworks (C:\Users\djord\OneDrive\Dokumenti\nova\node_modules\.pnpm\firebase-tools@13.35.1_@types+node@20.19.25_encoding@0.1.13\node_modules\firebase-tools\lib\frameworks\index.js:224:33)
+    at async deploy (C:\Users\djord\OneDrive\Dokumenti\nova\node_modules\.pnpm\firebase-tools@13.35.1_@types+node@20.19.25_encoding@0.1.13\node_modules\firebase-tools\lib\deploy\index.js:76:9)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2025-11-24T19:31:56.661Z] ----------------------------------------------------------------------
+[debug] [2025-11-24T19:31:56.663Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\djord\OneDrive\Dokumenti\nova\node_modules\firebase-tools\lib\bin\firebase.js deploy --only hosting --debug
+[debug] [2025-11-24T19:31:56.663Z] CLI Version:   13.35.1
+[debug] [2025-11-24T19:31:56.664Z] Platform:      win32
+[debug] [2025-11-24T19:31:56.664Z] Node Version:  v20.11.1
+[debug] [2025-11-24T19:31:56.664Z] Time:          Mon Nov 24 2025 20:31:56 GMT+0100 (Srednjeevropsko standardno vreme)
+[debug] [2025-11-24T19:31:56.664Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-11-24T19:31:56.823Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"destination"}
+[debug] [2025-11-24T19:31:56.824Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"function"}
+[debug] [2025-11-24T19:31:56.825Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"function"}
+[debug] [2025-11-24T19:31:56.825Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"glob"}
+[debug] [2025-11-24T19:31:56.825Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"dynamicLinks"}
+[debug] [2025-11-24T19:31:56.825Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"destination"}
+[debug] [2025-11-24T19:31:56.825Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"function"}
+[debug] [2025-11-24T19:31:56.826Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"function"}
+[debug] [2025-11-24T19:31:56.826Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"run"}
+[debug] [2025-11-24T19:31:56.826Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"dynamicLinks"}
+[debug] [2025-11-24T19:31:56.826Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"destination"}
+[debug] [2025-11-24T19:31:56.826Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"function"}
+[debug] [2025-11-24T19:31:56.827Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"function"}
+[debug] [2025-11-24T19:31:56.827Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"regex"}
+[debug] [2025-11-24T19:31:56.827Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"dynamicLinks"}
+[debug] [2025-11-24T19:31:56.827Z] Field "/hosting/rewrites/0" in "firebase.json" is possibly invalid: must match a schema in anyOf
+[debug] [2025-11-24T19:31:56.827Z] Field "/hosting" in "firebase.json" is possibly invalid: must be array
+[debug] [2025-11-24T19:31:56.827Z] Field "/hosting" in "firebase.json" is possibly invalid: must match a schema in anyOf
+[debug] [2025-11-24T19:31:56.831Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-11-24T19:31:56.831Z] > authorizing via signed-in user (djordje007@gmail.com)
+[debug] [2025-11-24T19:31:56.832Z] [iam] checking project palmoticeva-portal for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2025-11-24T19:31:56.833Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:31:56.833Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:31:56.834Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/palmoticeva-portal:testIamPermissions [none]
+[debug] [2025-11-24T19:31:56.835Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/palmoticeva-portal:testIamPermissions x-goog-quota-user=projects/palmoticeva-portal
+[debug] [2025-11-24T19:31:56.835Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/palmoticeva-portal:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-11-24T19:31:57.643Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/palmoticeva-portal:testIamPermissions 200
+[debug] [2025-11-24T19:31:57.644Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/palmoticeva-portal:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-11-24T19:31:57.644Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:31:57.644Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:31:57.645Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/palmoticeva-portal [none]
+[debug] [2025-11-24T19:31:57.953Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/palmoticeva-portal 200
+[debug] [2025-11-24T19:31:57.954Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/palmoticeva-portal {"projectId":"palmoticeva-portal","projectNumber":"103093476920","displayName":"Palmoticeva Portal","name":"projects/palmoticeva-portal","resources":{"hostingSite":"palmoticeva-portal"},"state":"ACTIVE","etag":"1_99da18da-f175-45f5-8866-33fca5897cfb"}
+[debug] [2025-11-24T19:32:13.527Z] defaultcredentials: writing to file C:\Users\djord\AppData\Roaming\firebase\djordje007_gmail_com_application_default_credentials.json
+[debug] [2025-11-24T19:32:13.531Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:32:13.532Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:32:13.532Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/palmoticeva-portal/sites pageToken=&pageSize=10
+[debug] [2025-11-24T19:32:14.635Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/palmoticeva-portal/sites 200
+[debug] [2025-11-24T19:32:14.635Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/palmoticeva-portal/sites {"sites":[{"name":"projects/palmoticeva-portal/sites/palmoticeva-portal","defaultUrl":"https://palmoticeva-portal.web.app","appId":"1:103093476920:web:26dc1dcc28a049b56d90cd","type":"DEFAULT_SITE"}]}
+[debug] [2025-11-24T19:32:14.636Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:32:14.636Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:32:14.636Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:103093476920:web:26dc1dcc28a049b56d90cd/config [none]
+[debug] [2025-11-24T19:32:15.652Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:103093476920:web:26dc1dcc28a049b56d90cd/config 200
+[debug] [2025-11-24T19:32:15.653Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:103093476920:web:26dc1dcc28a049b56d90cd/config {"projectId":"palmoticeva-portal","appId":"1:103093476920:web:26dc1dcc28a049b56d90cd","storageBucket":"palmoticeva-portal.firebasestorage.app","apiKey":"AIzaSyAJ4uOND3fqcB_tk5kQOsRlJhwYQPn69AE","authDomain":"palmoticeva-portal.firebaseapp.com","messagingSenderId":"103093476920","measurementId":"G-KQXYJHTF90","projectNumber":"103093476920","version":"2"}
+[info] 
+   Thank you for trying our early preview of Next.js support on Firebase Hosting.
+   During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
+
+   Documentation: https://firebase.google.com/docs/hosting/frameworks/nextjs
+   File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+[debug] [2025-11-24T19:32:50.789Z] SyntaxError: Unterminated string in JSON at position 1048576
+    at JSON.parse (<anonymous>)
+    at findDependency (C:\Users\djord\OneDrive\Dokumenti\nova\node_modules\.pnpm\firebase-tools@13.35.1_@types+node@20.19.25_encoding@0.1.13\node_modules\firebase-tools\lib\frameworks\utils.js:190:23)
+    at getReactVersion (C:\Users\djord\OneDrive\Dokumenti\nova\node_modules\.pnpm\firebase-tools@13.35.1_@types+node@20.19.25_encoding@0.1.13\node_modules\firebase-tools\lib\frameworks\next\index.js:36:45)
+    at build (C:\Users\djord\OneDrive\Dokumenti\nova\node_modules\.pnpm\firebase-tools@13.35.1_@types+node@20.19.25_encoding@0.1.13\node_modules\firebase-tools\lib\frameworks\next\index.js:50:26)
+    at async prepareFrameworks (C:\Users\djord\OneDrive\Dokumenti\nova\node_modules\.pnpm\firebase-tools@13.35.1_@types+node@20.19.25_encoding@0.1.13\node_modules\firebase-tools\lib\frameworks\index.js:224:33)
+    at async deploy (C:\Users\djord\OneDrive\Dokumenti\nova\node_modules\.pnpm\firebase-tools@13.35.1_@types+node@20.19.25_encoding@0.1.13\node_modules\firebase-tools\lib\deploy\index.js:76:9)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2025-11-24T19:38:02.890Z] ----------------------------------------------------------------------
+[debug] [2025-11-24T19:38:02.892Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\djord\OneDrive\Dokumenti\nova\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2025-11-24T19:38:02.893Z] CLI Version:   13.35.1
+[debug] [2025-11-24T19:38:02.893Z] Platform:      win32
+[debug] [2025-11-24T19:38:02.893Z] Node Version:  v20.11.1
+[debug] [2025-11-24T19:38:02.894Z] Time:          Mon Nov 24 2025 20:38:02 GMT+0100 (Srednjeevropsko standardno vreme)
+[debug] [2025-11-24T19:38:02.894Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-11-24T19:38:03.011Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"destination"}
+[debug] [2025-11-24T19:38:03.012Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"function"}
+[debug] [2025-11-24T19:38:03.012Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"function"}
+[debug] [2025-11-24T19:38:03.012Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"glob"}
+[debug] [2025-11-24T19:38:03.012Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"dynamicLinks"}
+[debug] [2025-11-24T19:38:03.012Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"destination"}
+[debug] [2025-11-24T19:38:03.012Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"function"}
+[debug] [2025-11-24T19:38:03.012Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"function"}
+[debug] [2025-11-24T19:38:03.012Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"run"}
+[debug] [2025-11-24T19:38:03.012Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"dynamicLinks"}
+[debug] [2025-11-24T19:38:03.012Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"destination"}
+[debug] [2025-11-24T19:38:03.012Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"function"}
+[debug] [2025-11-24T19:38:03.012Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"function"}
+[debug] [2025-11-24T19:38:03.012Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"regex"}
+[debug] [2025-11-24T19:38:03.012Z] Object "/hosting/rewrites/0" in "firebase.json" is missing required property: {"missingProperty":"dynamicLinks"}
+[debug] [2025-11-24T19:38:03.012Z] Field "/hosting/rewrites/0" in "firebase.json" is possibly invalid: must match a schema in anyOf
+[debug] [2025-11-24T19:38:03.012Z] Field "/hosting" in "firebase.json" is possibly invalid: must be array
+[debug] [2025-11-24T19:38:03.012Z] Field "/hosting" in "firebase.json" is possibly invalid: must match a schema in anyOf
+[debug] [2025-11-24T19:38:03.015Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-11-24T19:38:03.015Z] > authorizing via signed-in user (djordje007@gmail.com)
+[debug] [2025-11-24T19:38:03.015Z] [iam] checking project palmoticeva-portal for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2025-11-24T19:38:03.016Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:38:03.016Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:38:03.016Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/palmoticeva-portal:testIamPermissions [none]
+[debug] [2025-11-24T19:38:03.016Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/palmoticeva-portal:testIamPermissions x-goog-quota-user=projects/palmoticeva-portal
+[debug] [2025-11-24T19:38:03.016Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/palmoticeva-portal:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-11-24T19:38:03.889Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/palmoticeva-portal:testIamPermissions 200
+[debug] [2025-11-24T19:38:03.889Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/palmoticeva-portal:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-11-24T19:38:03.889Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:38:03.889Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:38:03.889Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/palmoticeva-portal/serviceAccounts/palmoticeva-portal@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2025-11-24T19:38:03.889Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/palmoticeva-portal/serviceAccounts/palmoticeva-portal@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2025-11-24T19:38:04.851Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/palmoticeva-portal/serviceAccounts/palmoticeva-portal@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2025-11-24T19:38:04.851Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/palmoticeva-portal/serviceAccounts/palmoticeva-portal@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2025-11-24T19:38:04.852Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:38:04.852Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:38:04.852Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/palmoticeva-portal [none]
+[debug] [2025-11-24T19:38:05.247Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/palmoticeva-portal 200
+[debug] [2025-11-24T19:38:05.247Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/palmoticeva-portal {"projectId":"palmoticeva-portal","projectNumber":"103093476920","displayName":"Palmoticeva Portal","name":"projects/palmoticeva-portal","resources":{"hostingSite":"palmoticeva-portal"},"state":"ACTIVE","etag":"1_99da18da-f175-45f5-8866-33fca5897cfb"}
+[debug] [2025-11-24T19:38:17.170Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:38:17.170Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:38:17.171Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/palmoticeva-portal/sites pageToken=&pageSize=10
+[debug] [2025-11-24T19:38:18.277Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/palmoticeva-portal/sites 200
+[debug] [2025-11-24T19:38:18.277Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/palmoticeva-portal/sites {"sites":[{"name":"projects/palmoticeva-portal/sites/palmoticeva-portal","defaultUrl":"https://palmoticeva-portal.web.app","appId":"1:103093476920:web:26dc1dcc28a049b56d90cd","type":"DEFAULT_SITE"}]}
+[debug] [2025-11-24T19:38:18.278Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:38:18.278Z] Checked if tokens are valid: true, expires at: 1764015346079
+[debug] [2025-11-24T19:38:18.278Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:103093476920:web:26dc1dcc28a049b56d90cd/config [none]
+[debug] [2025-11-24T19:38:19.040Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:103093476920:web:26dc1dcc28a049b56d90cd/config 200
+[debug] [2025-11-24T19:38:19.040Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:103093476920:web:26dc1dcc28a049b56d90cd/config {"projectId":"palmoticeva-portal","appId":"1:103093476920:web:26dc1dcc28a049b56d90cd","storageBucket":"palmoticeva-portal.firebasestorage.app","apiKey":"AIzaSyAJ4uOND3fqcB_tk5kQOsRlJhwYQPn69AE","authDomain":"palmoticeva-portal.firebaseapp.com","messagingSenderId":"103093476920","measurementId":"G-KQXYJHTF90","projectNumber":"103093476920","version":"2"}
+[info] 
+   Thank you for trying our early preview of Next.js support on Firebase Hosting.
+   During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
+
+   Documentation: https://firebase.google.com/docs/hosting/frameworks/nextjs
+   File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+[debug] [2025-11-24T19:38:45.613Z] SyntaxError: Unterminated string in JSON at position 1048576
+    at JSON.parse (<anonymous>)
+    at findDependency (C:\Users\djord\OneDrive\Dokumenti\nova\node_modules\.pnpm\firebase-tools@13.35.1_@types+node@20.19.25_encoding@0.1.13\node_modules\firebase-tools\lib\frameworks\utils.js:190:23)
+    at getReactVersion (C:\Users\djord\OneDrive\Dokumenti\nova\node_modules\.pnpm\firebase-tools@13.35.1_@types+node@20.19.25_encoding@0.1.13\node_modules\firebase-tools\lib\frameworks\next\index.js:36:45)
+    at build (C:\Users\djord\OneDrive\Dokumenti\nova\node_modules\.pnpm\firebase-tools@13.35.1_@types+node@20.19.25_encoding@0.1.13\node_modules\firebase-tools\lib\frameworks\next\index.js:50:26)
+    at async prepareFrameworks (C:\Users\djord\OneDrive\Dokumenti\nova\node_modules\.pnpm\firebase-tools@13.35.1_@types+node@20.19.25_encoding@0.1.13\node_modules\firebase-tools\lib\frameworks\index.js:224:33)
+    at async deploy (C:\Users\djord\OneDrive\Dokumenti\nova\node_modules\.pnpm\firebase-tools@13.35.1_@types+node@20.19.25_encoding@0.1.13\node_modules\firebase-tools\lib\deploy\index.js:76:9)
+[error] 
+[error] Error: An unexpected error has occurred.
