@@ -15,7 +15,8 @@ export default function AppLayoutContent({ children }: { children: React.ReactNo
 
   useEffect(() => { setIsClient(true); }, []);
 
-  if (loading || !isClient) return <SplashScreen />;
+  // Return null instead of SplashScreen to prevent brief blank logo flash
+  if (loading || !isClient) return null;
 
   return (
     <div className="relative flex min-h-screen flex-col" style={{ minHeight: '100svh' }}>

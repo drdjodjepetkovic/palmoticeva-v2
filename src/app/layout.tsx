@@ -170,13 +170,16 @@ function RootLayoutContent({ children }: { children: React.ReactNode }) {
         headlineFont.variable,
         pressStart2P.variable
       )}>
-        <Suspense fallback={<SplashScreen />}>
-          <UserInteractionHub />
-          <PwaInstallToast />
+        {/* Temporarily disabled - causing blank logo */}
+        {/* <Suspense fallback={<SplashScreen />}> */}
+        <UserInteractionHub />
+        <PwaInstallToast />
+        <Suspense fallback={null}>
           <TourHandler />
-          <AppStateSynchronizer />
-          {children}
         </Suspense>
+        <AppStateSynchronizer />
+        {children}
+        {/* </Suspense> */}
         <Toaster />
       </body>
     </html>
