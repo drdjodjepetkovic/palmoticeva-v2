@@ -24,6 +24,7 @@ export enum UserEventType {
   CycleLogged = 'user:cycle_logged',
   ShareApp = 'user:share_app',
   RateApp = 'user:rate_app',
+  AiQuestionAsked = 'user:ai_question_asked',
 }
 
 // Defines the data structure for each event's payload.
@@ -44,4 +45,5 @@ export type UserEventPayload = {
   [UserEventType.ShareApp]: {};
   [UserEventType.RateApp]: {};
   [UserEventType.CycleLogged]: { date: string };
+  [UserEventType.AiQuestionAsked]: {};
 };

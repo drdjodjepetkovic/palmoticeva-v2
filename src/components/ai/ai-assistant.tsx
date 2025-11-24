@@ -204,6 +204,9 @@ export default function AiAssistant() {
       logAnalyticsEvent('ai_conversation_started', { language });
     }
 
+    // Emit event for PWA install trigger
+    emit(UserEventType.AiQuestionAsked, {});
+
     try {
       const isLoggedIn = role !== 'unauthenticated' && !!user;
       let menstrualData: MenstrualData | undefined = undefined;
