@@ -47,7 +47,7 @@ Your final output MUST be a valid JSON object that strictly follows the provided
 export async function processArticleContent(input: ProcessArticleInput): Promise<ProcessArticleOutput> {
   try {
     const model = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash",
+      model: "gemini-flash-latest",
       systemInstruction: systemInstruction,
       generationConfig: {
         responseMimeType: "application/json",
