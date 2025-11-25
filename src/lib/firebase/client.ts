@@ -8,14 +8,15 @@ import { getAnalytics, logEvent, type Analytics } from "firebase/analytics";
 import type { Messaging } from "firebase/messaging";
 import type { User } from 'firebase/auth';
 
+// HARDCODED FIREBASE CONFIG - To ensure stability
 const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
+  apiKey: "AIzaSyAJ4uOND3fqcB_tk5kQOsRlJhwYQPn69AE",
+  authDomain: "palmoticeva-portal.firebaseapp.com",
+  projectId: "palmoticeva-portal",
+  storageBucket: "palmoticeva-portal.firebasestorage.app",
+  messagingSenderId: "103093476920",
+  appId: "1:103093476920:web:26dc1dcc28a049b56d90cd",
+  measurementId: "G-KQXYJHTF90"
 };
 
 function isFirebaseConfigured(config: typeof firebaseConfig): boolean {
@@ -72,12 +73,13 @@ initializeAnalytics();
 const isConfigured = () => isFirebaseConfigured(firebaseConfig);
 
 const getFCMToken = async () => {
-    if (!messaging || !process.env.NEXT_PUBLIC_VAPID_KEY) return null;
+    if (!messaging) return null;
     try {
         const { getToken } = await import("firebase/messaging");
+        const vapidKey = "BNLqFBE5eG05oNCQDFJ4n-1y4Kk9GfJq5lQW4g0p4X6h1s3Y1Z7x6d2m9N8w1t2n2t8Y9c0j0k8J7i6H5g4f3E2d1";
         const status = await Notification.requestPermission();
         if(status === 'granted') {
-            const token = await getToken(messaging, { vapidKey: process.env.NEXT_PUBLIC_VAPID_KEY });
+            const token = await getToken(messaging, { vapidKey });
             return token;
         }
     } catch (error) {
