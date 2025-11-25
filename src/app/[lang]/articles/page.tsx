@@ -123,5 +123,3 @@ export default function ArticlesPage() {
     </div>
   );
 }
-
-export const revalidate = 3600; // Revalidate every hour by default

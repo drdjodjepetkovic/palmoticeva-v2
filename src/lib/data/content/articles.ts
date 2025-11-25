@@ -471,7 +471,7 @@ export const defaultArticlesData: ArticlesContent = {
                 "ru": "Гинекологическая клиника «Палмотичева»",
                 "en": "Palmotićeva Gynecology Clinic"
             },
-            image: "https://firebasestorage.googleapis.com/v0/b/palmoticeva-portal.firebasestorage.app/o/images%2Flabioplastika.jpg?alt=media",
+            image: "https://firebasestorage.googleapis.com/v0/b/palmoticeva-portal.firebasestorage.app/o/images%2Fusluga-labioplastika.png?alt=media&token=82a5dba4-e25f-4ac0-a18d-b362068e11b6",
             date: "2024-09-14T10:00:00Z"
         },
         {
