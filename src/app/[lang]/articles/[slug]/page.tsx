@@ -27,23 +27,23 @@ function ArticlePageSkeleton() {
   return (
     <div className="bg-muted/30">
       <div className="container mx-auto max-w-3xl px-4 py-12 md:py-16">
-         <div className="mb-8">
-            <Skeleton className="h-10 w-40" />
-         </div>
-         <header className="mb-8 text-center">
-            <Skeleton className="h-12 w-full mx-auto mb-4" />
-            <div className="flex items-center justify-center gap-4">
-              <Skeleton className="h-5 w-24" />
-              <Skeleton className="h-5 w-24" />
-            </div>
-         </header>
-         <Skeleton className="aspect-video w-full rounded-lg mb-8" />
-         <div className="space-y-4">
-            <Skeleton className="h-6 w-full" />
-            <Skeleton className="h-6 w-5/6" />
-            <Skeleton className="h-6 w-full" />
-            <Skeleton className="h-6 w-4/6" />
-         </div>
+        <div className="mb-8">
+          <Skeleton className="h-10 w-40" />
+        </div>
+        <header className="mb-8 text-center">
+          <Skeleton className="h-12 w-full mx-auto mb-4" />
+          <div className="flex items-center justify-center gap-4">
+            <Skeleton className="h-5 w-24" />
+            <Skeleton className="h-5 w-24" />
+          </div>
+        </header>
+        <Skeleton className="aspect-video w-full rounded-lg mb-8" />
+        <div className="space-y-4">
+          <Skeleton className="h-6 w-full" />
+          <Skeleton className="h-6 w-5/6" />
+          <Skeleton className="h-6 w-full" />
+          <Skeleton className="h-6 w-4/6" />
+        </div>
       </div>
     </div>
   )
@@ -53,7 +53,7 @@ export default function ArticlePage() {
   const params = useParams();
   const { language } = useLanguage();
   const { content: t, loading: tLoading } = useContent(['article_back_button']);
-  
+
   const [article, setArticle] = useState<Article | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -62,22 +62,20 @@ export default function ArticlePage() {
   const fetchArticle = useCallback(async () => {
     setLoading(true);
     try {
-      const docRef = doc(db, 'page_content', 'articles');
+      const docRef = doc(db, 'articles', slug);
       const docSnap = await getDoc(docRef);
 
-      let articlesData: Article[];
       if (docSnap.exists()) {
-        articlesData = (docSnap.data() as ArticlesContent).articles || [];
+        setArticle(docSnap.data() as Article);
       } else {
-        console.log("Articles document not found, using default data...");
-        articlesData = defaultArticlesData.articles;
-      }
-      
-      const foundArticle = articlesData.find(a => a.slug === slug);
-      if (foundArticle) {
-        setArticle(foundArticle);
-      } else {
-        setArticle(null); // Explicitly set to null if not found
+        console.log("Article not found in 'articles' collection, checking fallback...");
+        // Fallback to local data if not found in DB (e.g. for static pages not yet in DB)
+        const foundArticle = defaultArticlesData.articles.find(a => a.slug === slug);
+        if (foundArticle) {
+          setArticle(foundArticle);
+        } else {
+          setArticle(null);
+        }
       }
     } catch (error) {
       console.error("Error fetching article:", error);
@@ -95,7 +93,7 @@ export default function ArticlePage() {
   if (loading) {
     return <ArticlePageSkeleton />;
   }
-  
+
   if (!article) {
     notFound();
   }
@@ -111,7 +109,7 @@ export default function ArticlePage() {
           <div className="mb-8">
             <Button asChild variant="outline">
               <Link href={`/${language}/articles`}>
-                <ArrowLeft className="h-4 w-4 mr-2"/>
+                <ArrowLeft className="h-4 w-4 mr-2" />
                 {tLoading ? '...' : t['article_back_button']}
               </Link>
             </Button>
@@ -121,25 +119,25 @@ export default function ArticlePage() {
               {title}
             </h1>
             <div className="flex items-center justify-center gap-4 text-sm text-muted-foreground">
-                <div className="flex items-center gap-2">
-                    <User className="h-4 w-4"/>
-                    <span>{author}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                    <Calendar className="h-4 w-4"/>
-                    <span>{format(new Date(article.date), 'd. MMMM yyyy.', { locale: localeMap[language] })}</span>
-                </div>
+              <div className="flex items-center gap-2">
+                <User className="h-4 w-4" />
+                <span>{author}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Calendar className="h-4 w-4" />
+                <span>{format(new Date(article.date), 'd. MMMM yyyy.', { locale: localeMap[language] })}</span>
+              </div>
             </div>
           </header>
 
           <div className="relative aspect-video rounded-lg overflow-hidden mb-8 shadow-xl">
-             <Image
-                src={article.image}
-                alt={title}
-                fill
-                className="object-cover w-full h-auto"
-                priority
-             />
+            <Image
+              src={article.image}
+              alt={title}
+              fill
+              className="object-cover w-full h-auto"
+              priority
+            />
           </div>
 
           <div
@@ -152,3 +150,5 @@ export default function ArticlePage() {
     </div>
   );
 }
+
+export const revalidate = 3600; // Revalidate every hour by default

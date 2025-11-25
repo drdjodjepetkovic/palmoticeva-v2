@@ -7,7 +7,7 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect, useCallback } from 'react';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc, collection, getDocs } from 'firebase/firestore';
 import { db } from '@/lib/firebase/client';
 import { type Article, type ArticlesContent, defaultArticlesData } from '@/lib/data/content/articles';
 import { Skeleton } from "@/components/ui/skeleton";
@@ -17,11 +17,11 @@ const contentIds = ['articles_title', 'articles_subtitle', 'articles_read_more']
 function ArticlesPageSkeleton() {
   return (
     <div className="container mx-auto px-4 md:px-6 py-12">
-       <header className="text-center mb-12">
-          <Skeleton className="h-10 w-1/3 mx-auto mb-4" />
-          <Skeleton className="h-6 w-2/3 mx-auto" />
-       </header>
-       <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <header className="text-center mb-12">
+        <Skeleton className="h-10 w-1/3 mx-auto mb-4" />
+        <Skeleton className="h-6 w-2/3 mx-auto" />
+      </header>
+      <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {Array.from({ length: 3 }).map((_, i) => (
           <Card key={i} className="h-full flex flex-col overflow-hidden">
             <CardHeader className="p-0">
@@ -34,7 +34,7 @@ function ArticlesPageSkeleton() {
             </CardContent>
           </Card>
         ))}
-       </main>
+      </main>
     </div>
   );
 }
@@ -49,28 +49,21 @@ export default function ArticlesPage() {
   const fetchArticles = useCallback(async () => {
     setLoading(true);
     try {
-      const docRef = doc(db, 'page_content', 'articles');
-      const docSnap = await getDoc(docRef);
+      const articlesCol = collection(db, 'articles');
+      const snapshot = await getDocs(articlesCol);
 
-      if (docSnap.exists()) {
-        const data = docSnap.data() as ArticlesContent;
-        // Check version mismatch to auto-update content
-        if (!data.version || data.version < defaultArticlesData.version) {
-           console.log("Articles data out of date, updating...");
-           await setDoc(docRef, defaultArticlesData, { merge: true });
-           setArticles(defaultArticlesData.articles);
-        } else {
-           setArticles(data.articles || []);
-        }
+      if (!snapshot.empty) {
+        const articlesData = snapshot.docs.map(doc => doc.data() as Article);
+        setArticles(articlesData);
       } else {
-        // Document doesn't exist, so seed it with default data
-        console.log("Articles document not found, seeding...");
-        await setDoc(docRef, defaultArticlesData);
-        setArticles(defaultArticlesData.articles);
+        console.log("No articles found in 'articles' collection.");
+        setArticles([]);
       }
     } catch (error) {
       console.error("Error fetching articles:", error);
-      // Fallback to local data on error
+      // Fallback to local data on error is risky if local data is stale, 
+      // but keeping it for now as a safety net if DB fails entirely.
+      // Ideally, we should show an error state.
       setArticles(defaultArticlesData.articles);
     } finally {
       setLoading(false);
@@ -114,10 +107,10 @@ export default function ArticlesPage() {
               </CardHeader>
               <CardContent className="p-6 flex flex-col flex-grow">
                 <CardTitle className="text-lg font-bold group-hover:text-primary transition-colors">
-                    {article.title[language] || article.title['se-lat']}
+                  {article.title[language] || article.title['se-lat']}
                 </CardTitle>
                 <CardDescription className="mt-2 text-sm text-muted-foreground flex-grow">
-                    {article.summary[language] || article.summary['se-lat']}
+                  {article.summary[language] || article.summary['se-lat']}
                 </CardDescription>
                 <div className="mt-4 flex items-center text-sm font-semibold text-primary">
                   {t['articles_read_more']} <ArrowRight className="h-4 w-4 ml-1 transition-transform group-hover:translate-x-1" />
@@ -130,3 +123,5 @@ export default function ArticlesPage() {
     </div>
   );
 }
+
+export const revalidate = 3600; // Revalidate every hour by default
