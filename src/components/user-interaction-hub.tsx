@@ -10,11 +10,13 @@ import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { db } from '@/lib/firebase/client';
 import { useContent } from '@/hooks/use-content';
 import { usePwaInstall } from '@/hooks/use-pwa-install';
+import { defaultContent } from '@/lib/data/default-content';
+import { useLanguage } from '@/context/language-context';
 
 const badgeContentIds = [
-    'badge_our_patient_title', 'badge_explorer_title', 'badge_routine_queen_title', 
-    'badge_punctual_title', 'badge_ambassador_title', 'badge_golden_recommendation_title', 
-    'badge_installer_title'
+  'badge_our_patient_title', 'badge_explorer_title', 'badge_routine_queen_title',
+  'badge_punctual_title', 'badge_ambassador_title', 'badge_golden_recommendation_title',
+  'badge_installer_title'
 ];
 
 /**
@@ -27,6 +29,7 @@ export function UserInteractionHub() {
   const { user, userProfile, setShowWalkthrough } = useAuth();
   const { content } = useContent(badgeContentIds);
   const { canInstall } = usePwaInstall();
+  const { language } = useLanguage();
 
   // Listener for showing toasts
   useEffect(() => {
@@ -42,17 +45,33 @@ export function UserInteractionHub() {
       if (!user || userProfile?.unlockedBadges?.includes(payload.badgeKey)) {
         return;
       }
-      
+
       try {
         const userDocRef = doc(db, 'users', user.uid);
         await updateDoc(userDocRef, {
-            unlockedBadges: arrayUnion(payload.badgeKey)
+          unlockedBadges: arrayUnion(payload.badgeKey)
         });
-        
+
+        const contentKey = `badge_${payload.badgeKey}_title`;
+        let badgeTitle = content[contentKey];
+
+        // Fallback if content is not yet loaded
+        if (!badgeTitle) {
+          const defaultItem = defaultContent[contentKey];
+          if (defaultItem) {
+            badgeTitle = defaultItem[language] || defaultItem['se-lat'];
+          }
+        }
+
+        // Final fallback
+        if (!badgeTitle) {
+          badgeTitle = payload.badgeKey;
+        }
+
         // Use the event bus to show the toast
-        emit(UserEventType.ToastShow, { 
-            title: "Novi bedž otključan!", 
-            description: `Zaslužili ste bedž: ${content[`badge_${payload.badgeKey}_title`]}` 
+        emit(UserEventType.ToastShow, {
+          title: "Novi bedž otključan!",
+          description: `Zaslužili ste bedž: ${badgeTitle}`
         });
 
       } catch (error) {
@@ -61,12 +80,12 @@ export function UserInteractionHub() {
     });
 
     return unsubscribe;
-  }, [on, user, userProfile, content, emit]);
+  }, [on, user, userProfile, content, emit, language]);
 
   // Listener for starting the app walkthrough
   useEffect(() => {
     const unsubscribe = on(UserEventType.WalkthroughStart, () => {
-        setShowWalkthrough(true);
+      setShowWalkthrough(true);
     });
     return unsubscribe;
   }, [on, setShowWalkthrough]);
@@ -74,14 +93,14 @@ export function UserInteractionHub() {
   // Listener for handling events after the walkthrough is complete
   useEffect(() => {
     const unsubscribe = on(UserEventType.WalkthroughComplete, () => {
-        // After walkthrough, if the user hasn't sent an appointment request yet,
-        // and hasn't logged a cycle, we can prompt for notifications as a general setup step.
-        const hasSentAppointment = sessionStorage.getItem('appointment_sent') === 'true';
-        const hasLoggedCycle = sessionStorage.getItem('cycle_logged') === 'true';
+      // After walkthrough, if the user hasn't sent an appointment request yet,
+      // and hasn't logged a cycle, we can prompt for notifications as a general setup step.
+      const hasSentAppointment = sessionStorage.getItem('appointment_sent') === 'true';
+      const hasLoggedCycle = sessionStorage.getItem('cycle_logged') === 'true';
 
-        if (!hasSentAppointment && !hasLoggedCycle) {
-            emit(UserEventType.NotificationPermissionRequest);
-        }
+      if (!hasSentAppointment && !hasLoggedCycle) {
+        emit(UserEventType.NotificationPermissionRequest);
+      }
     });
     return unsubscribe;
   }, [on, emit]);
@@ -89,11 +108,11 @@ export function UserInteractionHub() {
   // Contextual listener for PWA install prompt
   useEffect(() => {
     const showPwaPrompt = () => {
-        const prompted = sessionStorage.getItem('pwa_prompted_this_session') === 'true';
-        if (canInstall && !prompted) {
-            emit(UserEventType.PwaInstallPrompt);
-            sessionStorage.setItem('pwa_prompted_this_session', 'true');
-        }
+      const prompted = sessionStorage.getItem('pwa_prompted_this_session') === 'true';
+      if (canInstall && !prompted) {
+        emit(UserEventType.PwaInstallPrompt);
+        sessionStorage.setItem('pwa_prompted_this_session', 'true');
+      }
     };
     const unsubscribe = on(UserEventType.FirstCycleLogged, showPwaPrompt);
     return unsubscribe;
@@ -102,14 +121,14 @@ export function UserInteractionHub() {
   // Contextual listener for Notification permission
   useEffect(() => {
     const showNotificationPrompt = () => {
-        // Notification.permission can be 'granted', 'denied', or 'default'
-        if (Notification.permission === 'default') {
-            emit(UserEventType.NotificationPermissionRequest);
-        }
+      // Notification.permission can be 'granted', 'denied', or 'default'
+      if (Notification.permission === 'default') {
+        emit(UserEventType.NotificationPermissionRequest);
+      }
     };
     const unsubscribe = on(UserEventType.AppointmentInquirySent, showNotificationPrompt);
     return unsubscribe;
   }, [on, emit]);
-  
+
   return null; // This component does not render anything
 }
