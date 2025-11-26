@@ -32,4 +32,6 @@ const authAdmin = admin.auth();
 const dbAdmin = admin.firestore();
 const messagingAdmin = getMessaging(app);
 
-export { authAdmin, dbAdmin, messagingAdmin, FieldValue };
+const storageAdmin = admin.storage();
+
+export { authAdmin, dbAdmin, messagingAdmin, storageAdmin, FieldValue };

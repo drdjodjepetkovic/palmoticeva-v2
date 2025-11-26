@@ -1,8 +1,8 @@
 
 'use server';
 
-import { storage, db } from '@/lib/firebase/client';
-import { ref, listAll, getDownloadURL, getMetadata } from 'firebase/storage';
+import { db } from '@/lib/firebase/client';
+import { storageAdmin } from '@/lib/firebase/admin';
 import {
   collection,
   doc,
@@ -28,33 +28,40 @@ type UserFile = {
 
 export async function getUserFiles(userId: string): Promise<{ files?: UserFile[]; error?: string }> {
   try {
-    const userFolderRef = ref(storage, `files/${userId}`);
-    const res = await listAll(userFolderRef);
+    const bucket = storageAdmin.bucket();
+    const prefix = `files/${userId}/`;
+    const [files] = await bucket.getFiles({ prefix });
 
-    if (res.items.length === 0) {
+    if (files.length === 0) {
       return { files: [] };
     }
 
-    const filePromises = res.items.map(async (itemRef) => {
-      const url = await getDownloadURL(itemRef);
-      const metadata = await getMetadata(itemRef);
+    const filePromises = files.map(async (file) => {
+      // Skip the folder itself if it's returned
+      if (file.name === prefix) return null;
+
+      const [url] = await file.getSignedUrl({
+        action: 'read',
+        expires: '03-01-2500', // Long expiry
+      });
+
+      const [metadata] = await file.getMetadata();
+
       return {
-        name: itemRef.name,
+        name: file.name.split('/').pop() || file.name,
         url: url,
-        size: metadata.size,
-        updatedAt: metadata.updated,
+        size: Number(metadata.size),
+        updatedAt: metadata.updated || new Date().toISOString(),
       };
     });
 
-    const files = await Promise.all(filePromises);
+    const results = await Promise.all(filePromises);
+    const validFiles = results.filter((f): f is UserFile => f !== null);
 
-    files.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
+    validFiles.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
 
-    return { files };
+    return { files: validFiles };
   } catch (error: any) {
-    if (error.code === 'storage/object-not-found') {
-      return { files: [] };
-    }
     console.error('Error fetching user files:', error);
     return { error: `Greška prilikom preuzimanja fajlova: ${error.message}` };
   }
@@ -169,7 +176,7 @@ export async function generateCalendarLinks(input: CalendarExportInput): Promise
         icsRows.push(`DTSTART;VALUE=DATE:${formatDate(eventStart, 'ics')}`);
         icsRows.push(`DTEND;VALUE=DATE:${formatDate(eventEnd, 'ics')}`);
         icsRows.push(`SUMMARY:${summary}`);
-        icsRows.push(`UID:${eventStart.toISOString()}-${summary.replace(/\s/g, '-') }@palmoticeva.com`);
+        icsRows.push(`UID:${eventStart.toISOString()}-${summary.replace(/\s/g, '-')}@palmoticeva.com`);
         icsRows.push('END:VEVENT');
       }
       icsRows.push('END:VCALENDAR');
@@ -212,10 +219,10 @@ export async function getNotifications(userId: string): Promise<{ notifications?
 
     const notifications = querySnapshot.docs.map(
       (doc) =>
-        ({
-          id: doc.id,
-          ...doc.data(),
-        } as NotificationWithId),
+      ({
+        id: doc.id,
+        ...doc.data(),
+      } as NotificationWithId),
     );
 
     return { notifications };
@@ -229,23 +236,23 @@ export async function markNotificationsAsRead(userId: string): Promise<{ success
   try {
     const userDocRef = doc(db, 'users', userId);
     const notificationsRef = collection(db, 'users', userId, 'notifications');
-    
+
     // Check if there's anything to update first
     const userDocSnap = await getDoc(userDocRef);
     const hasUnread = userDocSnap.exists() && userDocSnap.data().unreadNotifications > 0;
 
     if (hasUnread) {
-        const batch = writeBatch(db);
-        const q = query(notificationsRef, where('read', '==', false));
-        const unreadSnapshot = await getDocs(q);
-        
-        unreadSnapshot.forEach((doc) => {
-            batch.update(doc.ref, { read: true });
-        });
+      const batch = writeBatch(db);
+      const q = query(notificationsRef, where('read', '==', false));
+      const unreadSnapshot = await getDocs(q);
 
-        batch.update(userDocRef, { unreadNotifications: 0 });
-        
-        await batch.commit();
+      unreadSnapshot.forEach((doc) => {
+        batch.update(doc.ref, { read: true });
+      });
+
+      batch.update(userDocRef, { unreadNotifications: 0 });
+
+      await batch.commit();
     }
 
     return { success: true };

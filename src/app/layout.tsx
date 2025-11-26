@@ -7,7 +7,7 @@ import { AuthProvider } from '@/context/auth-context';
 import { Toaster } from '@/components/ui/toaster';
 import { cn } from '@/lib/utils';
 import Script from 'next/script';
-import { Inter, Press_Start_2P } from 'next/font/google';
+import { Manrope, Lora, Press_Start_2P } from 'next/font/google';
 import { AppStateSynchronizer } from '@/components/app-state-synchronizer';
 import { TourHandler } from '@/components/tour-handler';
 import { Suspense } from 'react';
@@ -17,13 +17,13 @@ import { UserInteractionHub } from '@/components/user-interaction-hub';
 import { PwaInstallToast } from '@/components/pwa-install-toast';
 
 
-const inter = Inter({
+const manrope = Manrope({
   subsets: ['latin', 'cyrillic'],
   variable: '--font-body',
   display: 'swap',
 });
 
-const headlineFont = Inter({
+const lora = Lora({
   subsets: ['latin', 'cyrillic'],
   variable: '--font-headline',
   display: 'swap',
@@ -166,8 +166,8 @@ function RootLayoutContent({ children }: { children: React.ReactNode }) {
       </head>
       <body className={cn(
         "min-h-screen bg-background text-foreground antialiased",
-        inter.variable,
-        headlineFont.variable,
+        manrope.variable,
+        lora.variable,
         pressStart2P.variable
       )}>
         {/* Temporarily disabled - causing blank logo */}

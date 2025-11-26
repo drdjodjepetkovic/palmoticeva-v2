@@ -2,14 +2,7 @@
 "use client";
 
 import { useLanguage } from "@/context/language-context";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { ChevronDown } from "lucide-react";
+import { cn } from "@/lib/utils";
 import type { LanguageCode } from "@/types/content";
 
 const languageNames: Record<LanguageCode, string> = {
@@ -22,27 +15,29 @@ const languageNames: Record<LanguageCode, string> = {
 export default function LanguageSwitcher() {
   const { language, setLanguage } = useLanguage();
 
+  const languages = [
+    { code: 'se', label: 'SRB (Ćir)' },
+    { code: 'se-lat', label: 'SRB (Lat)' },
+    { code: 'en', label: 'ENG' },
+    { code: 'ru', label: 'РУС' },
+  ];
+
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline">
-          {languageNames[language]}
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setLanguage("se-lat")}>
-          SRB
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setLanguage("se")}>
-          СРБ
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setLanguage("en")}>
-          ENG
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setLanguage("ru")}>
-          РУС
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <div className="flex items-center rounded-lg border bg-muted p-1">
+      {languages.map((lang) => (
+        <button
+          key={lang.code}
+          onClick={() => setLanguage(lang.code as LanguageCode)}
+          className={cn(
+            "flex-1 rounded-md px-3 py-1.5 text-xs font-medium transition-all",
+            language === lang.code
+              ? "bg-background text-foreground shadow-sm"
+              : "text-muted-foreground hover:bg-background/50 hover:text-foreground"
+          )}
+        >
+          {lang.label}
+        </button>
+      ))}
+    </div>
   );
 }

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useLanguage } from "@/context/language-context";
 import { useContent } from "@/hooks/use-content";
-import { BookOpen, CalendarPlus, Home, Phone } from 'lucide-react';
+import { BookOpen, CalendarPlus, Home, Phone, User, Plus } from 'lucide-react';
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
@@ -18,32 +18,59 @@ export function MobileBottomNav() {
 
   const navItems = [
     { href: "/", labelKey: "header_nav_home", icon: Home },
-    { href: "/pricelist", labelKey: "header_nav_pricelist", icon: BookOpen },
     { href: "/appointments", labelKey: "header_nav_appointments", icon: CalendarPlus },
-    { href: "tel:0113226040", labelKey: "callUs", icon: Phone },
+    // FAB is handled separately
+    { href: "/my-profile/results", labelKey: "header_nav_results", icon: BookOpen }, // Assuming 'header_nav_results' key exists or fallback
+    { href: "/my-profile", labelKey: "header_nav_profile", icon: User },
   ];
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 h-16 border-t bg-card text-card-foreground shadow-[0_-2px_10px_rgba(0,0,0,0.1)] z-50">
-      <div className="grid h-full grid-cols-4">
-        {navItems.map((item) => {
+    <div className="fixed bottom-4 left-4 right-4 z-50 md:hidden pb-safe">
+      <div className="flex items-center justify-between rounded-2xl bg-white/90 px-6 py-3 shadow-lg backdrop-blur-lg border border-white/20">
+        {navItems.slice(0, 2).map((item) => {
           const Icon = item.icon;
-          const isExternal = item.href.startsWith("tel:");
-          const path = isExternal ? item.href : `/${language}${item.href}`;
-          const isActive = !isExternal && pathname === path;
-          
+          const path = `/${language}${item.href}`;
+          const isActive = pathname === path;
+
           return (
-            <Link 
-                href={path} 
-                key={item.labelKey} 
-                className={cn(
-                    "flex flex-col items-center justify-center text-center text-xs font-medium transition-colors hover:bg-accent",
-                    isActive ? "text-primary" : "text-muted-foreground"
-                )}
-                target={isExternal ? '_self' : undefined}
+            <Link
+              href={path}
+              key={item.labelKey}
+              className={cn(
+                "flex flex-col items-center justify-center gap-1 transition-colors",
+                isActive ? "text-primary" : "text-muted-foreground hover:text-primary/70"
+              )}
             >
-              <Icon className={cn("h-6 w-6 mb-0.5" )} />
-              <span>{T(item.labelKey)}</span>
+              <Icon className={cn("h-6 w-6", isActive && "fill-current")} />
+              {/* <span className="text-[10px] font-medium">{T(item.labelKey)}</span> */}
+            </Link>
+          );
+        })}
+
+        {/* FAB - Book Appointment */}
+        <div className="-mt-8">
+          <Link href={`/${language}/appointments`} className="flex h-14 w-14 items-center justify-center rounded-full bg-secondary text-secondary-foreground shadow-xl transition-transform hover:scale-105 active:scale-95 ring-4 ring-background">
+            <Plus className="h-8 w-8" />
+            <span className="sr-only">Zakazi Pregled</span>
+          </Link>
+        </div>
+
+        {navItems.slice(2).map((item) => {
+          const Icon = item.icon;
+          const path = `/${language}${item.href}`;
+          const isActive = pathname === path;
+
+          return (
+            <Link
+              href={path}
+              key={item.labelKey}
+              className={cn(
+                "flex flex-col items-center justify-center gap-1 transition-colors",
+                isActive ? "text-primary" : "text-muted-foreground hover:text-primary/70"
+              )}
+            >
+              <Icon className={cn("h-6 w-6", isActive && "fill-current")} />
+              {/* <span className="text-[10px] font-medium">{T(item.labelKey)}</span> */}
             </Link>
           );
         })}

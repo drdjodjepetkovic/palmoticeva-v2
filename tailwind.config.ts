@@ -1,4 +1,4 @@
-import type {Config} from 'tailwindcss';
+import type { Config } from 'tailwindcss';
 
 export default {
   darkMode: ['class'],
@@ -10,10 +10,11 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ['var(--font-body)', 'sans-serif'],
-        headline: ['var(--font-headline)', 'sans-serif'],
+        body: ['var(--font-body)', 'sans-serif'], // Manrope
+        headline: ['var(--font-body)', 'sans-serif'], // Standardized on Manrope/Inter
         pixel: ['"Press Start 2P"', 'monospace'],
       },
+
       colors: {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
@@ -89,14 +90,14 @@ export default {
           },
         },
         bounce: {
-            '0%, 100%': {
-                transform: 'translateY(-25%)',
-                animationTimingFunction: 'cubic-bezier(0.8, 0, 1, 1)',
-            },
-            '50%': {
-                transform: 'translateY(0)',
-                animationTimingFunction: 'cubic-bezier(0, 0, 0.2, 1)',
-            },
+          '0%, 100%': {
+            transform: 'translateY(-25%)',
+            animationTimingFunction: 'cubic-bezier(0.8, 0, 1, 1)',
+          },
+          '50%': {
+            transform: 'translateY(0)',
+            animationTimingFunction: 'cubic-bezier(0, 0, 0.2, 1)',
+          },
         },
         gradient: {
           '0%': { backgroundPosition: '0% 50%' },

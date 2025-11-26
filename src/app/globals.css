@@ -3,28 +3,35 @@
 @tailwind utilities;
 
 @layer base {
-  /* Default Light Theme */
+
+  /* Default Light Theme - Medical Professionalism */
   .theme-default {
-    --background: 210 20% 98%;
-    --foreground: 210 20% 10%;
-    --card: 210 20% 100%;
-    --card-foreground: 210 20% 10%;
-    --popover: 210 20% 100%;
-    --popover-foreground: 210 20% 10%;
-    --primary: 210 75% 50%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 210 20% 92%;
-    --secondary-foreground: 210 20% 10%;
-    --muted: 210 20% 92%;
-    --muted-foreground: 210 20% 40%;
-    --accent: 180 75% 50%;
-    --accent-foreground: 210 20% 10%;
+    --background: 0 0% 100%;
+    /* Pure White */
+    --foreground: 222 47% 11%;
+    /* Slate 900 #0F172A */
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 222 47% 11%;
+    /* Slate 900 - Deep Blue/Black for trust */
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    /* Slate 100 - Soft Blue-Gray */
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 221.2 83.2% 53.3%;
+    /* Blue 500 #3B82F6 - Medical Accent */
+    --accent-foreground: 210 40% 98%;
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 210 20% 88%;
-    --input: 210 20% 88%;
-    --ring: 210 75% 50%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 47.4% 11.2%;
     --radius: 0.5rem;
+    /* rounded-lg - cleaner, less playful */
   }
 
   /* Matrix Theme */
@@ -53,19 +60,25 @@
 
   /* Flower Theme */
   .theme-flower {
-    --background: 40 50% 98%; /* Soft Cream */
-    --foreground: 340 30% 30%; /* Deep Rose */
-    --card: 350 100% 99%; /* Almost white with pink tint */
+    --background: 40 50% 98%;
+    /* Soft Cream */
+    --foreground: 340 30% 30%;
+    /* Deep Rose */
+    --card: 350 100% 99%;
+    /* Almost white with pink tint */
     --card-foreground: 340 30% 30%;
     --popover: 40 50% 98%;
     --popover-foreground: 340 30% 30%;
-    --primary: 340 82% 60%; /* Vibrant Pink */
+    --primary: 340 82% 60%;
+    /* Vibrant Pink */
     --primary-foreground: 0 0% 100%;
-    --secondary: 120 20% 95%; /* Soft green */
+    --secondary: 120 20% 95%;
+    /* Soft green */
     --secondary-foreground: 120 25% 25%;
     --muted: 120 20% 95%;
     --muted-foreground: 340 20% 50%;
-    --accent: 140 60% 70%; /* Light Sea Green */
+    --accent: 140 60% 70%;
+    /* Light Sea Green */
     --accent-foreground: 140 30% 20%;
     --destructive: 0 70% 60%;
     --destructive-foreground: 0 0% 100%;
@@ -74,7 +87,7 @@
     --ring: 340 82% 60%;
     --radius: 0.75rem;
   }
-  
+
   /* Lux Theme */
   .theme-lux {
     --background: 30 15% 5%;
@@ -103,7 +116,8 @@
   .theme-apple {
     --background: 240 5% 96%;
     --foreground: 240 5% 10%;
-    --card: 0 0% 100% / 0.7; /* Semi-transparent white for "frosted glass" effect */
+    --card: 0 0% 100% / 0.7;
+    /* Semi-transparent white for "frosted glass" effect */
     --card-foreground: 240 5% 10%;
     --popover: 0 0% 100% / 0.8;
     --popover-foreground: 240 5% 10%;
@@ -128,16 +142,40 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground font-body;
     min-height: 100vh;
-    min-height: -webkit-fill-available; /* Safari */
+    min-height: -webkit-fill-available;
+    /* Safari */
   }
+
   html {
-      height: -webkit-fill-available; /* Safari */
+    height: -webkit-fill-available;
+    /* Safari */
+    scroll-behavior: smooth;
   }
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-headline;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-body font-bold;
+  }
+
+  /* Soft Modernism Form Styles */
+  input,
+  textarea,
+  select {
+    @apply bg-background border-input transition-all duration-200;
+  }
+
+  input:focus,
+  textarea:focus,
+  select:focus {
+    @apply ring-2 ring-primary/20 border-primary outline-none;
   }
 
   .theme-apple {
@@ -146,31 +184,56 @@
     animation: gradient 15s ease infinite;
   }
 
-  .theme-apple .bg-card, .theme-apple .bg-popover, .theme-apple .bg-muted {
-     backdrop-filter: blur(12px);
-     -webkit-backdrop-filter: blur(12px);
+  .theme-apple .bg-card,
+  .theme-apple .bg-popover,
+  .theme-apple .bg-muted {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
   }
 }
 
 @keyframes gradient {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 @keyframes splash-pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
     transform: scale(1);
   }
+
   50% {
     opacity: 0.8;
     transform: scale(1.05);
   }
+}
+
+/* Custom Scrollbar for Sidebar/Content */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-muted-foreground/20 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-muted-foreground/40;
 }

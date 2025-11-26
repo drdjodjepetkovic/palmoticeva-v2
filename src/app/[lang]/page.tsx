@@ -26,6 +26,7 @@ import { useSearchParams } from "next/navigation";
 import AppWalkthrough from "@/components/onboarding/app-walkthrough";
 import { useEventBus } from "@/context/event-bus-context";
 import { UserEventType } from "@/lib/events";
+import { LoginScreen } from "@/components/auth/login-screen";
 
 
 const AiAssistant = dynamic(() => import("@/components/ai/ai-assistant"), {
@@ -312,7 +313,7 @@ function HomePageCards({ t, language }: { t: (id: string, fallback?: string) => 
 
 function HomePageInternal() {
   const { language } = useLanguage();
-  const { user, userProfile } = useAuth();
+  const { user, userProfile, loading } = useAuth();
   const searchParams = useSearchParams();
   const { emit } = useEventBus();
 
@@ -362,6 +363,8 @@ function HomePageInternal() {
   if (showTour) {
     return <AppWalkthrough />;
   }
+
+
 
   const allBadges = getAllBadges(userProfile, cycleData?.cycles?.length || 0);
 
