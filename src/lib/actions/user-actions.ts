@@ -101,7 +101,7 @@ const formatDate = (date: Date, type: 'google' | 'ics', isAllDay: boolean = true
 export async function generateCalendarLinks(input: CalendarExportInput): Promise<CalendarExportOutput> {
   try {
     const { userId, lang: rawLang } = input;
-    const lang = rawLang === 'se' || rawLang === 'se-lat' ? 'sr' : rawLang;
+    const lang = rawLang === 'se' || rawLang === 'sr' ? 'sr' : rawLang;
 
     const dataRef = doc(db, 'users', userId, 'cycleData', 'main');
     const dataSnap = await getDoc(dataRef);

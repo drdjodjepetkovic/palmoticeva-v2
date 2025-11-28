@@ -38,7 +38,7 @@ export interface ConversationalAgentInput {
     conversationId: string;
     history: HistoryItem[];
     question: string;
-    language: 'en' | 'ru' | 'se' | 'se-lat';
+    language: 'en' | 'ru' | 'se' | 'sr';
     isLoggedIn: boolean;
     userId?: string;
     userProfile?: {

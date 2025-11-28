@@ -20,7 +20,7 @@ const localeMap: Record<LanguageCode, Locale> = {
   "en": enUS,
   "se": sr,
   "ru": ru,
-  "se-lat": srLatn,
+  "sr": srLatn,
 };
 
 function ArticlePageSkeleton() {
@@ -98,9 +98,9 @@ export default function ArticlePage() {
     notFound();
   }
 
-  const title = article.title[language] || article.title['se-lat'];
-  const content = article.content[language] || article.content['se-lat'];
-  const author = article.author[language] || article.author['se-lat'];
+  const title = article.title[language] || article.title['sr'];
+  const content = article.content[language] || article.content['sr'];
+  const author = article.author[language] || article.author['sr'];
 
   return (
     <div className="bg-muted/30">

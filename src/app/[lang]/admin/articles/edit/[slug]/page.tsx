@@ -102,9 +102,9 @@ export default function EditArticlePage() {
           setArticle(foundArticle);
           form.reset({
             slug: foundArticle.slug,
-            title: foundArticle.title['se-lat'],
-            summary: foundArticle.summary['se-lat'],
-            content: foundArticle.content['se-lat'],
+            title: foundArticle.title['sr'],
+            summary: foundArticle.summary['sr'],
+            content: foundArticle.content['sr'],
             image: foundArticle.image,
             date: parseISO(foundArticle.date),
           });

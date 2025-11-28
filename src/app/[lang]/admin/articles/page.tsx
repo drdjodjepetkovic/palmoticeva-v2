@@ -148,8 +148,8 @@ export default function ArticlesAdminPage() {
                   <TableBody>
                     {articles.map((article) => (
                       <TableRow key={article.slug}>
-                        <TableCell className="font-medium">{article.title[language] || article.title['se-lat']}</TableCell>
-                        <TableCell>{article.author[language] || article.author['se-lat']}</TableCell>
+                        <TableCell className="font-medium">{article.title[language] || article.title['sr']}</TableCell>
+                        <TableCell>{article.author[language] || article.author['sr']}</TableCell>
                         <TableCell className="text-right">
                           <DropdownMenu>
                             <DropdownMenuTrigger asChild>

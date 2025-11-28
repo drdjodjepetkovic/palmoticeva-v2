@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { defaultArticlesData } from '@/lib/data/content/articles';
 
 const URL = 'https://ginekologija.palmoticeva.com';
-const languages = ['en', 'se', 'ru', 'se-lat'];
+const languages = ['en', 'se', 'ru', 'sr'];
 const pages = ['', '/about', '/pricelist', '/faq', '/promotions', '/appointments', '/articles'];
 
 export default function sitemap(): MetadataRoute.Sitemap {

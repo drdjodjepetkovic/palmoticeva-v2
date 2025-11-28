@@ -132,7 +132,7 @@ async function fetchRelevantContext(question: string, language: string): Promise
         
         servicesSnapshot.forEach(doc => {
             const data = doc.data();
-            const name = (data.name?.[language as keyof typeof data.name] || data.name?.['se-lat'] || data.name?.['en'] || '').toLowerCase();
+            const name = (data.name?.[language as keyof typeof data.name] || data.name?.['sr'] || data.name?.['en'] || '').toLowerCase();
             if (keywords.some(k => name.includes(k))) {
                 relevantServices.push(data);
             }
@@ -141,8 +141,8 @@ async function fetchRelevantContext(question: string, language: string): Promise
         if (relevantServices.length > 0) {
             context += "CENOVNIK USLUGA (PRICELIST):\n";
             relevantServices.forEach(s => {
-                const name = s.name?.[language as keyof typeof s.name] || s.name?.['se-lat'];
-                const desc = s.description?.[language as keyof typeof s.description] || s.description?.['se-lat'] || '';
+                const name = s.name?.[language as keyof typeof s.name] || s.name?.['sr'];
+                const desc = s.description?.[language as keyof typeof s.description] || s.description?.['sr'] || '';
                 context += `- Service: ${name}, Price: ${s.price}. Description: ${desc}\n`;
             });
             context += "\n";
@@ -174,7 +174,7 @@ async function fetchRelevantContext(question: string, language: string): Promise
         
         articlesSnapshot.forEach(doc => {
             const data = doc.data();
-            const title = (data.title?.[language as keyof typeof data.title] || data.title?.['se-lat'] || '').toLowerCase();
+            const title = (data.title?.[language as keyof typeof data.title] || data.title?.['sr'] || '').toLowerCase();
              if (keywords.some(k => title.includes(k))) {
                 relevantArticles.push(data);
             }
@@ -183,8 +183,8 @@ async function fetchRelevantContext(question: string, language: string): Promise
          if (relevantArticles.length > 0) {
             context += "BLOG ČLANCI (ARTICLES):\n";
             relevantArticles.forEach(a => {
-                const title = a.title?.[language as keyof typeof a.title] || a.title?.['se-lat'];
-                const summary = a.summary?.[language as keyof typeof a.summary] || a.summary?.['se-lat'];
+                const title = a.title?.[language as keyof typeof a.title] || a.title?.['sr'];
+                const summary = a.summary?.[language as keyof typeof a.summary] || a.summary?.['sr'];
                 const slug = a.slug;
                 context += `- Title: ${title} (Link: /articles/${slug})\n  Summary: ${summary}\n`;
             });
@@ -206,7 +206,7 @@ export interface ChatResponse {
 
 export const generateChatResponse = async (
     question: string, 
-    language: string = 'se-lat',
+    language: string = 'sr',
     menstrualData?: any
 ): Promise<ChatResponse> => {
     if (!genAI) return { answer: "AI servis trenutno nije dostupan (API Key missing)." };

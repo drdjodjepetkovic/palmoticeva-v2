@@ -23,8 +23,8 @@ export const useLanguage = () => {
   return context;
 };
 
-const SUPPORTED_LANGUAGES: LanguageCode[] = ['en', 'se-lat', 'se', 'ru'];
-const DEFAULT_LANGUAGE: LanguageCode = 'se-lat';
+const SUPPORTED_LANGUAGES: LanguageCode[] = ['en', 'sr', 'se', 'ru'];
+const DEFAULT_LANGUAGE: LanguageCode = 'sr';
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const params = useParams();

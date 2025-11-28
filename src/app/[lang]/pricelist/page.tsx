@@ -102,8 +102,8 @@ export default function PricelistPage() {
     .map(category => ({
       ...category,
       services: category.services.filter(service =>
-        (service.name[language] || service.name['se-lat'])?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        (category.category_name[language] || category.category_name['se-lat'])?.toLowerCase().includes(searchTerm.toLowerCase())
+        (service.name[language] || service.name['sr'])?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (category.category_name[language] || category.category_name['sr'])?.toLowerCase().includes(searchTerm.toLowerCase())
       ),
     }))
     .filter(category => category.services.length > 0);
@@ -134,13 +134,13 @@ export default function PricelistPage() {
                 const isLastCategory = catIndex === filteredCategories.length - 1;
                 return (
                   <Card key={category.category_key} ref={isLastCategory ? lastElementRef : null} className="shadow-lg">
-                    <CardHeader><CardTitle className="flex items-center gap-2 text-primary"><Icon className="h-6 w-6" />{category.category_name[language] || category.category_name['se-lat']}</CardTitle></CardHeader>
+                    <CardHeader><CardTitle className="flex items-center gap-2 text-primary"><Icon className="h-6 w-6" />{category.category_name[language] || category.category_name['sr']}</CardTitle></CardHeader>
                     <CardContent>
                       <ul className="divide-y">
                         {category.services.map((service, index) => (
                           <li key={index} className="py-3 flex justify-between items-center gap-4">
                             <div className="flex-1 flex items-center gap-2 min-w-0">
-                              <span className="text-foreground min-w-0 break-words text-sm">{service.name[language] || service.name['se-lat']}</span>
+                              <span className="text-foreground min-w-0 break-words text-sm">{service.name[language] || service.name['sr']}</span>
                               {service.slug && (
                                 <Tooltip>
                                   <TooltipTrigger asChild>
@@ -153,14 +153,14 @@ export default function PricelistPage() {
                                   </TooltipContent>
                                 </Tooltip>
                               )}
-                              {(service.description?.[language] || service.description?.['se-lat']) && (
+                              {(service.description?.[language] || service.description?.['sr']) && (
                                 <Tooltip>
                                   <TooltipTrigger asChild>
                                     <button>
                                       <LucideIcons.Info className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                                     </button>
                                   </TooltipTrigger>
-                                  <TooltipContent><p className="max-w-xs">{service.description[language] || service.description['se-lat']}</p></TooltipContent>
+                                  <TooltipContent><p className="max-w-xs">{service.description[language] || service.description['sr']}</p></TooltipContent>
                                 </Tooltip>
                               )}
                             </div>

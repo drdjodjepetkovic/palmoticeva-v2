@@ -80,7 +80,7 @@ export async function addArticle(
       summary: processedData.summary,
       content: processedData.content,
       author: {
-        "se-lat": "Ginekološka ordinacija Palmotićeva",
+        "sr": "Ginekološka ordinacija Palmotićeva",
         en: "Palmotićeva Gynecology Clinic",
         se: "Гинеколошка ординација Палмотићева",
         ru: "Гинекологическая клиника «Палмотичева»"

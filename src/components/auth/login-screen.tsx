@@ -44,14 +44,14 @@ export function LoginScreen() {
                     <div className="space-y-2 text-center md:text-left">
                         <h1 className="hidden md:block text-4xl text-primary">
                             <span className="font-headline font-bold block">Ginekologija</span>
-                            <span className="font-body italic font-light text-3xl">Palmotićeva</span>
+                            <span className="font-headline italic font-light text-3xl">Palmotićeva</span>
                         </h1>
                         <p className="hidden md:block text-xl text-muted-foreground mt-2">
                             Portal za pacijentkinje
                         </p>
                         <div className="md:hidden text-2xl text-foreground">
                             <span className="font-headline font-bold block">Ginekologija</span>
-                            <span className="font-body italic font-light">Palmotićeva</span>
+                            <span className="font-headline italic font-light">Palmotićeva</span>
                         </div>
                     </div>
 

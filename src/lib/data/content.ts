@@ -5,7 +5,7 @@ import { Award, CalendarCheck, Clock, Download, HeartPulse, Share2, Star } from 
 
 type LocalizedString = {
     [key in LanguageCode]?: string;
-} & { en: string; "se-lat": string; se: string; ru: string; };
+} & { en: string; "sr": string; se: string; ru: string; };
 
 export type HomeCard = {
     key: string;
@@ -94,43 +94,43 @@ export const defaultAboutPageContent: AboutPageContent = {
     version: 17,
     title: {
         en: "About Our Clinic",
-        "se-lat": "O Našoj Ordinaciji",
+        "sr": "O Našoj Ordinaciji",
         se: "О Нашој Ординацији",
         ru: "О Нашей Клинике"
     },
     story: {
         title: {
             en: "Over 25 years with you",
-            "se-lat": "Više od 25 godina sa vama",
+            "sr": "Više od 25 godina sa vama",
             se: "Више од 25 година са вама",
             ru: "Более 25 лет с вами"
         },
         content: {
             en: "The Palmotićeva Gynecological and Obstetric Clinic is a reputable private practice in Belgrade, dedicated to women's health. Our team consists of experienced specialist doctors in gynecology and obstetrics, including subspecialists from various fields. We provide comprehensive gynecological services using the most modern methods of diagnosis and treatment. Our mission is to care for the health of our patients with expertise, experience, and dedication.",
-            "se-lat": "Ginekološko akušerska ordinacija Palmotićeva je ugledna privatna ordinacija u Beogradu, posvećena zdravlju žena. Naš tim čine iskusni lekari specijalisti ginekologije i akušerstva, uključujući i subspecijaliste iz različitih oblasti. Pružamo sveobuhvatne ginekološke usluge primenjujući najsavremenije metode dijagnostike i lečenja. Naša misija je da uz stručnost, iskustvo i posvećenost brinemo o zdravlju naših pacijentkinja.",
+            "sr": "Ginekološko akušerska ordinacija Palmotićeva je ugledna privatna ordinacija u Beogradu, posvećena zdravlju žena. Naš tim čine iskusni lekari specijalisti ginekologije i akušerstva, uključujući i subspecijaliste iz različitih oblasti. Pružamo sveobuhvatne ginekološke usluge primenjujući najsavremenije metode dijagnostike i lečenja. Naša misija je da uz stručnost, iskustvo i posvećenost brinemo o zdravlju naših pacijentkinja.",
             se: "Гинеколошко акушерска ординација Палмотићева је угледна приватна ординација у Београду, посвећена здрављу жена. Наш тим чине искусни лекари специјалисти гинекологије и акушерства, укључујући и супспецијалисте из различитих области. Пружамо свеобухватне гинеколошке услуге примењујући најсавременије методе дијагностике и лечења. Наша мисија је да уз стручност, искуство и посвећеност бринемо о здрављу наших пацијенткиња.",
             ru: "Гинекологическая и акушерская клиника «Палмотичева» — это уважаемая частная практика в Белграде, посвященная женскому здоровью. Наша команда состоит из опытных врачей-специалистов в области гинекологии и акушерства, включая узких специалистов из различных областей. Мы предоставляем комплексные гинекологические услуги, используя самые современные методы диагностики и лечения. Наша миссия — заботиться о здоровье наших пациенток, опираясь на профессионализм, опыт и преданность делу."
         },
         imageUrl: "https://firebasestorage.googleapis.com/v0/b/palmoticeva-portal.firebasestorage.app/o/images%2Fpalmoticeva-cekaonica-mural.webp?alt=media&token=2f09537c-148e-419b-aeb7-e8b5030ead23"
     },
     contact: {
-        addressTitle: { en: "Our Address", "se-lat": "Naša Adresa", se: "Наша Адреса", ru: "Наш Адрес" },
-        addressLine1: { en: "Palmotićeva 33", "se-lat": "Palmotićeva 33", se: "Палмотићева 33", ru: "Палмотичева 33" },
-        addressLine2: { en: "11000 Belgrade, Serbia", "se-lat": "11000 Beograd, Srbija", se: "11000 Београд, Србија", ru: "11000 Белград, Сербия" },
-        email: { en: "ordinacija@palmoticeva.com", "se-lat": "ordinacija@palmoticeva.com", se: "ordinacija@palmoticeva.com", ru: "ordinacija@palmoticeva.com" },
-        phone1: { en: "011 322 60 40", "se-lat": "011 322 60 40", se: "011 322 60 40", ru: "011 322 60 40" },
-        phone2: { en: "011 322 69 45", "se-lat": "011 322 69 45", se: "011 322 69 45", ru: "011 322 69 45" },
-        hoursTitle: { en: "Working Hours", "se-lat": "Radno Vreme", se: "Радно Време", ru: "Рабочее Время" },
-        weekdays: { en: "Monday - Friday:", "se-lat": "Ponedeljak - Petak:", se: "Понедељак - Петак:", ru: "Понедельник - Пятница:" },
-        weekdaysHours: { en: "08:00 - 20:00", "se-lat": "08:00 - 20:00", se: "08:00 - 20:00", ru: "08:00 - 20:00" },
-        saturday: { en: "Saturday:", "se-lat": "Subota:", se: "Субота:", ru: "Суббота:" },
-        saturdayHours: { en: "08:00 - 15:00", "se-lat": "08:00 - 15:00", se: "08:00 - 15:00", ru: "08:00 - 15:00" }
+        addressTitle: { en: "Our Address", "sr": "Naša Adresa", se: "Наша Адреса", ru: "Наш Адрес" },
+        addressLine1: { en: "Palmotićeva 33", "sr": "Palmotićeva 33", se: "Палмотићева 33", ru: "Палмотичева 33" },
+        addressLine2: { en: "11000 Belgrade, Serbia", "sr": "11000 Beograd, Srbija", se: "11000 Београд, Србија", ru: "11000 Белград, Сербия" },
+        email: { en: "ordinacija@palmoticeva.com", "sr": "ordinacija@palmoticeva.com", se: "ordinacija@palmoticeva.com", ru: "ordinacija@palmoticeva.com" },
+        phone1: { en: "011 322 60 40", "sr": "011 322 60 40", se: "011 322 60 40", ru: "011 322 60 40" },
+        phone2: { en: "011 322 69 45", "sr": "011 322 69 45", se: "011 322 69 45", ru: "011 322 69 45" },
+        hoursTitle: { en: "Working Hours", "sr": "Radno Vreme", se: "Радно Време", ru: "Рабочее Время" },
+        weekdays: { en: "Monday - Friday:", "sr": "Ponedeljak - Petak:", se: "Понедељак - Петак:", ru: "Понедельник - Пятница:" },
+        weekdaysHours: { en: "08:00 - 20:00", "sr": "08:00 - 20:00", se: "08:00 - 20:00", ru: "08:00 - 20:00" },
+        saturday: { en: "Saturday:", "sr": "Subota:", se: "Субота:", ru: "Суббота:" },
+        saturdayHours: { en: "08:00 - 15:00", "sr": "08:00 - 15:00", se: "08:00 - 15:00", ru: "08:00 - 15:00" }
     },
     team: {
-        title: { en: "Our Expert Team", "se-lat": "Naš Stručni Tim", se: "Наш Стручни Тим", ru: "Наша Экспертная Команда" },
+        title: { en: "Our Expert Team", "sr": "Naš Stručni Tim", se: "Наш Стручни Тим", ru: "Наша Экспертная Команда" },
         subtitle: {
             en: "Meet the doctors who form the heart of the Palmotićeva Gynecological Clinic. We are dedicated to providing the highest level of care, combining experience, knowledge, and sincere concern for every patient.",
-            "se-lat": "Upoznajte lekare koji čine srce Ginekološke ordinacije Palmotićeva. Posvećeni smo pružanju najvišeg nivoa nege, kombinujući iskustvo, znanje i iskrenu brigu za svaku pacijentkinju.",
+            "sr": "Upoznajte lekare koji čine srce Ginekološke ordinacije Palmotićeva. Posvećeni smo pružanju najvišeg nivoa nege, kombinujući iskustvo, znanje i iskrenu brigu za svaku pacijentkinju.",
             se: "Упознајте лекаре који чине срце Гинеколошке ординације Палмотићева. Посвећени смо пружању највишег нивоа неге, комбинујући искуство, знање и искрену бригу за сваку пацијенткињу.",
             ru: "Познакомьтесь с врачами, которые составляют сердце гинекологической клиники «Палмотичева». Мы стремимся предоставлять самый высокий уровень ухода, сочетая опыт, знания и искреннюю заботу о каждой пациентке."
         },
@@ -139,13 +139,13 @@ export const defaultAboutPageContent: AboutPageContent = {
                 avatar: "https://firebasestorage.googleapis.com/v0/b/palmoticeva-portal.firebasestorage.app/o/images%2Fboba.webp?alt=media&token=38a83fd8-e02b-448e-b8b0-cdf6e1a50741",
                 name: {
                     en: "Mr sci. med. Slobodanka Petković",
-                    "se-lat": "Mr sci. med. Slobodanka Petković",
+                    "sr": "Mr sci. med. Slobodanka Petković",
                     se: "Мр сци. мед. Слободанка Петковић",
                     ru: "М-р сц. мед. Слободанка Петкович"
                 },
                 specialization: {
                     en: "Founder of the clinic, Specialist in Gynecology and Obstetrics",
-                    "se-lat": "Osnivač ordinacije, Specijalista ginekologije i akušerstva",
+                    "sr": "Osnivač ordinacije, Specijalista ginekologije i akušerstva",
                     se: "Оснивач ординације, Специјалиста гинекологије и акушерства",
                     ru: "Основатель клиники, специалист по гинекологии и акушерству"
                 },
@@ -160,7 +160,7 @@ Key areas of expertise:
 * Obstetrics and surgery: Master's degree on the topic "Cesarean section and antibiotics" and extensive experience as the head of a women's health clinic.
 
 By founding the clinic in 1998, Dr. Petković created a place where every patient feels safe, respected, and heard.`,
-                    "se-lat": `Kao osnivač ordinacije 'Palmotićeva', dr Slobodanka Petković je svoju viziju o vrhunskoj i posvećenoj ginekološkoj nezi pretvorila u stvarnost. Njeno višedecenijsko iskustvo i duboko razumevanje zdravlja žene čine temelj na kojem je izgrađeno naše poverenje.
+                    "sr": `Kao osnivač ordinacije 'Palmotićeva', dr Slobodanka Petković je svoju viziju o vrhunskoj i posvećenoj ginekološkoj nezi pretvorila u stvarnost. Njeno višedecenijsko iskustvo i duboko razumevanje zdravlja žene čine temelj na kojem je izgrađeno naše poverenje.
 
 Nakon diplomiranja na Medicinskom fakultetu u Beogradu, svoju stručnost je neprestano usavršavala, posvećujući karijeru najvišim standardima lečenja.
 
@@ -196,13 +196,13 @@ Osnivanjem ordinacije 1998. godine, dr Petković je stvorila mesto gde se svaka 
                 avatar: "https://firebasestorage.googleapis.com/v0/b/palmoticeva-portal.firebasestorage.app/o/images%2Fdjordje.webp?alt=media&token=d071d742-1b66-454c-821a-62d3c5a84b59",
                 name: {
                     en: "Spec. dr. med. Đorđe Petković",
-                    "se-lat": "Spec. dr. med. Đorđe Petković",
+                    "sr": "Spec. dr. med. Đorđe Petković",
                     se: "Спец. др мед. Ђорђе Петковић",
                     ru: "Спец. д-р мед. Джордже Петкович"
                 },
                 specialization: {
                     en: "Specialist in Gynecology and Obstetrics",
-                    "se-lat": "Specijalista ginekologije i akušerstva",
+                    "sr": "Specijalista ginekologije i akušerstva",
                     se: "Специјалиста гинекологије и акушерства",
                     ru: "Специалист по гинекологии и акушерству"
                 },
@@ -217,7 +217,7 @@ Key areas of expertise:
 * Top-tier Prenatal Diagnostics: Holds a prestigious license from the Fetal Medicine Foundation (FMF) in London for first-trimester pregnancy screening.
 
 His dedication to modern medicine ensures that every patient receives the highest quality and most up-to-date care.`,
-                    "se-lat": `Dr Đorđe Petković donosi novu generaciju znanja u ordinaciju 'Palmotićeva', sa posebnim fokusom na minimalno invazivne procedure i najsavremenije dijagnostičke metode koje postaju standard u svetu.
+                    "sr": `Dr Đorđe Petković donosi novu generaciju znanja u ordinaciju 'Palmotićeva', sa posebnim fokusom na minimalno invazivne procedure i najsavremenije dijagnostičke metode koje postaju standard u svetu.
 
 Svoje obrazovanje gradio je na Medicinskom fakultetu u Beogradu i na prestižnom Ruskom Državnom Medicinskom Univerzitetu u Moskvi, gde je sa odličnim uspehom završio specijalizaciju.
 
@@ -252,22 +252,22 @@ Njegova posvećenost modernoj medicini osigurava da svaka pacijentkinja dobije n
         ]
     },
     testimonialsPage: {
-        title: { en: "What Our Patients Say", "se-lat": "Šta Kažu Naše Pacijentkinje", se: "Шта Кажу Наше Пацијенткиње", ru: "Что говорят наши пациентки" },
+        title: { en: "What Our Patients Say", "sr": "Šta Kažu Naše Pacijentkinje", se: "Шта Кажу Наше Пацијенткиње", ru: "Что говорят наши пациентки" },
         averageRating: 4.9,
-        basedOn: { en: "Based on 220+ Google Reviews", "se-lat": "Na osnovu 220+ Google recenzija", se: "На основу 220+ Гоогле рецензија", ru: "На основе 220+ отзывов в Google" },
+        basedOn: { en: "Based on 220+ Google Reviews", "sr": "Na osnovu 220+ Google recenzija", se: "На основу 220+ Гоогле рецензија", ru: "На основе 220+ отзывов в Google" },
         items: [
-            { author: "Mina Nikolic", meta: "Local Guide·21 reviews", rating: 5, quote: { "se-lat": "Neverovatno ljubazan lekar i osoblje, veoma profesionalni. Učinili su da se osećam tako prijatno. Drago mi je što sam konačno pronašla stalnog ginekologa. Preporučiću svima.", en: "Incredibly kind doctor and staff, very professional. They made me feel so comfortable. I’m glad to have finally found a permanent ob/gyn. Will recommend to everyone.", se: "Невероватно љубазан лекар и особље, веома професионални. Учинили су да се осећам тако пријатно. Драго ми је што сам коначно пронашла сталног гинеколога. Препоручићу свима.", ru: "Невероятно добрый врач и персонал, очень профессиональные. Они заставили меня чувствовать себя так комфортно. Я рада, что наконец нашла постоянного гинеколога. Буду рекомендовать всем." } },
-            { author: "Jevdokija Hodžajeva", meta: "14 reviews", rating: 5, quote: { "se-lat": "Najprofesionalniji, dostojanstveniji i najefikasniji tretman koji sam ikada dobila u životu. Recepcionerka je bila veoma uslužna, kao i izvanredna usluga koju je pružio doktor Đorđe. Svaka čast!!", en: "The most professional, dignified and effective treatment i’ve ever received in my entire life. The receptionist was very helpful, as well as the marvelous service provided by doctor djordje. Well done!!", se: "Најпрофесионалнији, достојанственији и најефикаснији третман који сам икада добила у животу. Рецепционерка је била веома услужна, као и изванредна услуга коју је пружио доктор Ђорђе. Свака част!!", ru: "Самое профессиональное, достойное и эффективное лечение, которое я когда-либо получала в своей жизни. Администратор была очень услужлива, как и великолепное обслуживание, предоставленное доктором Джордже. Отлично сработано!!" } },
+            { author: "Mina Nikolic", meta: "Local Guide·21 reviews", rating: 5, quote: { "sr": "Neverovatno ljubazan lekar i osoblje, veoma profesionalni. Učinili su da se osećam tako prijatno. Drago mi je što sam konačno pronašla stalnog ginekologa. Preporučiću svima.", en: "Incredibly kind doctor and staff, very professional. They made me feel so comfortable. I’m glad to have finally found a permanent ob/gyn. Will recommend to everyone.", se: "Невероватно љубазан лекар и особље, веома професионални. Учинили су да се осећам тако пријатно. Драго ми је што сам коначно пронашла сталног гинеколога. Препоручићу свима.", ru: "Невероятно добрый врач и персонал, очень профессиональные. Они заставили меня чувствовать себя так комфортно. Я рада, что наконец нашла постоянного гинеколога. Буду рекомендовать всем." } },
+            { author: "Jevdokija Hodžajeva", meta: "14 reviews", rating: 5, quote: { "sr": "Najprofesionalniji, dostojanstveniji i najefikasniji tretman koji sam ikada dobila u životu. Recepcionerka je bila veoma uslužna, kao i izvanredna usluga koju je pružio doktor Đorđe. Svaka čast!!", en: "The most professional, dignified and effective treatment i’ve ever received in my entire life. The receptionist was very helpful, as well as the marvelous service provided by doctor djordje. Well done!!", se: "Најпрофесионалнији, достојанственији и најефикаснији третман који сам икада добила у животу. Рецепционерка је била веома услужна, као и изванредна услуга коју је пружио доктор Ђорђе. Свака част!!", ru: "Самое профессиональное, достойное и эффективное лечение, которое я когда-либо получала в своей жизни. Администратор была очень услужлива, как и великолепное обслуживание, предоставленное доктором Джордже. Отлично сработано!!" } },
         ]
     },
     map: {
-        title: { en: "Find Us Easily", "se-lat": "Pronađite Nas Lako", se: "Пронађите Нас Лако", ru: "Найдите Нас Легко" }
+        title: { en: "Find Us Easily", "sr": "Pronađite Nas Lako", se: "Пронађите Нас Лако", ru: "Найдите Нас Легко" }
     },
     footer: {
-        copyright: { en: `© {year} Gynecological practice Palmotićeva`, "se-lat": `© {year} Ginekološka ordinacija Palmotićeva`, se: `© {year} Гинеколошка ординација Палмотићева`, ru: `© {year} Гинекологическая практика Пальмотичева` },
-        address: { en: "Palmotićeva 33, 11000 Belgrade, Serbia", "se-lat": "Palmotićeva 33, 11000 Beograd, Srbija", se: "Палмотићева 33, 11000 Београд, Србија", ru: "Палмотичева 33, 11000 Белград, Сербия" },
-        phones: { en: "Phones: 011 322 60 40, 011 322 69 45", "se-lat": "Telefoni: 011 322 60 40, 011 322 69 45", se: "Телефони: 011 322 60 40, 011 322 69 45", ru: "Телефоны: 011 322 60 40, 011 322 69 45" },
-        email: { en: "Email: ordinacija@palmoticeva.com", "se-lat": "Email: ordinacija@palmoticeva.com", se: "Email: ordinacija@palmoticeva.com", ru: "Email: ordinacija@palmoticeva.com" }
+        copyright: { en: `© {year} Gynecological practice Palmotićeva`, "sr": `© {year} Ginekološka ordinacija Palmotićeva`, se: `© {year} Гинеколошка ординација Палмотићева`, ru: `© {year} Гинекологическая практика Пальмотичева` },
+        address: { en: "Palmotićeva 33, 11000 Belgrade, Serbia", "sr": "Palmotićeva 33, 11000 Beograd, Srbija", se: "Палмотићева 33, 11000 Београд, Србија", ru: "Палмотичева 33, 11000 Белград, Сербия" },
+        phones: { en: "Phones: 011 322 60 40, 011 322 69 45", "sr": "Telefoni: 011 322 60 40, 011 322 69 45", se: "Телефони: 011 322 60 40, 011 322 69 45", ru: "Телефоны: 011 322 60 40, 011 322 69 45" },
+        email: { en: "Email: ordinacija@palmoticeva.com", "sr": "Email: ordinacija@palmoticeva.com", se: "Email: ordinacija@palmoticeva.com", ru: "Email: ordinacija@palmoticeva.com" }
     },
     home_cards: [
         { key: "about", icon: "User", titleKey: "homepage_about_card_title", descKey: "homepage_about_card_desc", link: "/about", external: false },

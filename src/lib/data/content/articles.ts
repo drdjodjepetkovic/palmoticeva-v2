@@ -3,7 +3,7 @@ import type { LanguageCode } from '@/types/content';
 
 type LocalizedString = {
     [key in LanguageCode]?: string;
-} & { "se-lat": string };
+} & { "sr": string };
 
 export type Article = {
     slug: string;
@@ -21,13 +21,13 @@ export type ArticlesContent = {
 };
 
 
-export const articlesContent: { [key: string]: { en: string, "se-lat": string, se: string, ru: string } & { version: number } } = {
-    articles_title: { en: "Our Articles", "se-lat": "Naši Članci", se: "Наши Чланци", ru: "Наши Статьи", version: 1 },
-    articles_subtitle: { en: "Learn more about women's health, prevention, and the latest treatment methods.", "se-lat": "Saznajte više o ženskom zdravlju, prevenciji i najnovijim metodama lečenja.", se: "Сазнајте више о женском здрављу, превенцији и најновијим методама лечења.", ru: "Узнайте больше о женском здоровье, профилактике и новейших методах лечения.", version: 1 },
-    homepage_articles_card_title: { en: "Health Blog", "se-lat": "Blog o Zdravlju", se: "Блог о Здрављу", ru: "Блог о Здоровье", version: 1 },
-    homepage_articles_card_desc: { en: "Read our articles on women's health.", "se-lat": "Pročitajte naše članke o ženskom zdravlju.", se: "Прочитајте наше чланке о женском здрављу.", ru: "Читайте наши статьи о женском здоровье.", version: 1 },
-    article_back_button: { en: "Back to all articles", "se-lat": "Nazad na sve članke", se: "Назад на све чланке", ru: "Назад ко всем статьям", version: 1 },
-    articles_read_more: { en: "Read more", "se-lat": "Pročitaj više", se: "Прочитај више", ru: "Читать далее", version: 1 },
+export const articlesContent: { [key: string]: { en: string, "sr": string, se: string, ru: string } & { version: number } } = {
+    articles_title: { en: "Our Articles", "sr": "Naši Članci", se: "Наши Чланци", ru: "Наши Статьи", version: 1 },
+    articles_subtitle: { en: "Learn more about women's health, prevention, and the latest treatment methods.", "sr": "Saznajte više o ženskom zdravlju, prevenciji i najnovijim metodama lečenja.", se: "Сазнајте више о женском здрављу, превенцији и најновијим методама лечења.", ru: "Узнайте больше о женском здоровье, профилактике и новейших методах лечения.", version: 1 },
+    homepage_articles_card_title: { en: "Health Blog", "sr": "Blog o Zdravlju", se: "Блог о Здрављу", ru: "Блог о Здоровье", version: 1 },
+    homepage_articles_card_desc: { en: "Read our articles on women's health.", "sr": "Pročitajte naše članke o ženskom zdravlju.", se: "Прочитајте наше чланке о женском здрављу.", ru: "Читайте наши статьи о женском здоровье.", version: 1 },
+    article_back_button: { en: "Back to all articles", "sr": "Nazad na sve članke", se: "Назад на све чланке", ru: "Назад ко всем статьям", version: 1 },
+    articles_read_more: { en: "Read more", "sr": "Pročitaj više", se: "Прочитај више", ru: "Читать далее", version: 1 },
 };
 
 export const defaultArticlesData: ArticlesContent = {
@@ -36,19 +36,19 @@ export const defaultArticlesData: ArticlesContent = {
         {
             slug: 'sta-je-papa-test',
             title: {
-                "se-lat": "Šta je PAPA test i zašto je važan?",
+                "sr": "Šta je PAPA test i zašto je važan?",
                 en: "What is a PAP test and why is it important?",
                 se: "Шта је ПАПА тест и зашто је важан?",
                 ru: "Что такое ПАП-тест и почему он важен?"
             },
             summary: {
-                "se-lat": "Saznajte sve o PAPA testu, ključnom pregledu za rano otkrivanje raka grlića materice. Redovni pregledi spasavaju živote.",
+                "sr": "Saznajte sve o PAPA testu, ključnom pregledu za rano otkrivanje raka grlića materice. Redovni pregledi spasavaju živote.",
                 en: "Learn all about the PAP test, a key screening for the early detection of cervical cancer. Regular check-ups save lives.",
                 se: "Сазнајте све о ПАПА тесту, кључном прегледу за рано откривање рака грлића материце. Редовни прегледи спасавају животе.",
                 ru: "Узнайте все о ПАП-тесте, ключевом обследовании для раннего выявления рака шейки матки. Регулярные осмотры спасают жизни."
             },
             content: {
-                "se-lat": `
+                "sr": `
                 <h2>PAPA test: Vaš ključni saveznik u očuvanju zdravlja</h2>
                 <p>PAPA test (Papanikolau test) je jednostavna, bezbolna i brza dijagnostička procedura koja služi za rano otkrivanje premalignih i malignih promena na grliću materice. Ove promene su najčešće izazvane Humanim Papiloma Virusom (HPV). Redovnim obavljanjem ovog testa, promene se mogu otkriti u najranijoj fazi, kada su potpuno izlečive.</p>
                 <h3>Kako se izvodi?</h3>
@@ -111,7 +111,7 @@ export const defaultArticlesData: ArticlesContent = {
             },
             image: "https://firebasestorage.googleapis.com/v0/b/palmoticeva-portal.firebasestorage.app/o/images%2Fusluga-ginekoloske-operacije.png?alt=media&token=2b169b0b-b0a3-4a1d-bed2-d461843d00be",
             author: {
-                "se-lat": "Ginekološka ordinacija Palmotićeva",
+                "sr": "Ginekološka ordinacija Palmotićeva",
                 en: "Palmotićeva Gynecology Clinic",
                 se: "Гинеколошка ординација Палмотићева",
                 ru: "Гинекологическая клиника «Палмотичева»"
@@ -121,19 +121,19 @@ export const defaultArticlesData: ArticlesContent = {
         {
             slug: 'histeroskopija',
             title: {
-                "se-lat": "Histeroskopija",
+                "sr": "Histeroskopija",
                 en: "Hysteroscopy",
                 se: "Хистероскопија",
                 ru: "Гистероскопия"
             },
             summary: {
-                "se-lat": "Histeroskopija je 'zlatni standard' u dijagnostici i lečenju promena u materici. Saznajte sve o ovoj minimalno invazivnoj proceduri.",
+                "sr": "Histeroskopija je 'zlatni standard' u dijagnostici i lečenju promena u materici. Saznajte sve o ovoj minimalno invazivnoj proceduri.",
                 en: "Hysteroscopy is the 'gold standard' in the diagnosis and treatment of uterine changes. Learn all about this minimally invasive procedure.",
                 se: "Хистероскопија је 'златни стандард' у дијагностици и лечењу промена у материци. Сазнајте све о овој минимално инвазивној процедури.",
                 ru: "Гистероскопия — «золотой стандарт» в диагностике и лечении изменений в матке. Узнайте все об этой минимально инвазивной процедуре."
             },
             content: {
-                "se-lat": `
+                "sr": `
                 <h2>Histeroskopija: Zlatni Standard za Zdravlje Materice</h2>
                 <p>Histeroskopija je minimalno invazivna i kratkotrajna procedura koja predstavlja „zlatni standard“ u dijagnostici i lečenju promena u šupljini materice. Ova metoda omogućava ginekologu da izvrši inspekciju unutrašnjosti materice pomoću tankog endoskopskog instrumenta sa mikro kamerom, poznatog kao histeroskop, kako bi dijagnostikovao i izlečio uzroke poremećaja i bolesti materice. Ginekološka ordinacija Palmotićeva je opremljena modernim histeroskopom marke Karl Storz, što omogućava izvođenje dijagnostičke i operativne histeroskopije uz minimalno proširenje grlića materice.</p>
                 <h3>Svrha i Prednosti Histeroskopije</h3>
@@ -212,7 +212,7 @@ export const defaultArticlesData: ArticlesContent = {
             },
             image: "https://firebasestorage.googleapis.com/v0/b/palmoticeva-portal.firebasestorage.app/o/images%2Fusluga-histeroskopija.png?alt=media&token=c191316b-a255-4654-bd65-8b89e32f50c0",
             author: {
-                "se-lat": "Dr Đorđe Petković",
+                "sr": "Dr Đorđe Petković",
                 en: "Dr. Đorđe Petković",
                 se: "Др Ђорђе Петковић",
                 ru: "Д-р Джордже Петкович"
@@ -222,19 +222,19 @@ export const defaultArticlesData: ArticlesContent = {
         {
             slug: 'bezbedan-prekid-trudnoce',
             title: {
-                "se-lat": "Bezbedni Prekid Trudnoće (Abortus)",
+                "sr": "Bezbedni Prekid Trudnoće (Abortus)",
                 en: "Safe Termination of Pregnancy (Abortion)",
                 se: "Безбедни Прекид Трудноће (Абортус)",
                 ru: "Безопасное Прерывание Беременности (Аборт)"
             },
             summary: {
-                "se-lat": "Sve što treba da znate o medicinskom prekidu trudnoće: do kada se može uraditi, kako se izvodi, da li je bezbedno i kakav je oporavak.",
+                "sr": "Sve što treba da znate o medicinskom prekidu trudnoće: do kada se može uraditi, kako se izvodi, da li je bezbedno i kakav je oporavak.",
                 en: "Everything you need to know about medical termination of pregnancy: until when it can be performed, how it is done, whether it is safe, and what recovery is like.",
                 se: "Све што треба да знате о медицинском прекиду трудноће: до када се може урадити, како се изводи, да ли је безбедно и какав је опоравак.",
                 ru: "Все, что вам нужно знать о медикаментозном прерывании беременности: до какого срока его можно сделать, как оно проводится, безопасно ли это и каково восстановление."
             },
             content: {
-                "se-lat": `
+                "sr": `
                 <h2>Razumevanje Procedure</h2>
                 <p>Abortus, ili medicinski poznat kao prekid trudnoće, je postupak prekida neželjene ili medicinski neophodne trudnoće.</p>
                 
@@ -333,7 +333,7 @@ export const defaultArticlesData: ArticlesContent = {
             },
             image: "https://firebasestorage.googleapis.com/v0/b/palmoticeva-portal.firebasestorage.app/o/images%2Fusluga-prekid-trudnoce.png?alt=media&token=b6c96360-ba3a-404f-8231-904c5482e118",
             author: {
-                "se-lat": "Ginekološka ordinacija Palmotićeva",
+                "sr": "Ginekološka ordinacija Palmotićeva",
                 en: "Palmotićeva Gynecology Clinic",
                 se: "Гинеколошка ординација Палмотићева",
                 ru: "Гинекологическая клиника «Палмотичева»"
@@ -343,19 +343,19 @@ export const defaultArticlesData: ArticlesContent = {
         {
             slug: 'labioplastika-smanjenje-malih-usana',
             title: {
-                "se-lat": "Labioplastika (Smanjenje malih usana)",
+                "sr": "Labioplastika (Smanjenje malih usana)",
                 en: "Labiaplasty (Reduction of the labia minora)",
                 se: "Лабиопластика (Смањење малих усана)",
                 ru: "Лабиопластика (уменьшение малых половых губ)"
             },
             summary: {
-                "se-lat": "Labioplastika je estetska ginekološka procedura koja rešava funkcionalne i estetske probleme. Saznajte sve o proceduri, oporavku i prednostima.",
+                "sr": "Labioplastika je estetska ginekološka procedura koja rešava funkcionalne i estetske probleme. Saznajte sve o proceduri, oporavku i prednostima.",
                 en: "Labiaplasty is an aesthetic gynecological procedure that solves functional and aesthetic problems. Learn all about the procedure, recovery, and benefits.",
                 se: "Лабиопластика је естетска гинеколошка процедура која решава функционалне и естетске проблеме. Сазнајте све о процедури, опоравку и предностима.",
                 ru: "Лабиопластика — это эстетическая гинекологическая процедура, которая решает функциональные и эстетические проблемы. Узнайте все о процедуре, восстановлении и преимуществах."
             },
             content: {
-                "se-lat": `
+                "sr": `
                 <h2>Šta je labioplastika?</h2>
                 <p>Labioplastika je procedura estetske ginekologije koja podrazumeva hiruršku korekciju (smanjenje) malih usana (labia minora). Intervencija se najčešće izvodi iz estetskih, ali i funkcionalnih razloga, kao što su bol i iritacija prilikom nošenja uske odeće, bavljenja sportom ili tokom seksualnih odnosa.</p>
                 
@@ -467,7 +467,7 @@ export const defaultArticlesData: ArticlesContent = {
             },
             author: {
                 "se": "Гинеколошка ординација Палмотићева",
-                "se-lat": "Ginekološka ordinacija Palmotićeva",
+                "sr": "Ginekološka ordinacija Palmotićeva",
                 "ru": "Гинекологическая клиника «Палмотичева»",
                 "en": "Palmotićeva Gynecology Clinic"
             },
@@ -477,7 +477,7 @@ export const defaultArticlesData: ArticlesContent = {
         {
             "date": "2025-10-30T00:00:00+01:00",
             "title": {
-                "se-lat": "LOOP i konizacija grlića materice",
+                "sr": "LOOP i konizacija grlića materice",
                 "se": "ЛООП и конизација грлића материце",
                 "ru": "ЛООП и конизация шейки матки",
                 "en": "LOOP and Cervical Conization"
@@ -485,20 +485,20 @@ export const defaultArticlesData: ArticlesContent = {
             "summary": {
                 "ru": "ЛООП (LEEP) и конизация — это минимально инвазивные процедуры, которые удаляют аномальные клетки с шейки матки, предотвращают развитие предраковых и злокачественных изменений и обеспечивают точную диагностику. Узнайте, когда они проводятся, как выглядят и что ожидать во время восстановления.",
                 "en": "LOOP (LEEP) and conization are minimally invasive procedures that remove abnormal cells from the cervix, prevent the development of premalignant and malignant changes, and enable precise diagnostics. Find out when they are performed, what they involve, and what to expect during recovery.",
-                "se-lat": "LOOP (LEEP) i konizacija su minimalno invazivne procedure koje uklanjaju abnormalne ćelije sa grlića materice, sprečavaju razvoj premalignih i malignih promena i omogućavaju preciznu dijagnostiku. Saznajte kada se rade, kako izgledaju i šta očekivati tokom oporavka.",
+                "sr": "LOOP (LEEP) i konizacija su minimalno invazivne procedure koje uklanjaju abnormalne ćelije sa grlića materice, sprečavaju razvoj premalignih i malignih promena i omogućavaju preciznu dijagnostiku. Saznajte kada se rade, kako izgledaju i šta očekivati tokom oporavka.",
                 "se": "ЛООП (ЛЕЕП) и конизација су минимално инвазивне процедуре које уклањају абнормалне ћелије са грлића материце, спречавају развој премалигних и малигних промена и омогућавају прецизну дијагностику. Сазнајте када се раде, како изгледају и шта очекивати током опоравка."
             },
             "slug": "loop",
             "author": {
                 "se": "Гинеколошка ординација Палмотићева",
-                "se-lat": "Ginekološka ordinacija Palmotićeva",
+                "sr": "Ginekološka ordinacija Palmotićeva",
                 "ru": "Гинекологическая клиника «Палмотичева»",
                 "en": "Palmotićeva Gynecology Clinic"
             },
             "content": {
                 "ru": "<p>Конизация и LEEP — это процедуры, при которых удаляется часть ткани шейки матки для диагностики или лечения изменений, которые могут быть предраковыми или иметь потенциал к прогрессированию.</p><p>Конизация удаляет конусообразную часть шейки матки, чаще всего с помощью скальпеля или радионожа.</p><p>LEEP использует тонкую металлическую петлю, через которую проходит энергия радиоволн, точно удаляющая изменение на поверхности шейки матки.</p><p>Обе процедуры имеют одну и ту же цель: удалить область, содержащую аномальную ткань, получить точный диагноз и предотвратить прогрессирование изменений.</p><h2>Когда рекомендуются эти процедуры?</h2><p>Чаще всего они рекомендуются после таких результатов, как CIN 2, CIN 3, устойчивые изменения, вызванные ВПЧ, неясные биопсии или кольпоскопические результаты, указывающие на риск развития более серьезных поражений. Оценка индивидуальна для каждой пациентки, с учетом планов на беременность и желания сохранить функцию шейки матки.</p><h2>Как это выглядит — шаг за шагом</h2><p><strong>Подготовка</strong></p><p>Осмотр, ПАП/ВПЧ и результаты кольпоскопии уже сделаны. Процедура проводится чаще всего амбулаторно, под местной или краткой анестезией. При необходимости мы договариваемся об анализах крови.</p><p><strong>Продолжительность и восстановление</strong></p><p>Сама процедура длится около 20–40 минут. В клинике Палмотићева вы остаетесь примерно на час.</p><p><strong>После процедуры</strong></p><p>Скудные кровянистые выделения в течение 1–7 дней являются ожидаемыми. Мы предоставляем письменные рекомендации (гигиена, избегание нагрузок и половых контактов в течение 3–4 недель). После проведенной процедуры обязателен контрольный осмотр и окончательный результат гистологического исследования (PH) по договоренности.</p><h2>LEEP и конизация в Гинекологической клинике Палмотићева</h2><p>В нашей клинике все процедуры проводятся с использованием современного подхода, включая:</p><ul><li>Радионожа,</li><li>техники LEEP,</li><li>и классической конизации, когда это является наилучшим медицинским вариантом.</li></ul><h2>Часто задаваемые вопросы о конизации</h2><p><strong>Болезненна ли процедура?</strong></p><p>Процедура проводится под анестезией (местной или краткой) — во время вмешательства вы не чувствуете боли; позже возможен легкий дискомфорт.</p><p><strong>Когда я получу результат гистологии (PH)?</strong></p><p>В сроки, зависящие от лаборатории; результат и дальнейшие шаги подробно объясняются на контрольном осмотре.</p><p><strong>Влияет ли это на будущую беременность?</strong></p><p>Большинство женщин благополучно беременеют и вынашивают беременность. При необходимости мы контролируем длину шейки матки во время последующей беременности.</p><p><strong>Чего следует избегать после процедуры?</strong></p><p>Тяжелых нагрузок, ванн/бассейнов и половых контактов в течение 3–4 недель или по рекомендации врача.</p><h2>Заключение</h2><p>Конизация и LEEP являются надежными, эффективными и безопасными методами для удаления изменений на шейке матки и предотвращения их прогрессирования. При адекватном ведении и регулярных осмотрах большинство пациенток добиваются полного излечения.</p>",
                 "se": "<p>Конизација и ЛЕЕП су поступци којима се уклања део ткива грлића материце ради дијагностике или лечења промена које могу бити премалигне или показивати потенцијал за напредовање.</p><p>Конизација уклања конусни део цервикса, најчешће скалпелом или радио-ножем.</p><p>ЛЕЕП користи танку металну петљу кроз коју пролази радио-таласа енергија која прецизно одстрањује промену на површини грлића.</p><p>Оба поступка имају исти циљ: уклонити подручје у којем се налази абнормално ткиво, добити прецизну дијагнозу и спречити прогресију промене.</p><h2>Када се препоручују ове процедуре?</h2><p>Најчешће се саветују након налаза попут ЦИН 2, ЦИН 3, перзистентних ХПВ промена, нејасних биопсија или колпоскопских налаза који указују на ризик развоја озбиљнијих лезија. Код сваке пацијенткиње процена је индивидуална, уз поштовање планова за трудноћу и жеље да се очува функција цервикса.</p><h2>Како изгледа — корак по корак</h2><p><strong>Припрема</strong></p><p>Преглед, ПАПА/ХПВ и колпоскопски налаз су већ урађени. Захват се обавља најчешће амбулантно, уз локалну или кратку анестезију. По потреби договарамо анализе крви.</p><p><strong>Трајање и опоравак</strong></p><p>Сам захват траје око 20–40 мин. У ординацији Палмотићева остајете око сат времена.</p><p><strong>Након захвата</strong></p><p>Оскудно крварење 1–7 дана је очекивано. Дајемо писане смернице (хигијена, избегавање напора и односа 3–4 недеље). Након спроведеног захвата обавезан је контролни преглед и дефинитивни ПХ налаз по договору.</p><h2>ЛЕЕП и конизација у Гинеколошкој ординацији Палмотићева</h2><p>У нашој ординацији се све процедуре изводе савременим приступом, уз коришћење:</p><ul><li>Радио-ножа,</li><li>ЛЕЕП технике,</li><li>и класичне конизације када је то најбоља медицинска опција.</li></ul><h2>Најчешћа питања о конизацији</h2><p><strong>Да ли захват боли?</strong></p><p>Радимо у анестезији (локалној или краткој) — током захвата не осећате бол; касније је могућа блага нелагодност.</p><p><strong>Када добијам ПХ налаз?</strong></p><p>У року који зависи од лабораторије; резултат и даље кораке детаљно објашњавамо на контроли.</p><p><strong>Да ли утиче на будућу трудноћу?</strong></p><p>Већина жена уредно остаје трудна и износи трудноћу. По процени пратимо дужину грлића у наредној трудноћи.</p><p><strong>Шта да избегавам након захвата?</strong></p><p>Тегли напор, купке/базене и односе 3–4 недеље или по препоруци лекара.</p><h2>Закључак</h2><p>Конизација и LEEP су поуздане, ефикасне и безбедне методе за уклањање промена на грлићу материце и спречавање њиховог напредовања. Уз адекватно вођење и редовне контроле, већина пацијенткиња постиже потпуно излечење.</p>",
-                "se-lat": "<p>Konizacija i LEEP su postupci kojima se uklanja deo tkiva grlića materice radi dijagnostike ili lečenja promena koje mogu biti premaligne ili pokazivati potencijal za napredovanje.</p><p>Konizacija uklanja konusni deo cerviksa, najčešće skalpelom ili radio-nožem.</p><p>LEEP koristi tanku metalnu petlju kroz koju prolazi radio-talasa energija koja precizno odstranjuje promenu na površini grlića.</p><p>Oba postupka imaju isti cilj: ukloniti područje u kojem se nalazi abnormalno tkivo, dobiti preciznu dijagnozu i sprečiti progresiju promene.</p><h2>Kada se preporučuju ove procedure?</h2><p>Najčešće se savetuju nakon nalaza poput CIN 2, CIN 3, perzistentnih HPV promena, nejasnih biopsija ili kolposkopskih nalaza koji ukazuju na rizik razvoja ozbiljnijih lezija. Kod svake pacijentkinje procena je individualna, uz poštovanje planova za trudnoću i želje da se očuva funkcija cerviksa.</p><h2>Kako izgleda — korak po korak</h2><p><strong>Priprema</strong></p><p>Pregled, PAPA/HPV i kolposkopski nalaz su već urađeni. Zahvat se obavlja najčešće ambulantno, uz lokalnu ili kratku anesteziju. Po potrebi dogovaramo analize krvi.</p><p><strong>Trajanje i oporavak</strong></p><p>Sam zahvat traje oko 20–40 min. U ordinaciji Palmotićeva ostajete oko sat vremena.</p><p><strong>Nakon zahvata</strong></p><p>Oskudno krvarenje 1–7 dana je očekivano. Dajemo pisane smernice (higijena, izbegavanje napora i odnosa 3–4 nedelje). Nakon sprovedenog zahvata obavezan je kontrolni pregled i definitivni PH nalaz po dogovoru.</p><h2>LEEP i konizacija u Ginekološkoj ordinaciji Palmotićeva</h2><p>U našoj ordinaciji se sve procedure izvode savremenim pristurom, uz korišćenje:</p><ul><li>Radio-noža,</li><li>LEEP tehnike,</li><li>i klasične konizacije kada je to najbolja medicinska opcija.</li></ul><h2>Najčešća pitanja o konizaciji</h2><p><strong>Da li zahvat boli?</strong></p><p>Radimo u anesteziji (lokalnoj ili kratkoj) — tokom zahvata ne osećate bol; kasnije je moguća blaga neugodnost.</p><p><strong>Kada dobijam PH nalaz?</strong></p><p>U roku koji zavisi od laboratorije; rezultat i dalje korake detaljno objašnjavamo na kontroli.</p><p><strong>Da li utiče na buduću trudnoću?</strong></p><p>Većina žena uredno ostaje trudna i iznosi trudnoću. Po proceni pratimo dužinu grlića u narednoj trudnoći.</p><p><strong>Šta da izbegavam nakon zahvata?</strong></p><p>Tegli napor, kupke/bazene i odnose 3–4 nedelje ili po preporuci lekara.</p><h2>Zaključak</h2><p>Konizacija i LEEP su pouzdane, efikasne i bezbedne metode za uklanjanje promena na grliću materice i sprečavanje njihovog napredovanja. Uz adekvatno vođenje i redovne kontrole, većina pacijentkinja postiže potpuno izlečenje.</p>",
+                "sr": "<p>Konizacija i LEEP su postupci kojima se uklanja deo tkiva grlića materice radi dijagnostike ili lečenja promena koje mogu biti premaligne ili pokazivati potencijal za napredovanje.</p><p>Konizacija uklanja konusni deo cerviksa, najčešće skalpelom ili radio-nožem.</p><p>LEEP koristi tanku metalnu petlju kroz koju prolazi radio-talasa energija koja precizno odstranjuje promenu na površini grlića.</p><p>Oba postupka imaju isti cilj: ukloniti područje u kojem se nalazi abnormalno tkivo, dobiti preciznu dijagnozu i sprečiti progresiju promene.</p><h2>Kada se preporučuju ove procedure?</h2><p>Najčešće se savetuju nakon nalaza poput CIN 2, CIN 3, perzistentnih HPV promena, nejasnih biopsija ili kolposkopskih nalaza koji ukazuju na rizik razvoja ozbiljnijih lezija. Kod svake pacijentkinje procena je individualna, uz poštovanje planova za trudnoću i želje da se očuva funkcija cerviksa.</p><h2>Kako izgleda — korak po korak</h2><p><strong>Priprema</strong></p><p>Pregled, PAPA/HPV i kolposkopski nalaz su već urađeni. Zahvat se obavlja najčešće ambulantno, uz lokalnu ili kratku anesteziju. Po potrebi dogovaramo analize krvi.</p><p><strong>Trajanje i oporavak</strong></p><p>Sam zahvat traje oko 20–40 min. U ordinaciji Palmotićeva ostajete oko sat vremena.</p><p><strong>Nakon zahvata</strong></p><p>Oskudno krvarenje 1–7 dana je očekivano. Dajemo pisane smernice (higijena, izbegavanje napora i odnosa 3–4 nedelje). Nakon sprovedenog zahvata obavezan je kontrolni pregled i definitivni PH nalaz po dogovoru.</p><h2>LEEP i konizacija u Ginekološkoj ordinaciji Palmotićeva</h2><p>U našoj ordinaciji se sve procedure izvode savremenim pristurom, uz korišćenje:</p><ul><li>Radio-noža,</li><li>LEEP tehnike,</li><li>i klasične konizacije kada je to najbolja medicinska opcija.</li></ul><h2>Najčešća pitanja o konizaciji</h2><p><strong>Da li zahvat boli?</strong></p><p>Radimo u anesteziji (lokalnoj ili kratkoj) — tokom zahvata ne osećate bol; kasnije je moguća blaga neugodnost.</p><p><strong>Kada dobijam PH nalaz?</strong></p><p>U roku koji zavisi od laboratorije; rezultat i dalje korake detaljno objašnjavamo na kontroli.</p><p><strong>Da li utiče na buduću trudnoću?</strong></p><p>Većina žena uredno ostaje trudna i iznosi trudnoću. Po proceni pratimo dužinu grlića u narednoj trudnoći.</p><p><strong>Šta da izbegavam nakon zahvata?</strong></p><p>Tegli napor, kupke/bazene i odnose 3–4 nedelje ili po preporuci lekara.</p><h2>Zaključak</h2><p>Konizacija i LEEP su pouzdane, efikasne i bezbedne metode za uklanjanje promena na grliću materice i sprečavanje njihovog napredovanja. Uz adekvatno vođenje i redovne kontrole, većina pacijentkinja postiže potpuno izlečenje.</p>",
                 "en": "<p>Conization and LEEP are procedures used to remove a part of the cervical tissue for the purpose of diagnosing or treating changes that may be premalignant or show potential for progression.</p><p>Conization removes a conical portion of the cervix, usually using a scalpel or a radio knife (electrosurgical unit).</p><p>LEEP uses a thin metal loop through which radio-wave energy passes, precisely removing the change on the surface of the cervix.</p><p>Both procedures share the same goal: to remove the area containing abnormal tissue, obtain a precise diagnosis, and prevent the progression of the change.</p><h2>When are these procedures recommended?</h2><p>They are most often advised following findings such as CIN 2, CIN 3, persistent HPV changes, unclear biopsies, or colposcopy results indicating a risk of developing more serious lesions. The assessment is individual for each patient, respecting plans for future pregnancy and the desire to preserve cervical function.</p><h2>How it looks — step by step</h2><p><strong>Preparation</strong></p><p>The examination, PAP/HPV test, and colposcopy findings have already been completed. The procedure is usually performed on an outpatient basis, using local or brief general anesthesia. If necessary, blood tests are arranged.</p><p><strong>Duration and recovery</strong></p><p>The procedure itself lasts about 20–40 minutes. You will stay in the Palmotićeva clinic for about an hour.</p><p><strong>After the procedure</strong></p><p>Scanty bleeding for 1–7 days is expected. We provide written guidelines (hygiene, avoidance of strenuous effort and intercourse for 3–4 weeks). After the procedure, a follow-up examination and the final pathology result are mandatory by appointment.</p><h2>LEEP and Conization at Palmotićeva Gynecology Clinic</h2><p>In our clinic, all procedures are performed using a modern approach, utilizing:</p><ul><li>Radio knife (electrosurgery),</li><li>LEEP technique,</li><li>and classical conization when it is the best medical option.</li></ul><h2>Frequently Asked Questions about Conization</h2><p><strong>Is the procedure painful?</strong></p><p>We work under anesthesia (local or short general) — you do not feel pain during the procedure; mild discomfort may occur later.</p><p><strong>When do I receive the pathology result (PH)?</strong></p><p>Within a timeframe that depends on the laboratory; we explain the result and further steps in detail during the follow-up appointment.</p><p><strong>Does it affect future pregnancy?</strong></p><p>Most women successfully become pregnant and carry the pregnancy to term. We monitor the cervical length during subsequent pregnancies as needed.</p><p><strong>What should I avoid after the procedure?</strong></p><p>Strenuous effort, baths/swimming pools, and intercourse for 3–4 weeks or as recommended by the doctor.</p><h2>Conclusion</h2><p>Conization and LEEP are reliable, effective, and safe methods for removing changes on the cervix and preventing their progression. With adequate management and regular check-ups, most patients achieve complete cure.</p>"
             },
             "image": "https://firebasestorage.googleapis.com/v0/b/palmoticeva-portal.firebasestorage.app/o/images%2FLEEP.webp?alt=media&token=af0c079c-0210-4a7d-8f8f-e381516b535b"

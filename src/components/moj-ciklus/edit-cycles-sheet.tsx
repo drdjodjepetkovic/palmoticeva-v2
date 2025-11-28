@@ -21,7 +21,7 @@ const localeMap: Record<LanguageCode, Locale> = {
   "en": enUS,
   "se": sr,
   "ru": ru,
-  "se-lat": srLatn,
+  "sr": srLatn,
 };
 
 function AddNewCycleForm({ onAdd, language, t, existingCycles }: { onAdd: (start: Date, end: Date | null) => void, language: LanguageCode, t: (key: string) => string, existingCycles: Cycle[] }) {

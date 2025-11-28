@@ -30,9 +30,9 @@ export async function getAgentContextData(lang: LanguageCode) {
       servicesSnap.forEach(doc => {
         const data = doc.data();
         const categoryKey = data.categoryKey || 'Ostalo';
-        const name = data.name?.[lang] ?? data.name?.['se-lat'] ?? data.name?.['se'] ?? 'Usluga';
+        const name = data.name?.[lang] ?? data.name?.['sr'] ?? data.name?.['se'] ?? 'Usluga';
         const price = data.price;
-        const desc = data.description?.[lang] ?? data.description?.['se-lat'] ?? '';
+        const desc = data.description?.[lang] ?? data.description?.['sr'] ?? '';
 
         if (name && price) {
           if (!categories[categoryKey]) categories[categoryKey] = [];
@@ -49,8 +49,8 @@ export async function getAgentContextData(lang: LanguageCode) {
     if (!faqSnap.empty) {
       faqDataForAgent = faqSnap.docs.map(doc => {
         const data = doc.data();
-        const q = data.question?.[lang] ?? data.question?.['se-lat'] ?? '';
-        const a = data.answer?.[lang] ?? data.answer?.['se-lat'] ?? '';
+        const q = data.question?.[lang] ?? data.question?.['sr'] ?? '';
+        const a = data.answer?.[lang] ?? data.answer?.['sr'] ?? '';
         return q && a ? `Pitanje: ${q}\nOdgovor: ${a}` : '';
       }).filter(Boolean).join('\n\n');
     }
@@ -59,7 +59,7 @@ export async function getAgentContextData(lang: LanguageCode) {
     if (!kbSnap.empty) {
       const kbInfo = kbSnap.docs.map(doc => {
         const data = doc.data();
-        const content = data.content?.[lang] ?? data.content?.['se-lat'] ?? '';
+        const content = data.content?.[lang] ?? data.content?.['sr'] ?? '';
         return content ? `[INFO]: ${content}` : '';
       }).filter(Boolean).join('\n');
 
@@ -80,10 +80,10 @@ export async function getAgentContextData(lang: LanguageCode) {
     const teamData = defaultAboutPageContent.team.members
       .map((member) => {
         const name =
-          member.name[lang] ?? member.name['se-lat'];
+          member.name[lang] ?? member.name['sr'];
         const spec =
-          member.specialization[lang] ?? member.specialization['se-lat'];
-        const bio = (member.bio[lang] ?? member.bio['se-lat'])
+          member.specialization[lang] ?? member.specialization['sr'];
+        const bio = (member.bio[lang] ?? member.bio['sr'])
           .replace(/\n/g, ' ')
           .replace(/\*/g, '-');
 
@@ -98,13 +98,13 @@ Biografija: ${bio}`;
   /* ---------- PRICELIST FALLBACK ---------- */
   if (!pricelistDataForAgent) {
     const formatService = (s: Service): string => {
-      const name = s.name[lang] ?? s.name['se-lat'];
-      const desc = s.description?.[lang] ?? s.description?.['se-lat'] ?? '';
+      const name = s.name[lang] ?? s.name['sr'];
+      const desc = s.description?.[lang] ?? s.description?.['sr'] ?? '';
       return `- ${name}: ${s.price}${desc ? ` (${desc})` : ''}`;
     };
 
     const formatCategory = (cat: ServiceCategory): string => {
-      const catName = cat.category_name[lang] ?? cat.category_name['se-lat'];
+      const catName = cat.category_name[lang] ?? cat.category_name['sr'];
       const services = cat.services.map(formatService).join('\n');
       return `\n### ${catName}\n${services}`;
     };
@@ -124,11 +124,11 @@ Biografija: ${bio}`;
       .map((key) => {
         const q =
           defaultContent[`${key}_q`]?.[lang] ??
-          defaultContent[`${key}_q`]?.['se-lat'] ??
+          defaultContent[`${key}_q`]?.['sr'] ??
           '';
         const a =
           defaultContent[`${key}_a`]?.[lang] ??
-          defaultContent[`${key}_a`]?.['se-lat'] ??
+          defaultContent[`${key}_a`]?.['sr'] ??
           '';
         return q && a ? `Pitanje: ${q}\nOdgovor: ${a}` : '';
       })
@@ -187,8 +187,8 @@ Uključuje: ${p.features.join(', ')}`
   /* ---------- ARTICLES ---------- */
   const articlesDataForAgent = defaultArticlesData.articles
     .map(article => {
-      const title = article.title[lang] ?? article.title['se-lat'];
-      const summary = article.summary[lang] ?? article.summary['se-lat'];
+      const title = article.title[lang] ?? article.title['sr'];
+      const summary = article.summary[lang] ?? article.summary['sr'];
       return `Naslov: ${title}
 Slug: ${article.slug}
 Opis: ${summary}`;

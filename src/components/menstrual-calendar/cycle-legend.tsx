@@ -10,7 +10,7 @@ import { Leaf } from 'lucide-react';
 
 const localeMap: Record<LanguageCode, Locale> = {
     en: enUS,
-    'se-lat': srLatn,
+    'sr': srLatn,
     se: sr,
     ru: ru,
 };

@@ -1,6 +1,6 @@
 
 export type UserRole = 'unauthenticated' | 'authenticated' | 'verified' | 'admin';
-export type LanguageCode = 'en' | 'se' | 'ru' | 'se-lat';
+export type LanguageCode = 'en' | 'se' | 'ru' | 'sr';
 export type TrackingMode = 'cycling' | 'menopause' | 'pregnancy';
 
 export interface ReminderSettings {

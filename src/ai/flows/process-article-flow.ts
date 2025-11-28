@@ -19,7 +19,7 @@ export type ProcessArticleInput = z.infer<typeof ProcessArticleInputSchema>;
 
 
 const LocalizedStringSchema = z.object({
-  "se-lat": z.string(),
+  "sr": z.string(),
   "se": z.string(),
   "en": z.string(),
   "ru": z.string(),
@@ -39,7 +39,7 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
 const systemInstruction = `You are a professional content editor and translator for a medical clinic's website. Your task is to process an article written in Serbian Latin.
 You will perform two main tasks:
 1.  **Format the Content**: Take the raw 'content' text and convert it into clean, semantic HTML. You must identify headings, paragraphs, and lists. Use only <h2> for headings, <p> for paragraphs, <ul> and <li> for lists, and <strong> for bold text. Do not use any other HTML tags or any CSS styles.
-2.  **Translate**: Translate the original 'title', 'summary', and the newly formatted HTML 'content' into three other languages: Serbian Cyrillic (se), English (en), and Russian (ru). The original Serbian Latin text should be preserved under the 'se-lat' key. You MUST preserve the HTML structure in the translated 'content' fields.
+2.  **Translate**: Translate the original 'title', 'summary', and the newly formatted HTML 'content' into three other languages: Serbian Cyrillic (se), English (en), and Russian (ru). The original Serbian Latin text should be preserved under the 'sr' key. You MUST preserve the HTML structure in the translated 'content' fields.
 
 Your final output MUST be a valid JSON object that strictly follows the provided schema.`;
 
@@ -56,17 +56,17 @@ export async function processArticleContent(input: ProcessArticleInput): Promise
 
     const prompt = `Please process the following article content:
 
-**Original Title (se-lat):**
+**Original Title (sr):**
 ${input.title}
 
-**Original Summary (se-lat):**
+**Original Summary (sr):**
 ${input.summary}
 
-**Original Raw Content (se-lat):**
+**Original Raw Content (sr):**
 ${input.content}
 
 First, format the raw content into clean HTML.
-Then, provide the original texts and the translations for all fields as a single JSON object with keys: title, summary, content. Each of these should have keys: se-lat, se, en, ru.`;
+Then, provide the original texts and the translations for all fields as a single JSON object with keys: title, summary, content. Each of these should have keys: sr, se, en, ru.`;
 
     const result = await model.generateContent(prompt);
     const responseText = result.response.text();
@@ -81,15 +81,15 @@ Then, provide the original texts and the translations for all fields as a single
     const finalOutput: ProcessArticleOutput = {
       title: {
         ...output.title,
-        "se-lat": input.title,
+        "sr": input.title,
       },
       summary: {
         ...output.summary,
-        "se-lat": input.summary,
+        "sr": input.summary,
       },
       content: {
         ...output.content,
-        // The AI generates the se-lat HTML, so we use its output directly. 
+        // The AI generates the sr HTML, so we use its output directly. 
         // If it's missing, we might have an issue, but the schema validation would catch it if we parsed with Zod.
         // For now, we trust the JSON structure or let it fail if keys are missing.
       },

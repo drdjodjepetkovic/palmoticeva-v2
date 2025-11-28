@@ -8,7 +8,7 @@ import type { LanguageCode } from "@/types/content";
 const languageNames: Record<LanguageCode, string> = {
   "en": "ENG",
   "se": "СРБ",
-  "se-lat": "SRB",
+  "sr": "SRB",
   "ru": "РУС",
 };
 
@@ -17,7 +17,7 @@ export default function LanguageSwitcher() {
 
   const languages = [
     { code: 'se', label: 'SRB (Ćir)' },
-    { code: 'se-lat', label: 'SRB (Lat)' },
+    { code: 'sr', label: 'SRB (Lat)' },
     { code: 'en', label: 'ENG' },
     { code: 'ru', label: 'РУС' },
   ];

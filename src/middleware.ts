@@ -1,8 +1,8 @@
 
 import { NextResponse, type NextRequest } from 'next/server';
 
-const supportedLangs = ['en', 'se', 'ru', 'se-lat'];
-const defaultLang = 'se-lat';
+const supportedLangs = ['en', 'se', 'ru', 'sr'];
+const defaultLang = 'sr';
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -31,6 +31,13 @@ export function middleware(request: NextRequest) {
 
   if (pathnameHasLang) {
     return NextResponse.next();
+  }
+
+  // Handle legacy se-lat redirect
+  if (pathname.startsWith('/se-lat/') || pathname === '/se-lat') {
+    const newUrl = request.nextUrl.clone();
+    newUrl.pathname = pathname.replace('/se-lat', '/sr');
+    return NextResponse.redirect(newUrl);
   }
 
   // Redirect to the default language version

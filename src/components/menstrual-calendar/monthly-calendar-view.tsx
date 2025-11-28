@@ -11,7 +11,7 @@ import { enUS, sr, srLatn, ru, type Locale } from 'date-fns/locale';
 
 const localeMap: Record<string, Locale> = {
     'en': enUS,
-    'se-lat': srLatn,
+    'sr': srLatn,
     'se': sr,
     'ru': ru
 };
@@ -39,7 +39,7 @@ interface MonthlyCalendarViewProps {
 
 const weekDaysMap: { [key: string]: string[] } = {
     'en': ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-    'se-lat': ['Pon', 'Uto', 'Sre', 'Čet', 'Pet', 'Sub', 'Ned'],
+    'sr': ['Pon', 'Uto', 'Sre', 'Čet', 'Pet', 'Sub', 'Ned'],
     'se': ['Пон', 'Уто', 'Сре', 'Чет', 'Пет', 'Суб', 'Нед'],
     'ru': ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
 };
@@ -72,7 +72,7 @@ export function MonthlyCalendarView({
     }, [currentMonth]);
 
 
-    const weekDays = weekDaysMap[language] || weekDaysMap['se-lat'];
+    const weekDays = weekDaysMap[language] || weekDaysMap['sr'];
 
     const getDayClassNames = (day: Date) => {
         const dateKey = formatISO(day, { representation: 'date' });

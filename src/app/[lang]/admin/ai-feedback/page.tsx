@@ -29,7 +29,7 @@ const localeMap: Record<LanguageCode, Locale> = {
   "en": enUS,
   "se": sr,
   "ru": ru,
-  "se-lat": srLatn,
+  "sr": srLatn,
 };
 
 const contentIds = [

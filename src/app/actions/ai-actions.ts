@@ -73,7 +73,7 @@ ${input.userProfile?.age ? `- Age: ${input.userProfile.age}` : ''}
 
 **CURRENT DATE (Belgrade):** ${todaySerbian} (YYYY-MM-DD: ${todayISO})
 
-**LANGUAGE RULE:** You MUST answer in ${input.language === 'se' ? 'Serbian Cyrillic' : input.language === 'se-lat' ? 'Serbian Latin' : input.language === 'en' ? 'English' : 'Russian'}.
+**LANGUAGE RULE:** You MUST answer in ${input.language === 'se' ? 'Serbian Cyrillic' : input.language === 'sr' ? 'Serbian Latin' : input.language === 'en' ? 'English' : 'Russian'}.
 
 **CRITICAL RULES:**
 1. NEVER provide medical advice. If asked, say you cannot give medical advice and recommend booking an appointment.

@@ -29,7 +29,7 @@ export const useContent = (ids: string[]) => {
         ids.forEach(id => {
           const item = rawContent[id];
           if (item) {
-            localizedContent[id] = item[language] || item['se-lat'] || `[${id}]`;
+            localizedContent[id] = item[language] || item['sr'] || `[${id}]`;
           } else {
             localizedContent[id] = `[${id}]`;
           }

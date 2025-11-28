@@ -23,7 +23,7 @@ export function VoiceInput({ onTranscript, disabled }: VoiceInputProps) {
     if (SpeechRecognition) {
         const recognition = new SpeechRecognition();
         recognition.continuous = false;
-        recognition.lang = (language === 'se-lat' || language === 'se') ? 'sr-RS' : language; 
+        recognition.lang = (language === 'sr' || language === 'se') ? 'sr-RS' : language; 
         recognition.interimResults = false;
 
         recognition.onresult = (event: any) => {

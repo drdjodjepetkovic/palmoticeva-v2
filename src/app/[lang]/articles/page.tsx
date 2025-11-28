@@ -98,7 +98,7 @@ export default function ArticlesPage() {
                 <div className="aspect-video relative">
                   <Image
                     src={article.image}
-                    alt={article.title[language] || article.title['se-lat']}
+                    alt={article.title[language] || article.title['sr']}
                     fill
                     className="object-cover"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -107,10 +107,10 @@ export default function ArticlesPage() {
               </CardHeader>
               <CardContent className="p-6 flex flex-col flex-grow">
                 <CardTitle className="text-lg font-bold group-hover:text-primary transition-colors">
-                  {article.title[language] || article.title['se-lat']}
+                  {article.title[language] || article.title['sr']}
                 </CardTitle>
                 <CardDescription className="mt-2 text-sm text-muted-foreground flex-grow">
-                  {article.summary[language] || article.summary['se-lat']}
+                  {article.summary[language] || article.summary['sr']}
                 </CardDescription>
                 <div className="mt-4 flex items-center text-sm font-semibold text-primary">
                   {t['articles_read_more']} <ArrowRight className="h-4 w-4 ml-1 transition-transform group-hover:translate-x-1" />

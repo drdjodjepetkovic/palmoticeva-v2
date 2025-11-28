@@ -25,7 +25,7 @@ import { CalendarExport } from './calendar-export';
 
 const localeMap: Record<LanguageCode, Locale> = {
     en: enUS,
-    'se-lat': srLatn,
+    'sr': srLatn,
     se: sr,
     ru: ru,
 };

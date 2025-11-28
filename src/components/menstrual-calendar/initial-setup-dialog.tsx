@@ -17,7 +17,7 @@ import { enUS, sr, srLatn, ru, type Locale } from 'date-fns/locale';
 
 const localeMap: Record<LanguageCode, Locale> = {
     en: enUS,
-    'se-lat': srLatn,
+    'sr': srLatn,
     se: sr,
     ru: ru,
 };

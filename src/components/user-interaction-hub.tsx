@@ -59,7 +59,7 @@ export function UserInteractionHub() {
         if (!badgeTitle) {
           const defaultItem = defaultContent[contentKey];
           if (defaultItem) {
-            badgeTitle = defaultItem[language] || defaultItem['se-lat'];
+            badgeTitle = defaultItem[language] || defaultItem['sr'];
           }
         }
 
