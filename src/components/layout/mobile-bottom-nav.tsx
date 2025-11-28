@@ -7,7 +7,7 @@ import { BookOpen, CalendarPlus, Home, Phone, User, Plus } from 'lucide-react';
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
-const contentIds = ['header_nav_home', 'header_nav_pricelist', 'header_nav_appointments', 'callUs'];
+const contentIds = ['header_nav_home', 'header_nav_pricelist', 'header_nav_appointments', 'callUs', 'header_nav_results', 'header_nav_profile'];
 
 export function MobileBottomNav() {
   const { language } = useLanguage();
@@ -25,7 +25,7 @@ export function MobileBottomNav() {
   ];
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 z-50 md:hidden pb-safe">
+    <div className="fixed bottom-4 left-4 right-4 z-50 md:hidden pb-[env(safe-area-inset-bottom)]">
       <div className="flex items-center justify-between rounded-2xl bg-white/90 px-6 py-3 shadow-lg backdrop-blur-lg border border-white/20">
         {navItems.slice(0, 2).map((item) => {
           const Icon = item.icon;

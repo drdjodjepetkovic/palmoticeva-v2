@@ -36,7 +36,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const initialLang = (langFromParam && SUPPORTED_LANGUAGES.includes(langFromParam as LanguageCode)) ? (langFromParam as LanguageCode) : DEFAULT_LANGUAGE;
 
   const [language, setLanguageState] = useState<LanguageCode>(initialLang);
-  
+
   // Update state when URL parameter changes
   useEffect(() => {
     if (initialLang !== language) {
@@ -64,7 +64,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
 
   const setLanguage = useCallback(async (newLang: LanguageCode) => {
     if (newLang === language) return;
-    
+
     // Update state immediately for instant UI feedback
     setLanguageState(newLang);
 
@@ -80,13 +80,13 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     } else {
       localStorage.setItem('language', newLang);
     }
-    
+
     // Update URL
     const newPathname = pathname.replace(`/${language}`, `/${newLang}`);
     router.push(newPathname);
 
   }, [language, pathname, router, user]);
-  
+
   // The context now provides the state variable, which is always up-to-date
   const value = { language, setLanguage };
 

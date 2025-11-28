@@ -16,6 +16,7 @@ export type HomeCard = {
     external: boolean;
 };
 
+
 export type GamificationBadge = {
     key: string;
     titleKey: string;
@@ -23,6 +24,11 @@ export type GamificationBadge = {
     icon: React.ElementType;
     unlocked: boolean;
     colorClass: string;
+    progress?: {
+        current: number;
+        target: number;
+        label?: string;
+    };
 };
 
 type TeamMember = {
@@ -277,16 +283,63 @@ export const getAllBadges = (userProfile: UserProfile | null, cycleCount: number
     const unlockedSet = new Set(userProfile?.unlockedBadges || []);
 
     return [
-        { key: 'our_patient', titleKey: 'badge_our_patient_title', descKey: 'badge_our_patient_desc', icon: Award, unlocked: userProfile?.role === 'verified' || userProfile?.role === 'admin', colorClass: 'text-yellow-500' },
-        { key: 'explorer', titleKey: 'badge_explorer_title', descKey: 'badge_explorer_desc', icon: HeartPulse, unlocked: unlockedSet.has('explorer') || cycleCount > 0, colorClass: 'text-red-500' },
-        { key: 'routine_queen', titleKey: 'badge_routine_queen_title', descKey: 'badge_routine_queen_desc', icon: CalendarCheck, unlocked: unlockedSet.has('routine_queen') || cycleCount >= 3, colorClass: 'text-green-500' },
-        { key: 'punctual', titleKey: 'badge_punctual_title', descKey: 'badge_punctual_desc', icon: Clock, unlocked: unlockedSet.has('punctual'), colorClass: 'text-blue-500' },
-        { key: 'ambassador', titleKey: 'badge_ambassador_title', descKey: 'badge_ambassador_desc', icon: Share2, unlocked: unlockedSet.has('ambassador'), colorClass: 'text-purple-500' },
-        { key: 'golden_recommendation', titleKey: 'badge_golden_recommendation_title', descKey: 'badge_golden_recommendation_desc', icon: Star, unlocked: unlockedSet.has('golden_recommendation'), colorClass: 'text-orange-400' },
-        { key: 'installer', titleKey: 'badge_installer_title', descKey: 'badge_installer_desc', icon: Download, unlocked: unlockedSet.has('installer'), colorClass: 'text-teal-500' },
+        {
+            key: 'our_patient',
+            titleKey: 'badge_our_patient_title',
+            descKey: 'badge_our_patient_desc',
+            icon: Award,
+            unlocked: userProfile?.role === 'verified' || userProfile?.role === 'admin',
+            colorClass: 'text-yellow-500'
+        },
+        {
+            key: 'explorer',
+            titleKey: 'badge_explorer_title',
+            descKey: 'badge_explorer_desc',
+            icon: HeartPulse,
+            unlocked: unlockedSet.has('explorer') || cycleCount > 0,
+            colorClass: 'text-red-500',
+            progress: { current: Math.min(cycleCount, 1), target: 1 }
+        },
+        {
+            key: 'routine_queen',
+            titleKey: 'badge_routine_queen_title',
+            descKey: 'badge_routine_queen_desc',
+            icon: CalendarCheck,
+            unlocked: unlockedSet.has('routine_queen') || cycleCount >= 3,
+            colorClass: 'text-green-500',
+            progress: { current: Math.min(cycleCount, 3), target: 3 }
+        },
+        {
+            key: 'punctual',
+            titleKey: 'badge_punctual_title',
+            descKey: 'badge_punctual_desc',
+            icon: Clock,
+            unlocked: unlockedSet.has('punctual'),
+            colorClass: 'text-blue-500'
+        },
+        {
+            key: 'ambassador',
+            titleKey: 'badge_ambassador_title',
+            descKey: 'badge_ambassador_desc',
+            icon: Share2,
+            unlocked: unlockedSet.has('ambassador'),
+            colorClass: 'text-purple-500'
+        },
+        {
+            key: 'golden_recommendation',
+            titleKey: 'badge_golden_recommendation_title',
+            descKey: 'badge_golden_recommendation_desc',
+            icon: Star,
+            unlocked: unlockedSet.has('golden_recommendation'),
+            colorClass: 'text-orange-400'
+        },
+        {
+            key: 'installer',
+            titleKey: 'badge_installer_title',
+            descKey: 'badge_installer_desc',
+            icon: Download,
+            unlocked: unlockedSet.has('installer'),
+            colorClass: 'text-teal-500'
+        },
     ];
 };
-
-
-
-

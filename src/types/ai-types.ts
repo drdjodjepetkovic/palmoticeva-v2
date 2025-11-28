@@ -41,6 +41,10 @@ export interface ConversationalAgentInput {
     language: 'en' | 'ru' | 'se' | 'se-lat';
     isLoggedIn: boolean;
     userId?: string;
+    userProfile?: {
+        displayName: string | null;
+        age?: number;
+    };
     menstrualData?: MenstrualData;
 }
 

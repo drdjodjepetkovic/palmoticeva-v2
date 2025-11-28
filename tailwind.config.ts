@@ -11,7 +11,7 @@ export default {
     extend: {
       fontFamily: {
         body: ['var(--font-body)', 'sans-serif'], // Manrope
-        headline: ['var(--font-body)', 'sans-serif'], // Standardized on Manrope/Inter
+        headline: ['var(--font-headline)', 'serif'], // Lora
         pixel: ['"Press Start 2P"', 'monospace'],
       },
 

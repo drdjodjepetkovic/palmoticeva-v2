@@ -3,40 +3,8 @@
 @tailwind utilities;
 
 @layer base {
-
-  /* Default Light Theme - Medical Professionalism */
-  .theme-default {
-    --background: 0 0% 100%;
-    /* Pure White */
-    --foreground: 222 47% 11%;
-    /* Slate 900 #0F172A */
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
-    --primary: 222 47% 11%;
-    /* Slate 900 - Deep Blue/Black for trust */
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    /* Slate 100 - Soft Blue-Gray */
-    --secondary-foreground: 222 47% 11%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 221.2 83.2% 53.3%;
-    /* Blue 500 #3B82F6 - Medical Accent */
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 47.4% 11.2%;
-    --radius: 0.5rem;
-    /* rounded-lg - cleaner, less playful */
-  }
-
-  /* Matrix Theme */
-  .theme-matrix {
-    --background: 0 0% 2%;
+  :root {
+    --background: 0 0% 3.9%;
     --foreground: 120 100% 75%;
     --card: 0 0% 8%;
     --card-foreground: 120 100% 75%;
@@ -57,85 +25,85 @@
     --ring: 120 100% 50%;
     --radius: 0rem;
   }
+}
 
-  /* Flower Theme */
-  .theme-flower {
-    --background: 40 50% 98%;
-    /* Soft Cream */
-    --foreground: 340 30% 30%;
-    /* Deep Rose */
-    --card: 350 100% 99%;
-    /* Almost white with pink tint */
-    --card-foreground: 340 30% 30%;
-    --popover: 40 50% 98%;
-    --popover-foreground: 340 30% 30%;
-    --primary: 340 82% 60%;
-    /* Vibrant Pink */
-    --primary-foreground: 0 0% 100%;
-    --secondary: 120 20% 95%;
-    /* Soft green */
-    --secondary-foreground: 120 25% 25%;
-    --muted: 120 20% 95%;
-    --muted-foreground: 340 20% 50%;
-    --accent: 140 60% 70%;
-    /* Light Sea Green */
-    --accent-foreground: 140 30% 20%;
-    --destructive: 0 70% 60%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 340 30% 85%;
-    --input: 340 30% 90%;
-    --ring: 340 82% 60%;
-    --radius: 0.75rem;
-  }
+/* Flower Theme */
+.theme-flower {
+  --background: 40 50% 98%;
+  /* Soft Cream */
+  --foreground: 340 30% 30%;
+  /* Deep Rose */
+  --card: 350 100% 99%;
+  /* Almost white with pink tint */
+  --card-foreground: 340 30% 30%;
+  --popover: 40 50% 98%;
+  --popover-foreground: 340 30% 30%;
+  --primary: 340 82% 60%;
+  /* Vibrant Pink */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 120 20% 95%;
+  /* Soft green */
+  --secondary-foreground: 120 25% 25%;
+  --muted: 120 20% 95%;
+  --muted-foreground: 340 20% 50%;
+  --accent: 140 60% 70%;
+  /* Light Sea Green */
+  --accent-foreground: 140 30% 20%;
+  --destructive: 0 70% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 340 30% 85%;
+  --input: 340 30% 90%;
+  --ring: 340 82% 60%;
+  --radius: 0.75rem;
+}
 
-  /* Lux Theme */
-  .theme-lux {
-    --background: 30 15% 5%;
-    --foreground: 40 30% 85%;
-    --card: 30 15% 10%;
-    --card-foreground: 40 30% 85%;
-    --popover: 30 15% 5%;
-    --popover-foreground: 40 30% 85%;
-    --primary: 45 90% 60%;
-    --primary-foreground: 30 15% 5%;
-    --secondary: 30 15% 20%;
-    --secondary-foreground: 40 30% 85%;
-    --muted: 30 15% 15%;
-    --muted-foreground: 40 30% 60%;
-    --accent: 45 90% 70%;
-    --accent-foreground: 30 15% 5%;
-    --destructive: 0 60% 50%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 45 90% 25%;
-    --input: 45 90% 15%;
-    --ring: 45 90% 60%;
-    --radius: 0.5rem;
-  }
+/* Lux Theme */
+.theme-lux {
+  --background: 30 15% 5%;
+  --foreground: 40 30% 85%;
+  --card: 30 15% 10%;
+  --card-foreground: 40 30% 85%;
+  --popover: 30 15% 5%;
+  --popover-foreground: 40 30% 85%;
+  --primary: 45 90% 60%;
+  --primary-foreground: 30 15% 5%;
+  --secondary: 30 15% 20%;
+  --secondary-foreground: 40 30% 85%;
+  --muted: 30 15% 15%;
+  --muted-foreground: 40 30% 60%;
+  --accent: 45 90% 70%;
+  --accent-foreground: 30 15% 5%;
+  --destructive: 0 60% 50%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 45 90% 25%;
+  --input: 45 90% 15%;
+  --ring: 45 90% 60%;
+  --radius: 0.5rem;
+}
 
-  /* Apple Theme - Inspired by iOS */
-  .theme-apple {
-    --background: 240 5% 96%;
-    --foreground: 240 5% 10%;
-    --card: 0 0% 100% / 0.7;
-    /* Semi-transparent white for "frosted glass" effect */
-    --card-foreground: 240 5% 10%;
-    --popover: 0 0% 100% / 0.8;
-    --popover-foreground: 240 5% 10%;
-    --primary: 217 91% 60%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 240 5% 90%;
-    --secondary-foreground: 240 5% 10%;
-    --muted: 240 5% 90% / 0.7;
-    --muted-foreground: 240 5% 45%;
-    --accent: 217 91% 65%;
-    --accent-foreground: 240 5% 10%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 5% 80% / 0.5;
-    --input: 0 0% 100% / 0.5;
-    --ring: 217 91% 60%;
-    --radius: 0.8rem;
-  }
+/* Apple Theme - Inspired by iOS */
+.theme-apple {
+  --background: 240 5% 96%;
+  --foreground: 240 5% 10%;
+  --card: 0 0% 100% / 0.7;
+  /* Semi-transparent white for "frosted glass" effect */
+  --card-foreground: 240 5% 10%;
+  --popover: 0 0% 100% / 0.8;
+  --popover-foreground: 240 5% 10%;
+  --primary: 217 91% 60%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 240 5% 90%;
+  --secondary-foreground: 240 5% 10%;
+  --muted: 240 5% 90% / 0.7;
+  --muted-foreground: 240 5% 45%;
+  --accent: 217 91% 65%;
+  --accent-foreground: 240 5% 10%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 5% 80% / 0.5;
+  --input: 0 0% 100% / 0.5;
+  --ring: 217 91% 60%;
+  --radius: 0.8rem;
 }
 
 @layer base {
@@ -153,23 +121,6 @@
   html {
     height: -webkit-fill-available;
     /* Safari */
-    scroll-behavior: smooth;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply font-body font-bold;
-  }
-
-  /* Soft Modernism Form Styles */
-  input,
-  textarea,
-  select {
-    @apply bg-background border-input transition-all duration-200;
   }
 
   input:focus,

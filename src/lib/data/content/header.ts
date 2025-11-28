@@ -13,4 +13,5 @@ export const headerContent: { [key: string]: ContentItem & { version: number } }
   header_nav_admin: { en: "Admin", ru: "Админ", se: "Админ", "se-lat": "Admin", version: CURRENT_CONTENT_VERSION },
   header_button_signin: { en: "Log In", ru: "Войти", se: "Улогуј се", "se-lat": "Uloguj se", version: CURRENT_CONTENT_VERSION },
   header_menu_logout: { en: "Log Out", ru: "Выйти", se: "Одјава", "se-lat": "Odjava", version: CURRENT_CONTENT_VERSION },
+  header_nav_results: { en: "Results", ru: "Результаты", se: "Резултати", "se-lat": "Rezultati", version: CURRENT_CONTENT_VERSION },
 };

@@ -2,8 +2,8 @@
 
 import { createContext, useState, useEffect, ReactNode, useCallback, useContext } from 'react';
 import { onAuthStateChanged, User, signInWithPopup, signOut } from 'firebase/auth';
-import { doc, getDoc, setDoc, Timestamp, onSnapshot, updateDoc, collection, addDoc } from 'firebase/firestore';
-import { auth, db, googleProvider, logAnalyticsEvent } from '@/lib/firebase/client';
+import { auth, googleProvider, logAnalyticsEvent } from '@/lib/firebase/client';
+import { UserService } from '@/lib/services/user-service';
 import { UserProfile, UserRole } from '@/types/user';
 import { useRouter } from 'next/navigation';
 import { requestVerification } from '@/lib/actions/admin-actions';
@@ -37,83 +37,58 @@ export const AuthProviderInternal = ({ children }: { children: ReactNode }) => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         setUser(user);
-        const userDocRef = doc(db, 'users', user.uid);
+        const unsubscribeProfile = UserService.subscribeToUserProfile(user.uid, (profileData) => {
+          if (profileData) {
+            setUserProfile(profileData);
 
-        const unsubProfile = onSnapshot(userDocRef, (docSnap) => {
-            if (docSnap.exists()) {
-                const profileData = docSnap.data() as UserProfile;
-                setUserProfile(profileData);
-                
-                const pendingDataJSON = localStorage.getItem('pending_user_data');
-                if (pendingDataJSON) {
-                    const pendingData = JSON.parse(pendingDataJSON);
-                    const updates: Partial<UserProfile> = {};
-                    let needsUpdate = false;
+            const pendingDataJSON = localStorage.getItem('pending_user_data');
+            if (pendingDataJSON) {
+              const pendingData = JSON.parse(pendingDataJSON);
+              const updates: Partial<UserProfile> = {};
+              let needsUpdate = false;
 
-                    if (!profileData.displayName && pendingData.displayName) {
-                        updates.displayName = pendingData.displayName;
-                        needsUpdate = true;
-                    }
-                    if (!profileData.phone && pendingData.phone) {
-                        updates.phone = pendingData.phone;
-                        needsUpdate = true;
-                    }
+              if (!profileData.displayName && pendingData.displayName) {
+                updates.displayName = pendingData.displayName;
+                needsUpdate = true;
+              }
+              if (!profileData.phone && pendingData.phone) {
+                updates.phone = pendingData.phone;
+                needsUpdate = true;
+              }
 
-                    if (needsUpdate) {
-                         updateDoc(userDocRef, updates).then(() => {
-                            localStorage.removeItem('pending_user_data');
-                         });
-                    } else {
-                        localStorage.removeItem('pending_user_data');
-                    }
-                }
-
-                // Check if verification needs to be requested automatically
-                const pendingVerification = localStorage.getItem('pending_verification_request');
-                if (pendingVerification === 'true' && !profileData.verificationRequested && profileData.role === 'authenticated') {
-                    requestVerification(user.uid).then(result => {
-                        if (result.success) {
-                            console.log("Automated verification request sent successfully.");
-                        } else {
-                            console.error("Automated verification request failed:", result.error);
-                        }
-                         localStorage.removeItem('pending_verification_request');
-                    });
-                }
-
-
-            } else {
-                 const newUserProfile: UserProfile = {
-                    uid: user.uid,
-                    email: user.email,
-                    displayName: user.displayName,
-                    photoURL: user.photoURL,
-                    role: 'authenticated',
-                    createdAt: Timestamp.now(),
-                    hasCompletedOnboarding: false,
-                    unreadNotifications: 1, // Start with one unread notification
-                 };
-                 setDoc(userDocRef, newUserProfile).then(() => {
-                     // After user is created, add welcome notification
-                     const notificationsRef = collection(db, 'users', user.uid, 'notifications');
-                     addDoc(notificationsRef, {
-                         userId: user.uid,
-                         type: 'welcome',
-                         text: `Dobrodošli u Palmotićeva aplikaciju, ${user.displayName}! Istražite sve mogućnosti.`,
-                         link: '/my-profile',
-                         createdAt: new Date().toISOString(),
-                         read: false,
-                     });
-                     logAnalyticsEvent('sign_up', { method: 'google' });
-                 });
-                 setUserProfile(newUserProfile);
-                 // This is the main trigger for new user onboarding: only the walkthrough.
-                 emit(UserEventType.WalkthroughStart);
+              if (needsUpdate) {
+                UserService.updateUserProfile(user.uid, updates).then(() => {
+                  localStorage.removeItem('pending_user_data');
+                });
+              } else {
+                localStorage.removeItem('pending_user_data');
+              }
             }
+
+            // Check if verification needs to be requested automatically
+            const pendingVerification = localStorage.getItem('pending_verification_request');
+            if (pendingVerification === 'true' && !profileData.verificationRequested && profileData.role === 'authenticated') {
+              requestVerification(user.uid).then(result => {
+                if (result.success) {
+                  console.log("Automated verification request sent successfully.");
+                } else {
+                  console.error("Automated verification request failed:", result.error);
+                }
+                localStorage.removeItem('pending_verification_request');
+              });
+            }
+
+          } else {
+            UserService.createUserProfile(user).then((newUserProfile) => {
+              setUserProfile(newUserProfile);
+              // This is the main trigger for new user onboarding: only the walkthrough.
+              emit(UserEventType.WalkthroughStart);
+            });
+          }
         });
 
         setLoading(false);
-        return () => unsubProfile();
+        return () => unsubscribeProfile();
 
       } else {
         setUser(null);
@@ -140,7 +115,7 @@ export const AuthProviderInternal = ({ children }: { children: ReactNode }) => {
 
   return (
     <AuthContext.Provider value={value}>
-        {children}
+      {children}
     </AuthContext.Provider>
   );
 };

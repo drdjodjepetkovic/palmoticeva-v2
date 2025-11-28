@@ -15,7 +15,7 @@ export function middleware(request: NextRequest) {
     '/images/',
     '/pwa/'
   ];
-  
+
   const isPublicFile = public_files.some(file => pathname.startsWith(file)) || pathname.includes('workbox-');
 
 

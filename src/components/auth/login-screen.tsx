@@ -42,13 +42,17 @@ export function LoginScreen() {
             <div className="flex flex-1 flex-col justify-center px-8 py-12 md:px-12 lg:px-24 bg-background">
                 <div className="mx-auto w-full max-w-sm space-y-8">
                     <div className="space-y-2 text-center md:text-left">
-                        <h1 className="hidden md:block font-headline text-4xl font-bold tracking-tight text-primary">
-                            Ginekologija Palmotićeva
+                        <h1 className="hidden md:block text-4xl text-primary">
+                            <span className="font-headline font-bold block">Ginekologija</span>
+                            <span className="font-body italic font-light text-3xl">Palmotićeva</span>
                         </h1>
-                        <p className="hidden md:block text-xl text-muted-foreground">
+                        <p className="hidden md:block text-xl text-muted-foreground mt-2">
                             Portal za pacijentkinje
                         </p>
-                        <h2 className="md:hidden text-2xl font-bold text-foreground">Dobrodošli</h2>
+                        <div className="md:hidden text-2xl text-foreground">
+                            <span className="font-headline font-bold block">Ginekologija</span>
+                            <span className="font-body italic font-light">Palmotićeva</span>
+                        </div>
                     </div>
 
                     <div className="space-y-4">

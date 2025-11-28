@@ -45,8 +45,9 @@ export function Sidebar() {
         <div className="hidden md:flex h-screen w-64 flex-col border-r bg-card text-card-foreground fixed left-0 top-0 z-40">
             {/* Logo Area */}
             <div className="flex h-16 items-center px-6 border-b">
-                <Link href={`/${language}/`} className="flex items-center gap-2 font-bold text-lg">
-                    <span className="font-headline text-primary">{T('header_brand')}</span>
+                <Link href={`/${language}/`} className="flex flex-col justify-center">
+                    <span className="font-headline font-bold text-lg text-primary leading-none">Ginekologija</span>
+                    <span className="font-body italic font-light text-sm text-primary/80 leading-none">Palmotićeva</span>
                 </Link>
             </div>
 

@@ -15,11 +15,18 @@ export const homepageContent: { [key: string]: ContentItem & { version: number }
   homepage_smart_calendar_desc: { en: "Tailored to you...", "se-lat": "Prilagođen Vama...", se: "Прилагођен Вама...", ru: "Адаптирован для вас...", version: CURRENT_CONTENT_VERSION },
   homepage_cycle_summary_title: { en: "Cycle Summary", "se-lat": "Pregled Ciklusa", se: "Преглед Циклуса", ru: "Обзор цикла", version: CURRENT_CONTENT_VERSION },
   homepage_cycle_empty_state: { en: "Log your first cycle in the calendar to see a summary here.", "se-lat": "Unesite svoj prvi ciklus u kalendar da biste ovde videli pregled.", se: "Унесите свој први циклус у календар да бисте овде видели преглед.", ru: "Запишите свой первый цикл в календаре, чтобы увидеть здесь сводку.", version: CURRENT_CONTENT_VERSION },
+
+  averagePeriod: { en: "Average Period", "se-lat": "Prosečna Menstruacija", se: "Просечна Менструација", ru: "Средняя менструация", version: CURRENT_CONTENT_VERSION },
+  averageCycle: { en: "Average Cycle", "se-lat": "Prosečan Ciklus", se: "Просечан Циклус", ru: "Средний цикл", version: CURRENT_CONTENT_VERSION },
+  legendPeriodStart: { en: "Period", "se-lat": "Menstruacija", se: "Менструација", ru: "Менструация", version: CURRENT_CONTENT_VERSION },
+  legendFertileStart: { en: "Fertile Window", "se-lat": "Plodni Dani", se: "Плодни Дани", ru: "Фертильные дни", version: CURRENT_CONTENT_VERSION },
+  legendOvulation: { en: "Ovulation", "se-lat": "Ovulacija", se: "Овулација", ru: "Овуляция", version: CURRENT_CONTENT_VERSION },
+  legendFertileEnd: { en: "End of Fertile", "se-lat": "Kraj Plodnih Dana", se: "Крај Плодних Дана", ru: "Конец фертильных дней", version: CURRENT_CONTENT_VERSION },
   homepage_about_card_title: { en: "Meet Palmotićeva", "se-lat": "Upoznajte Palmotićevu", se: "Упознајте Палмотићеву", ru: "Познакомьтесь с Палмотичевой", version: CURRENT_CONTENT_VERSION },
   homepage_about_card_desc: { en: "Learn more about our team and values.", "se-lat": "Saznajte više o našem timu i vrednostima.", se: "Сазнајте више о нашем тиму и вредностима.", ru: "Узнайте больше о нашей команде и ценностях.", version: CURRENT_CONTENT_VERSION },
   homepage_appointment_card_title: { en: "Become Our Patient", "se-lat": "Postanite Naš Pacijent", se: "Постаните Наш Пацијент", ru: "Станьте нашим пациентом", version: CURRENT_CONTENT_VERSION },
   homepage_appointment_card_desc: { en: "Easy and fast appointment scheduling.", "se-lat": "Lako i brzo zakazivanje termina.", se: "Лако и брзо заказивање термина.", ru: "Простая и быстрая запись на прием.", version: CURRENT_CONTENT_VERSION },
-  
+
   badge_our_patient_title: { en: "Our Patient", "se-lat": "Naš Pacijent", se: "Наш Пацијент", ru: "Наш пациент", version: CURRENT_CONTENT_VERSION },
   badge_our_patient_desc: { en: "Verified patient of the Palmotićeva clinic.", "se-lat": "Verifikovani pacijent ordinacije Palmotićeva.", se: "Верификовани пацијент ординације Палмотићева.", ru: "Проверенный пациент клиники Пальмотичева.", version: CURRENT_CONTENT_VERSION },
   badge_explorer_title: { en: "Explorer", "se-lat": "Istraživač", se: "Истраживач", ru: "Исследователь", version: CURRENT_CONTENT_VERSION },
@@ -34,7 +41,7 @@ export const homepageContent: { [key: string]: ContentItem & { version: number }
   badge_golden_recommendation_desc: { en: "You rated our clinic. Your feedback is valuable!", "se-lat": "Ocenili ste našu ordinaciju. Vaše mišljenje je dragoceno!", se: "Оценили сте нашу ординацију. Ваше мишљење је драгоцено!", ru: "Вы оценили нашу клинику. Ваш отзыв очень важен!", version: CURRENT_CONTENT_VERSION },
   badge_installer_title: { en: "Installer", "se-lat": "Instalater", se: "Инсталатер", ru: "Установщик", version: CURRENT_CONTENT_VERSION },
   badge_installer_desc: { en: "You have installed the app on your device.", "se-lat": "Instalirali ste aplikaciju na svoj uređaj.", se: "Инсталирали сте апликацију на свој уређај.", ru: "Вы установили приложение на свое устройство.", version: CURRENT_CONTENT_VERSION },
-  
+
   promotions_card_title: { en: 'Promotions and Discounts', 'se-lat': 'Akcije i popusti', se: 'Акције и попусти', ru: 'Акции и скидки', version: CURRENT_CONTENT_VERSION },
   promotions_card_desc: { en: 'Check out our current special offers.', 'se-lat': 'Pogledajte naše trenutne specijalne ponude.', se: 'Погледајте наше тренутне специјалне понуде.', ru: 'Ознакомьтесь с нашими текущими специальными предложениями.', version: CURRENT_CONTENT_VERSION },
   faq_card_title: { en: 'Frequently Asked Questions', 'se-lat': 'Često postavljana pitanja', se: 'Често постављана питања', ru: 'Часто задаваемые вопросы', version: CURRENT_CONTENT_VERSION },
@@ -53,7 +60,7 @@ export const homepageContent: { [key: string]: ContentItem & { version: number }
 
   health_corner_title: { en: "Health Corner", "se-lat": "Kutak Zdravlja", se: "Кутак Здравља", ru: "Уголок Здоровья", version: CURRENT_CONTENT_VERSION },
   health_corner_read_more: { en: "Read all articles...", "se-lat": "Pročitajte sve članke...", se: "Прочитајте све чланке...", ru: "Читать все статьи...", version: CURRENT_CONTENT_VERSION },
-  
+
   fact_1: {
     en: "Did you know? The cervix changes position and texture throughout your menstrual cycle.",
     "se-lat": "Da li ste znali? Grlić materice menja položaj i teksturu tokom menstrualnog ciklusa.",

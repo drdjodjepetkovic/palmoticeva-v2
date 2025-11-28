@@ -66,6 +66,11 @@ export async function runConversationalAgentV2(input: ConversationalAgentInput):
         // Build system instruction
         const systemInstructionText = `You are a friendly and helpful AI assistant for a gynecological clinic in Belgrade, Serbia. You are NOT a doctor.
 
+**USER CONTEXT:**
+${input.userProfile?.displayName ? `- Name: ${input.userProfile.displayName}` : ''}
+${input.userProfile?.age ? `- Age: ${input.userProfile.age}` : ''}
+
+
 **CURRENT DATE (Belgrade):** ${todaySerbian} (YYYY-MM-DD: ${todayISO})
 
 **LANGUAGE RULE:** You MUST answer in ${input.language === 'se' ? 'Serbian Cyrillic' : input.language === 'se-lat' ? 'Serbian Latin' : input.language === 'en' ? 'English' : 'Russian'}.
