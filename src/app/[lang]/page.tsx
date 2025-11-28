@@ -20,6 +20,8 @@ import { DashboardCards } from "@/components/home/dashboard-cards";
 import { CycleSummarySection } from "@/components/home/cycle-summary-section";
 import { HomePageCards } from "@/components/home/home-page-cards";
 import { GreetingSection } from "@/components/home/greeting-section";
+import { AiConciergeCard } from "@/components/home/ai-concierge-card";
+import { CircularCycleTracker } from "@/components/home/circular-cycle-tracker";
 
 // Hooks
 import { useCycleData } from "@/hooks/use-cycle-data";
@@ -148,19 +150,47 @@ function HomePageInternal() {
     }
   }, [userProfile, user, toast, allBadges]);
 
+  const [isAiAssistantOpen, setIsAiAssistantOpen] = useState(false);
+
+  // Calculate cycle data for the tracker
+  const lastCycle = cycleData?.cycles?.[0];
+  const lastPeriodStart = lastCycle ? new Date(lastCycle.startDate) : null;
+  const today = new Date();
+  const currentDay = lastPeriodStart
+    ? Math.floor((today.getTime() - lastPeriodStart.getTime()) / (1000 * 60 * 60 * 24)) + 1
+    : 1;
+
+  // Simple estimation for fertile window (standard 14 days before next period)
+  const cycleLen = cycleData?.avgCycleLength || 28;
+  const ovulationDay = cycleLen - 14;
+  const fertileStart = ovulationDay - 5;
+  const fertileEnd = ovulationDay + 1;
+
   return (
     <>
       <div className="container mx-auto px-4 md:px-6 py-4 h-full">
         <h1 className="sr-only">Palmotićeva –– savremena medicina i iskustvo - centar za ginekologiju i hirurgiju</h1>
-        <div className="flex flex-col gap-4 h-full">
+        <div className="flex flex-col gap-6 h-full">
 
-          <div className="flex-1 min-h-0 h-[500px]">
-            <Suspense fallback={<Skeleton className="h-full w-full rounded-lg" />}>
-              <AiAssistant />
-            </Suspense>
-          </div>
+          {/* AI Concierge Card */}
+          <AiConciergeCard
+            t={T_el}
+            onOpenAi={() => setIsAiAssistantOpen(true)}
+            onBookAppointment={() => setIsAiAssistantOpen(true)} // For now, open AI to help book
+          />
 
-          <GreetingSection t={T_el} />
+          {/* Circular Cycle Tracker */}
+          {user && (
+            <CircularCycleTracker
+              currentDay={currentDay}
+              cycleLength={cycleLen}
+              periodLength={cycleData?.avgPeriodLength || 5}
+              fertileWindowStart={fertileStart}
+              fertileWindowEnd={fertileEnd}
+              ovulationDay={ovulationDay}
+              t={T_el}
+            />
+          )}
 
           {user && <GamificationSection t={T_el} onOpenDialog={() => setIsGamificationDialogOpen(true)} badges={allBadges} />}
 
@@ -168,12 +198,35 @@ function HomePageInternal() {
 
           <DashboardCards t={T_el} language={language} />
 
-          <CycleSummarySection t={T_el} language={language} cycleData={cycleData} loading={cycleLoading} />
-
           <HomePageCards t={T_el} language={language} />
 
         </div>
       </div>
+
+      {/* AI Assistant Modal */}
+      <Dialog open={isAiAssistantOpen} onOpenChange={setIsAiAssistantOpen}>
+        <DialogContent className="sm:max-w-[425px] h-[80vh] p-0 gap-0 overflow-hidden bg-background/95 backdrop-blur-xl border-none shadow-2xl">
+          <div className="h-full w-full flex flex-col">
+            <div className="flex items-center justify-between p-4 border-b bg-white/50 backdrop-blur-md z-10">
+              <div className="flex items-center gap-2">
+                <span className="font-headline font-bold text-lg text-primary">Palmotićeva AI</span>
+              </div>
+              <DialogClose asChild>
+                <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full hover:bg-black/5">
+                  <span className="sr-only">Close</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x h-4 w-4"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+                </Button>
+              </DialogClose>
+            </div>
+            <div className="flex-1 min-h-0 relative">
+              <Suspense fallback={<Skeleton className="h-full w-full" />}>
+                <AiAssistant />
+              </Suspense>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
       {user && (
         <GamificationDialog
           open={isGamificationDialogOpen}
