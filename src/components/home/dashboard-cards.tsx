@@ -25,7 +25,7 @@ export function DashboardCards({ t, language }: DashboardCardsProps) {
                         <CardContent className="flex-grow flex items-center p-4 gap-4">
                             <CalendarHeart className="h-10 w-10 text-primary flex-shrink-0" />
                             <div>
-                                <CardTitle className="text-base font-bold">{t('homepage_smart_calendar_title')}</CardTitle>
+                                <CardTitle className="text-base font-bold font-headline">{t('homepage_smart_calendar_title')}</CardTitle>
                                 <div className="text-xs text-muted-foreground">{t('homepage_smart_calendar_desc')}</div>
                             </div>
                         </CardContent>
@@ -36,7 +36,7 @@ export function DashboardCards({ t, language }: DashboardCardsProps) {
             <Link href={linkTarget} className="h-full block">
                 <Card className="flex flex-col h-full hover:bg-muted/50 transition-colors">
                     <CardHeader className="p-4">
-                        <CardTitle className="flex items-center justify-between text-base">
+                        <CardTitle className="flex items-center justify-between text-base font-headline">
                             {t('homepage_notifications_title')}
                             {user && unreadCount > 0 && <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-bold">{unreadCount}</span>}
                         </CardTitle>

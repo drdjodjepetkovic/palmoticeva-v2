@@ -24,7 +24,7 @@ export function HealthCorner({ t, language }: HealthCornerProps) {
     return (
         <Card className="bg-blue-500/10 border-blue-500/20">
             <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-blue-700 dark:text-blue-400">
+                <CardTitle className="flex items-center gap-2 text-blue-700 dark:text-blue-400 font-headline">
                     <Lightbulb className="h-6 w-6" />
                     {t('health_corner_title', 'Kutak Zdravlja')}
                 </CardTitle>

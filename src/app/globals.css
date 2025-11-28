@@ -4,57 +4,65 @@
 
 @layer base {
   :root {
-    --background: 0 0% 3.9%;
-    --foreground: 120 100% 75%;
-    --card: 0 0% 8%;
-    --card-foreground: 120 100% 75%;
-    --popover: 0 0% 2%;
-    --popover-foreground: 120 100% 75%;
-    --primary: 120 100% 50%;
-    --primary-foreground: 0 0% 0%;
-    --secondary: 0 0% 15%;
-    --secondary-foreground: 120 100% 85%;
-    --muted: 0 0% 10%;
-    --muted-foreground: 120 70% 60%;
-    --accent: 120 100% 60%;
-    --accent-foreground: 0 0% 0%;
-    --destructive: 0 100% 50%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 120 100% 25%;
-    --input: 120 100% 15%;
-    --ring: 120 100% 50%;
-    --radius: 0rem;
-  }
-}
+    /* Soft Modernism - Warm Alabaster & Soft Stone */
+    --background: 40 20% 98%;
+    /* #FAFAF9 - Warm Alabaster */
+    --foreground: 24 5% 26%;
+    /* #44403C - Warm Dark Gray */
 
-/* Flower Theme */
-.theme-flower {
-  --background: 40 50% 98%;
-  /* Soft Cream */
-  --foreground: 340 30% 30%;
-  /* Deep Rose */
-  --card: 350 100% 99%;
-  /* Almost white with pink tint */
-  --card-foreground: 340 30% 30%;
-  --popover: 40 50% 98%;
-  --popover-foreground: 340 30% 30%;
-  --primary: 340 82% 60%;
-  /* Vibrant Pink */
-  --primary-foreground: 0 0% 100%;
-  --secondary: 120 20% 95%;
-  /* Soft green */
-  --secondary-foreground: 120 25% 25%;
-  --muted: 120 20% 95%;
-  --muted-foreground: 340 20% 50%;
-  --accent: 140 60% 70%;
-  /* Light Sea Green */
-  --accent-foreground: 140 30% 20%;
-  --destructive: 0 70% 60%;
-  --destructive-foreground: 0 0% 100%;
-  --border: 340 30% 85%;
-  --input: 340 30% 90%;
-  --ring: 340 82% 60%;
-  --radius: 0.75rem;
+    --card: 0 0% 100%;
+    --card-foreground: 24 5% 26%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 24 5% 26%;
+
+    --primary: 175 40% 40%;
+    /* Deep Teal */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 24 10% 90%;
+    /* Light Warm Gray */
+    --secondary-foreground: 24 5% 26%;
+
+    --muted: 24 10% 95%;
+    --muted-foreground: 24 5% 45%;
+
+    --accent: 24 20% 90%;
+    /* Warm Accent */
+    --accent-foreground: 24 5% 26%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 24 10% 90%;
+    --input: 24 10% 90%;
+    --ring: 175 40% 40%;
+
+    --radius: 0.75rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    overflow-x: hidden;
+    /* Safari */
+  }
+
+  html {
+    height: -webkit-fill-available;
+    /* Safari */
+  }
+
+  input:focus,
+  textarea:focus,
+  select:focus {
+    @apply ring-2 ring-primary/20 border-primary outline-none;
+  }
 }
 
 /* Lux Theme */
@@ -104,43 +112,17 @@
   --input: 0 0% 100% / 0.5;
   --ring: 217 91% 60%;
   --radius: 0.8rem;
+
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-
-  body {
-    @apply bg-background text-foreground font-body;
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
-    /* Safari */
-  }
-
-  html {
-    height: -webkit-fill-available;
-    /* Safari */
-  }
-
-  input:focus,
-  textarea:focus,
-  select:focus {
-    @apply ring-2 ring-primary/20 border-primary outline-none;
-  }
-
-  .theme-apple {
-    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-    background-size: 400% 400%;
-    animation: gradient 15s ease infinite;
-  }
-
-  .theme-apple .bg-card,
-  .theme-apple .bg-popover,
-  .theme-apple .bg-muted {
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-  }
+.theme-apple .bg-card,
+.theme-apple .bg-popover,
+.theme-apple .bg-muted {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 @keyframes gradient {

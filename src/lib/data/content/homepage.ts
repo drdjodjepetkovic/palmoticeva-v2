@@ -10,6 +10,11 @@ export const homepageContent: { [key: string]: ContentItem & { version: number }
   homepage_notifications_view_all: { en: "View all notifications", "se-lat": "Pogledaj sva obaveštenja", se: "Погледај сва обавештења", ru: "Посмотреть все уведомления", version: CURRENT_CONTENT_VERSION },
   homepage_notifications_none: { en: "No new notifications.", "se-lat": "Trenutno nema novih obaveštenja.", se: "Тренутно нема нових обавештења.", ru: "Новых уведомлений нет.", version: CURRENT_CONTENT_VERSION },
   homepage_calendar_card_title: { en: "My Calendar", "se-lat": "Moj Kalendar", se: "Мој Календар", ru: "Мой календарь", version: CURRENT_CONTENT_VERSION },
+
+  greeting_morning: { en: "Good morning", "se-lat": "Dobro jutro", se: "Добро јутро", ru: "Доброе утро", version: CURRENT_CONTENT_VERSION },
+  greeting_afternoon: { en: "Good afternoon", "se-lat": "Dobar dan", se: "Добар дан", ru: "Добрый день", version: CURRENT_CONTENT_VERSION },
+  greeting_evening: { en: "Good evening", "se-lat": "Dobro veče", se: "Добро вече", ru: "Добрый вечер", version: CURRENT_CONTENT_VERSION },
+  greeting_default: { en: "Hello", "se-lat": "Zdravo", se: "Здраво", ru: "Здравствуйте", version: CURRENT_CONTENT_VERSION },
   homepage_calendar_card_desc: { en: "Track your cycle, symptoms, and fertile days.", "se-lat": "Pratite ciklus, simptome i plodne dane.", se: "Пратите циклус, симптоме и плодне дане.", ru: "Отслеживайте цикл, симптомы и фертильные дни.", version: CURRENT_CONTENT_VERSION },
   homepage_smart_calendar_title: { en: "Smart Calendar", "se-lat": "Smart Kalendar", se: "Смарт Календар", ru: "Умный Календарь", version: CURRENT_CONTENT_VERSION },
   homepage_smart_calendar_desc: { en: "Tailored to you...", "se-lat": "Prilagođen Vama...", se: "Прилагођен Вама...", ru: "Адаптирован для вас...", version: CURRENT_CONTENT_VERSION },

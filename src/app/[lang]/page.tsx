@@ -1,7 +1,7 @@
 "use client";
 
 import { useLanguage } from "@/context/language-context";
-import React, { useState, Suspense, useMemo } from "react";
+import React, { useState, Suspense, useMemo, useEffect } from "react";
 import { useContent } from "@/hooks/use-content";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useAuth } from "@/context/auth-context";
@@ -19,13 +19,13 @@ import { HealthCorner } from "@/components/home/health-corner";
 import { DashboardCards } from "@/components/home/dashboard-cards";
 import { CycleSummarySection } from "@/components/home/cycle-summary-section";
 import { HomePageCards } from "@/components/home/home-page-cards";
+import { GreetingSection } from "@/components/home/greeting-section";
 
 // Hooks
 import { useCycleData } from "@/hooks/use-cycle-data";
 import { GamificationDialog } from "@/components/gamification/gamification-dialog";
 import { UserService } from "@/lib/services/user-service";
 import { useToast } from "@/hooks/use-toast";
-import { useEffect } from "react";
 
 const AiAssistant = dynamic(() => import("@/components/ai/ai-assistant"), {
   ssr: false,
@@ -88,6 +88,10 @@ const contentIds = [
   'fact_3',
   'fact_4',
   'fact_5',
+  'greeting_morning',
+  'greeting_afternoon',
+  'greeting_evening',
+  'greeting_default',
 ];
 
 function HomePageInternal() {
@@ -155,6 +159,8 @@ function HomePageInternal() {
               <AiAssistant />
             </Suspense>
           </div>
+
+          <GreetingSection t={T_el} />
 
           {user && <GamificationSection t={T_el} onOpenDialog={() => setIsGamificationDialogOpen(true)} badges={allBadges} />}
 
