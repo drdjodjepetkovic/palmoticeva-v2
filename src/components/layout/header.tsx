@@ -15,7 +15,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { BadgeCheck, LogOut, User, Menu } from "lucide-react";
+import { BadgeCheck, LogOut, User, Menu, Bell } from "lucide-react";
 import { auth } from "@/lib/firebase/client";
 
 export function Header() {
@@ -58,6 +58,17 @@ export function Header() {
                 </nav>
 
                 <div className="flex items-center gap-4">
+                    {user && (
+                        <Button variant="ghost" size="icon" className="relative" asChild>
+                            <Link href={`/${language}/profile/notifications`}>
+                                <Bell className="h-5 w-5" />
+                                {userProfile?.unreadNotifications ? (
+                                    <span className="absolute top-1 right-1 h-2.5 w-2.5 rounded-full bg-destructive border-2 border-background" />
+                                ) : null}
+                                <span className="sr-only">{t.nav.notifications || 'Obaveštenja'}</span>
+                            </Link>
+                        </Button>
+                    )}
                     <LanguageSwitcher />
 
                     {user ? (

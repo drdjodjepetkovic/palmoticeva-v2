@@ -8,6 +8,7 @@ import type { AppLanguage } from '@/core/types';
 import type { Cycle } from '@/core/types';
 import { cn } from '@/lib/utils';
 import type { Locale } from 'date-fns';
+import { Droplet, CircleDot, Sparkles, Clock } from 'lucide-react';
 
 const localeMap: Record<AppLanguage, Locale> = {
     en: enUS,
@@ -23,7 +24,7 @@ interface CycleWheelProps {
     predictedPeriodDays: Set<string>;
     fertileDays: Set<string>;
     ovulationDays: Set<string>;
-    t: any; // Using any for translation object for flexibility
+    t: any;
 }
 
 export function CycleWheel({
@@ -37,23 +38,23 @@ export function CycleWheel({
     t
 }: CycleWheelProps) {
     const { language } = useLanguage();
-    const size = 320; // Slightly larger for better visibility
+    const size = 320;
     const center = size / 2;
-    const strokeWidth = 24; // Thinner, more elegant stroke
-    const radius = center - strokeWidth - 10;
+    const strokeWidth = 28; // Slightly thicker for the pastel look
+    const radius = center - strokeWidth - 20; // Adjust for container padding
     const today = startOfDay(new Date());
 
     const currentCycleDay = activeCycle && today
         ? differenceInDays(today, activeCycle.startDate) + 1
         : null;
 
-    // Updated Palette: Pure White, Bright Medical Blue (Azure), Cool Grays
+    // Pastel Palette
     const colors = {
-        default: 'hsl(210, 20%, 96%)', // Very light cool gray
-        period: 'hsl(340, 85%, 65%)', // Soft Pink/Red
-        predicted: 'hsl(340, 85%, 65%, 0.3)',
-        fertile: 'hsl(200, 95%, 40%, 0.2)', // Light Azure
-        ovulation: 'hsl(200, 95%, 40%)', // Bright Azure
+        default: 'hsl(210, 20%, 93%)', // Light Gray
+        period: 'hsl(350, 100%, 88%)', // Pastel Pink/Red
+        predicted: 'hsl(350, 100%, 88%, 0.5)',
+        fertile: 'hsl(150, 50%, 60%)', // Darker Pastel Green for visibility
+        ovulation: 'hsl(200, 80%, 85%)', // Pastel Blue
     };
 
     const segments = useMemo(() => {
@@ -91,8 +92,7 @@ export function CycleWheel({
 
             segs.push({
                 day: i,
-                pathD: describeArc(center, center, radius, startAngle + 1.5, endAngle - 1.5), // More gap between segments
-                textPos: polarToCartesian(center, center, radius - 25, endAngle - dayAngle / 2),
+                pathD: describeArc(center, center, radius, startAngle + 1, endAngle - 1), // 1 degree gap
                 type: type,
                 isCurrent: i === currentCycleDay
             });
@@ -101,102 +101,262 @@ export function CycleWheel({
     }, [avgCycleLength, daysUntilPeriod, currentCycleDay, periodDays, predictedPeriodDays, fertileDays, ovulationDays, activeCycle, today, radius, center]);
 
     const getCycleStatus = useCallback(() => {
-        const today = startOfDay(new Date());
-        const todayKey = formatISO(today, { representation: 'date' });
         const locale = localeMap[language as AppLanguage] || srLatn;
 
-        if (periodDays.has(todayKey)) {
-            const activePeriodCycle = activeCycle || { startDate: today };
-            const periodDayNumber = differenceInDays(today, activePeriodCycle.startDate) + 1;
-            const isEnd = activeCycle?.endDate && isSameDay(today, activeCycle.endDate);
-
-            // Fallback translations if t() keys missing
-            const title = t.calendar?.period || "Menstruacija";
-
-            return { title: title, subtitle: format(today, 'd. MMMM', { locale }), dayNumber: periodDayNumber, color: 'text-rose-500' };
-        }
+        let title = "DAN";
+        let dayNumber: string | number = "?";
+        let progress = 0;
+        let predictionText = "";
 
         if (activeCycle && currentCycleDay) {
-            if (currentCycleDay > avgCycleLength && daysUntilPeriod !== null && daysUntilPeriod < 0) {
-                return { title: "Kasni", subtitle: `${Math.abs(daysUntilPeriod)} dana`, dayNumber: '!', color: 'text-rose-500' };
+            dayNumber = currentCycleDay;
+            progress = Math.min(100, Math.max(0, (currentCycleDay / avgCycleLength) * 100));
+
+            if (daysUntilPeriod !== null) {
+                const nextPeriodDate = addDays(today, daysUntilPeriod);
+                const dayName = format(nextPeriodDate, 'EEEE', { locale }); // e.g., "utorak"
+                predictionText = `Menstruacija počinje u ${dayName} (za ${daysUntilPeriod} dana)`;
             }
-            if (currentCycleDay > 0) {
-                return { title: "Dan ciklusa", subtitle: format(today, 'd. MMMM', { locale }), dayNumber: currentCycleDay, color: 'text-primary' };
-            }
         }
 
-        const isOvulationToday = ovulationDays.has(todayKey);
-        const isFertileToday = fertileDays.has(todayKey);
-
-        if (isOvulationToday) {
-            return { title: "Danas je", subtitle: "OVULACIJA", dayNumber: '●', color: 'text-sky-600' };
-        }
-
-        if (isFertileToday) {
-            return { title: "Trenutno su", subtitle: "PLODNI DANI", dayNumber: '○', color: 'text-sky-400' };
-        }
-
-        if (daysUntilPeriod !== null && daysUntilPeriod >= 0) {
-            return { title: "Sledeća menstruacija", subtitle: `za ${daysUntilPeriod} dana`, dayNumber: daysUntilPeriod, color: 'text-slate-600' };
-        }
-
-        return { title: "Kalendar", subtitle: '', dayNumber: '?', color: 'text-muted-foreground' };
-    }, [language, t, activeCycle, currentCycleDay, periodDays, ovulationDays, fertileDays, daysUntilPeriod, avgCycleLength]);
-
+        return { title, dayNumber, progress, predictionText };
+    }, [language, activeCycle, currentCycleDay, avgCycleLength, daysUntilPeriod, today]);
 
     const status = getCycleStatus();
 
     return (
-        <div className="relative w-full flex flex-col items-center justify-center py-8">
-            <div className="relative" style={{ width: size, height: size }}>
-                <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="transform -rotate-90">
-                    <g>
-                        {segments.map(({ day, pathD, textPos, type, isCurrent }) => (
-                            <g key={day}>
-                                <path
-                                    d={pathD}
-                                    stroke={colors[type]}
-                                    strokeWidth={strokeWidth}
-                                    fill="none"
-                                    strokeLinecap="round"
-                                    className="transition-all duration-300"
-                                />
-                                {isCurrent && (
-                                    <circle
-                                        cx={polarToCartesian(center, center, radius, (day * (360 / avgCycleLength) - 90) - (360 / avgCycleLength) / 2).x}
-                                        cy={polarToCartesian(center, center, radius, (day * (360 / avgCycleLength) - 90) - (360 / avgCycleLength) / 2).y}
-                                        r={strokeWidth / 1.5}
-                                        fill="white"
-                                        stroke={colors[type] === colors.default ? 'hsl(var(--primary))' : colors[type]}
-                                        strokeWidth={4}
-                                        className="drop-shadow-md"
-                                    />
-                                )}
-                                {/* Date Label for Key Segments */}
-                                {(type === 'period' || type === 'ovulation' || (type === 'fertile' && day % 2 === 0)) && (
-                                    <text
-                                        x={polarToCartesian(center, center, radius + 25, (day * (360 / avgCycleLength) - 90) - (360 / avgCycleLength) / 2).x}
-                                        y={polarToCartesian(center, center, radius + 25, (day * (360 / avgCycleLength) - 90) - (360 / avgCycleLength) / 2).y}
-                                        textAnchor="middle"
-                                        dominantBaseline="middle"
-                                        className="text-[10px] fill-muted-foreground font-medium"
-                                        transform={`rotate(${((day * (360 / avgCycleLength) - 90) - (360 / avgCycleLength) / 2) + 90}, ${polarToCartesian(center, center, radius + 25, (day * (360 / avgCycleLength) - 90) - (360 / avgCycleLength) / 2).x}, ${polarToCartesian(center, center, radius + 25, (day * (360 / avgCycleLength) - 90) - (360 / avgCycleLength) / 2).y})`}
-                                    >
-                                        {format(addDays(activeCycle ? activeCycle.startDate : (daysUntilPeriod !== null && today ? addDays(addDays(today, daysUntilPeriod), -avgCycleLength) : new Date()), day - 1), 'd.M')}
-                                    </text>
-                                )}
-                            </g>
-                        ))}
-                    </g>
-                </svg>
+        <div className="relative w-full flex flex-col items-center justify-center py-12">
+            {/* Metallic Ring Container */}
+            <div
+                className="relative rounded-full shadow-2xl flex items-center justify-center"
+                style={{
+                    width: size + 40,
+                    height: size + 40,
+                    background: 'linear-gradient(135deg, #e0e0e0 0%, #ffffff 50%, #d0d0d0 100%)',
+                    boxShadow: 'inset 0 2px 4px rgba(255,255,255,0.8), inset 0 -2px 4px rgba(0,0,0,0.1), 0 10px 20px rgba(0,0,0,0.15)'
+                }}
+            >
+                {/* Inner Ring Depth */}
+                <div
+                    className="absolute rounded-full"
+                    style={{
+                        width: size + 20,
+                        height: size + 20,
+                        background: 'linear-gradient(135deg, #d0d0d0 0%, #f0f0f0 100%)',
+                        boxShadow: 'inset 0 4px 8px rgba(0,0,0,0.1)'
+                    }}
+                />
 
-                {/* Center Content */}
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <div className="flex flex-col items-center justify-center text-center p-4 animate-in fade-in zoom-in duration-500">
-                        <span className={cn("text-6xl font-bold tracking-tighter", status.color)}>{status.dayNumber}</span>
-                        <span className="text-sm font-medium uppercase tracking-wide text-muted-foreground mt-2">{status.title}</span>
-                        {status.subtitle && <span className="text-xs text-muted-foreground/80 mt-1">{status.subtitle}</span>}
+                {/* SVG Wheel */}
+                <div className="relative z-10" style={{ width: size, height: size }}>
+                    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="transform -rotate-90 drop-shadow-sm">
+                        <g>
+                            {segments.map(({ day, pathD, type, isCurrent }) => (
+                                <g key={day}>
+                                    <path
+                                        d={pathD}
+                                        stroke={colors[type]}
+                                        strokeWidth={strokeWidth}
+                                        fill="none"
+                                        strokeLinecap="butt"
+                                        className="transition-all duration-300"
+                                    />
+                                    {/* Current Day Indicator (Outer Glow) */}
+                                    {isCurrent && (
+                                        <path
+                                            d={pathD}
+                                            stroke="rgba(0,0,0,0.1)"
+                                            strokeWidth={strokeWidth + 4}
+                                            fill="none"
+                                            strokeLinecap="butt"
+                                            className="animate-pulse"
+                                        />
+                                    )}
+                                </g>
+                            ))}
+                        </g>
+                    </svg>
+
+                    {/* Center Content */}
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <div className="flex flex-col items-center justify-center text-center p-8 w-3/4">
+
+                            {/* Typography: DAN 21 */}
+                            <div className="flex flex-col items-center mb-4">
+                                <span className="text-4xl md:text-5xl font-serif text-slate-700 tracking-tight">
+                                    {status.title} <span className="font-light">{status.dayNumber}</span>
+                                </span>
+                            </div>
+
+                            {/* Progress Bar */}
+                            <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden shadow-inner mb-2">
+                                <div
+                                    className="h-full bg-gradient-to-r from-slate-300 to-slate-400 rounded-full transition-all duration-1000 ease-out"
+                                    style={{ width: `${status.progress}%` }}
+                                />
+                            </div>
+                            <span className="text-xs font-medium text-slate-500 mb-4">
+                                {Math.round(status.progress)}% ciklusa završeno
+                            </span>
+
+                            {/* Prediction Text */}
+                            {status.predictionText && (
+                                <div className="text-xs text-slate-500 font-medium leading-relaxed max-w-[180px]">
+                                    Predviđanje:
+                                    <br />
+                                    <span className="text-slate-600">{status.predictionText}</span>
+                                </div>
+                            )}
+                        </div>
                     </div>
+                </div>
+
+                {/* Surrounding Icons (Dynamic Positioning) */}
+                <div className="absolute inset-0 pointer-events-none">
+                    {(() => {
+                        const containerCenter = (size + 40) / 2;
+                        const getIconPos = (day: number) => {
+                            const angle = (day * (360 / avgCycleLength) - 90) - (360 / avgCycleLength) / 2 - 90; // -90 to match SVG rotation
+                            // Radius = 170 places it on the metallic rim (between 160 and 180)
+                            return polarToCartesian(containerCenter, containerCenter, 170, angle);
+                        };
+
+                        // 1. Period Icon (Day 1 or middle of period)
+                        const periodStartDay = 1;
+                        const periodPos = getIconPos(periodStartDay);
+
+                        // 2. Ovulation Icon
+                        let ovulationDay = Math.floor(avgCycleLength / 2); // Default fallback
+                        // Find actual ovulation day from set
+                        const ovulationDateStr = Array.from(ovulationDays)[0];
+                        if (ovulationDateStr && activeCycle) {
+                            const ovDate = new Date(ovulationDateStr);
+                            ovulationDay = differenceInDays(ovDate, activeCycle.startDate) + 1;
+                        } else if (ovulationDateStr && daysUntilPeriod !== null && today) {
+                            // Fallback calculation if needed, but usually ovulationDays set is correct relative to cycle
+                            // Simplified: if we have the set, try to find the day index
+                            // Since we iterate segments 1..length, we can match the date key
+                            // Let's iterate to find the day index that matches the ovulation date key
+                            for (let i = 1; i <= avgCycleLength; i++) {
+                                // Re-calculate date for i (copied from segments loop logic efficiently)
+                                let d: Date;
+                                if (activeCycle) d = addDays(activeCycle.startDate, i - 1);
+                                else if (daysUntilPeriod !== null) d = addDays(addDays(today, daysUntilPeriod), -avgCycleLength + i - 1);
+                                else d = addDays(new Date(), i); // fallback
+
+                                if (ovulationDays.has(formatISO(d, { representation: 'date' }))) {
+                                    ovulationDay = i;
+                                    break;
+                                }
+                            }
+                        }
+                        const ovulationPos = getIconPos(ovulationDay);
+
+                        // 3. Fertile Icon (Middle of fertile window)
+                        let fertileDay = ovulationDay - 2; // Approx
+                        let fertileCount = 0;
+                        let fertileSum = 0;
+                        for (let i = 1; i <= avgCycleLength; i++) {
+                            let d: Date;
+                            if (activeCycle) d = addDays(activeCycle.startDate, i - 1);
+                            else if (daysUntilPeriod !== null) d = addDays(addDays(today, daysUntilPeriod), -avgCycleLength + i - 1);
+                            else d = addDays(new Date(), i);
+
+                            if (fertileDays.has(formatISO(d, { representation: 'date' }))) {
+                                fertileSum += i;
+                                fertileCount++;
+                            }
+                        }
+                        if (fertileCount > 0) fertileDay = Math.round(fertileSum / fertileCount);
+                        const fertilePos = getIconPos(fertileDay);
+
+                        // 4. Predicted Period Icon (Start of predicted)
+                        let predictedDay = avgCycleLength; // End of cycle
+                        for (let i = 1; i <= avgCycleLength; i++) {
+                            let d: Date;
+                            if (activeCycle) d = addDays(activeCycle.startDate, i - 1);
+                            else if (daysUntilPeriod !== null) d = addDays(addDays(today, daysUntilPeriod), -avgCycleLength + i - 1);
+                            else d = addDays(new Date(), i);
+
+                            if (predictedPeriodDays.has(formatISO(d, { representation: 'date' }))) {
+                                predictedDay = i;
+                                break; // First day of predicted
+                            }
+                        }
+                        const predictedPos = getIconPos(predictedDay);
+
+                        return (
+                            <>
+                                {/* Period */}
+                                <div
+                                    className="absolute transform -translate-x-1/2 -translate-y-1/2"
+                                    style={{ left: periodPos.x, top: periodPos.y }}
+                                >
+                                    <div className="opacity-0 animate-fly-in" style={{ animationDelay: '100ms' }}>
+                                        <div className="relative">
+                                            <div className="w-9 h-9 rounded-full bg-rose-50/90 backdrop-blur-sm shadow-md flex items-center justify-center border border-rose-200">
+                                                <Droplet className="w-5 h-5 text-rose-500" />
+                                            </div>
+                                            <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center shadow-sm">
+                                                <span className="text-[10px] font-bold text-slate-600">{periodStartDay}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Fertile */}
+                                <div
+                                    className="absolute transform -translate-x-1/2 -translate-y-1/2"
+                                    style={{ left: fertilePos.x, top: fertilePos.y }}
+                                >
+                                    <div className="opacity-0 animate-fly-in" style={{ animationDelay: '300ms' }}>
+                                        <div className="relative">
+                                            <div className="w-9 h-9 rounded-full bg-teal-50/90 backdrop-blur-sm shadow-md flex items-center justify-center border border-teal-200">
+                                                <Sparkles className="w-5 h-5 text-teal-600" />
+                                            </div>
+                                            <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center shadow-sm">
+                                                <span className="text-[10px] font-bold text-slate-600">{fertileDay}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Ovulation */}
+                                <div
+                                    className="absolute transform -translate-x-1/2 -translate-y-1/2"
+                                    style={{ left: ovulationPos.x, top: ovulationPos.y }}
+                                >
+                                    <div className="opacity-0 animate-fly-in" style={{ animationDelay: '500ms' }}>
+                                        <div className="relative">
+                                            <div className="w-9 h-9 rounded-full bg-sky-50/90 backdrop-blur-sm shadow-md flex items-center justify-center border border-sky-200">
+                                                <CircleDot className="w-5 h-5 text-sky-600" />
+                                            </div>
+                                            <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center shadow-sm">
+                                                <span className="text-[10px] font-bold text-slate-600">{ovulationDay}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Predicted */}
+                                <div
+                                    className="absolute transform -translate-x-1/2 -translate-y-1/2"
+                                    style={{ left: predictedPos.x, top: predictedPos.y }}
+                                >
+                                    <div className="opacity-0 animate-fly-in" style={{ animationDelay: '700ms' }}>
+                                        <div className="relative">
+                                            <div className="w-9 h-9 rounded-full bg-rose-50/90 backdrop-blur-sm shadow-md flex items-center justify-center border border-rose-200">
+                                                <Clock className="w-5 h-5 text-rose-400" />
+                                            </div>
+                                            <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center shadow-sm">
+                                                <span className="text-[10px] font-bold text-slate-600">{predictedDay}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </>
+                        );
+                    })()}
                 </div>
             </div>
         </div>

@@ -11,9 +11,12 @@ import { formatDistanceToNow } from "date-fns";
 import { sr } from "date-fns/locale";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import Link from "next/link";
+import { useLanguage } from "@/features/content/context/language-context";
 
 export default function NotificationsPage() {
     const { user, refreshProfile } = useAuth();
+    const { language } = useLanguage();
     const [notifications, setNotifications] = useState<NotificationWithId[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -77,21 +80,33 @@ export default function NotificationsPage() {
                         </Card>
                     ) : (
                         <div className="space-y-4">
-                            {notifications.map((notif) => (
-                                <Card key={notif.id} className={notif.read ? "opacity-60" : "border-l-4 border-l-primary"}>
-                                    <CardContent className="pt-6">
-                                        <div className="flex justify-between items-start">
-                                            <div className="space-y-1">
-                                                <p className="font-medium">{notif.text}</p>
-                                                <p className="text-xs text-muted-foreground">
-                                                    {formatDistanceToNow(new Date(notif.createdAt), { addSuffix: true, locale: sr })}
-                                                </p>
+                            {notifications.map((notif) => {
+                                const CardContentWrapper = (
+                                    <Card className={`${notif.read ? "opacity-60" : "border-l-4 border-l-primary"} ${notif.link ? "hover:bg-muted/50 transition-colors cursor-pointer" : ""}`}>
+                                        <CardContent className="pt-6">
+                                            <div className="flex justify-between items-start">
+                                                <div className="space-y-1">
+                                                    <p className="font-medium">{notif.text}</p>
+                                                    <p className="text-xs text-muted-foreground">
+                                                        {formatDistanceToNow(new Date(notif.createdAt), { addSuffix: true, locale: sr })}
+                                                    </p>
+                                                </div>
+                                                {!notif.read && <div className="h-2 w-2 rounded-full bg-primary" />}
                                             </div>
-                                            {!notif.read && <div className="h-2 w-2 rounded-full bg-primary" />}
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                            ))}
+                                        </CardContent>
+                                    </Card>
+                                );
+
+                                if (notif.link) {
+                                    return (
+                                        <Link key={notif.id} href={`/${language}${notif.link.startsWith('/') ? notif.link : `/${notif.link}`}`}>
+                                            {CardContentWrapper}
+                                        </Link>
+                                    );
+                                }
+
+                                return <div key={notif.id}>{CardContentWrapper}</div>;
+                            })}
                         </div>
                     )}
                 </div>
