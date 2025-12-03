@@ -1,6 +1,6 @@
-import { db } from '@/lib/firebase/client';
+import { db } from '../firebase/client';
 import { doc, getDoc, setDoc, updateDoc, collection, query, where, getDocs, Timestamp, orderBy, limit } from 'firebase/firestore';
-import type { Cycle, DailyEvent } from '@/types/user';
+import type { Cycle, DailyEvent } from '@/core/types';
 import { addDays, differenceInDays, formatISO, isSameDay, isWithinInterval, startOfDay } from 'date-fns';
 
 export const CycleService = {
@@ -13,7 +13,7 @@ export const CycleService = {
         return null;
     },
 
-    getMenstrualDataForAI: async (userId: string): Promise<import('@/types/ai-types').MenstrualData> => {
+    getMenstrualDataForAI: async (userId: string): Promise<any> => { // TODO: Define MenstrualData type in core/types or ai-types
         try {
             const cycleDocRef = doc(db, 'users', userId, 'cycleData', 'main');
             const cycleDocSnap = await getDoc(cycleDocRef);
@@ -25,8 +25,8 @@ export const CycleService = {
             const cycleData = cycleDocSnap.data();
             const cycles: Cycle[] = cycleData.cycles?.map((c: any) => ({
                 id: c.id,
-                startDate: c.startDate.toDate(),
-                endDate: c.endDate ? c.endDate.toDate() : null,
+                startDate: c.startDate?.toDate ? c.startDate.toDate() : new Date(c.startDate),
+                endDate: c.endDate ? (c.endDate.toDate ? c.endDate.toDate() : new Date(c.endDate)) : null,
                 type: c.type || 'regular'
             })) || [];
 

@@ -1,14 +1,22 @@
-import { dbAdmin, FieldValue } from './admin';
-import { recalculateAverages } from '@/lib/cycle-utils';
-import { startOfDay, isSameDay } from 'date-fns';
-import type { Cycle } from '@/types/user';
+import { dbAdmin } from './admin';
+import { recalculateAverages } from '@/features/cycle/cycle-utils';
+import { isSameDay } from 'date-fns';
 import { Timestamp } from 'firebase-admin/firestore';
+
+// Define a local Cycle interface that uses Date for easier manipulation
+// and matches what we store/retrieve before converting to Firestore types
+interface ServerCycle {
+    id: string;
+    startDate: Date;
+    endDate: Date | null;
+    type: 'regular' | 'pregnancy' | 'miscarriage';
+}
 
 export async function logPeriodToFirestoreServer(userId: string, date: Date) {
     const dataRef = dbAdmin.collection('users').doc(userId).collection('cycleData').doc('main');
     const dataSnap = await dataRef.get();
 
-    let cycles: Cycle[] = [];
+    let cycles: ServerCycle[] = [];
     let avgCycleLength = 28;
     let avgPeriodLength = 5;
 
@@ -37,7 +45,7 @@ export async function logPeriodToFirestoreServer(userId: string, date: Date) {
         return { success: true, message: 'Cycle already logged for this date.' };
     }
 
-    const newCycle: Cycle = {
+    const newCycle: ServerCycle = {
         id: dbAdmin.collection('users').doc().id,
         startDate: dayStart,
         endDate: null,
@@ -45,7 +53,10 @@ export async function logPeriodToFirestoreServer(userId: string, date: Date) {
     };
 
     const newCycles = [...cycles, newCycle].sort((a, b) => a.startDate.getTime() - b.startDate.getTime());
-    const { newAvgCycleLength, newAvgPeriodLength } = recalculateAverages(newCycles, avgCycleLength, avgPeriodLength);
+
+    // We need to map ServerCycle back to the shape expected by recalculateAverages if it expects something specific
+    // Assuming recalculateAverages takes objects with startDate/endDate as Dates or strings
+    const { newAvgCycleLength, newAvgPeriodLength } = recalculateAverages(newCycles as any, avgCycleLength, avgPeriodLength);
 
     // Convert dates back to Timestamps for storage
     const cyclesForStorage = newCycles.map(c => ({

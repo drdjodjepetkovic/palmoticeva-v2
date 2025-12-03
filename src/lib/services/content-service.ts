@@ -1,6 +1,6 @@
 import { collection, doc, getDocs, query, writeBatch, where } from 'firebase/firestore';
 import { db } from '@/lib/firebase/client';
-import { defaultContent } from '@/lib/data/default-content';
+import { defaultContent } from '@/features/content/data/legacy-content';
 
 const contentCache = new Map<string, any>();
 

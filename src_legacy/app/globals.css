@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        /* CLEAN & CLINICAL + PINK THEME */
+        --background: 0 0% 100%;
+        /* #FFFFFF */
+        --foreground: 215 20% 35%;
+        /* #475569 - Slate 600 (Lighter Gray) */
+
+        --primary: 201 96% 42%;
+        /* #0EA5E9 - Sky 500 (Brighter Azure) */
+        --primary-foreground: 0 0% 100%;
+
+        --secondary: 330 80% 96%;
+        /* #FDF2F8 - Very Light Pink */
+        --secondary-foreground: 330 80% 40%;
+
+        --accent: 330 70% 90%;
+        /* #FCE7F3 - Light Pink */
+        --accent-foreground: 330 80% 30%;
+
+        --muted: 210 40% 98%;
+        /* Very light gray */
+        --muted-foreground: 215 16% 60%;
+        /* Lighter gray text */
+
+        --card: 0 0% 100%;
+        --card-foreground: 215 20% 35%;
+
+        --popover: 0 0% 100%;
+        --popover-foreground: 215 20% 35%;
+
+        --destructive: 0 84.2% 60.2%;
+        --destructive-foreground: 210 40% 98%;
+
+        --border: 214.3 31.8% 91.4%;
+        --input: 214.3 31.8% 91.4%;
+        --ring: 201 96% 42%;
+
+        --radius: 0.75rem;
+        /* 12px - Clean rounded corners */
+
+        /* Custom Cycle Colors - Clean & Pastel */
+        --period-gold: 330 80% 70%;
+        /* Pink for period */
+        --fertile-blue: 201 96% 40%;
+        /* Blue for fertile */
+
+        /* Chart Colors */
+        --chart-1: 12 76% 61%;
+        --chart-2: 173 58% 39%;
+        --chart-3: 197 37% 24%;
+        --chart-4: 43 74% 66%;
+        --chart-5: 27 87% 67%;
+    }
+
+    .dark {
+        --background: 222.2 84% 4.9%;
+        --foreground: 210 40% 98%;
+        --card: 222.2 84% 4.9%;
+        --card-foreground: 210 40% 98%;
+        --popover: 222.2 84% 4.9%;
+        --popover-foreground: 210 40% 98%;
+        --primary: 201 96% 42%;
+        --primary-foreground: 222.2 47.4% 11.2%;
+        --secondary: 217.2 32.6% 17.5%;
+        --secondary-foreground: 210 40% 98%;
+        --muted: 217.2 32.6% 17.5%;
+        --muted-foreground: 215 20.2% 65.1%;
+        --accent: 217.2 32.6% 17.5%;
+        --accent-foreground: 210 40% 98%;
+        --destructive: 0 62.8% 30.6%;
+        --destructive-foreground: 210 40% 98%;
+        --border: 217.2 32.6% 17.5%;
+        --input: 217.2 32.6% 17.5%;
+        --ring: 212.7 26.8% 83.9%;
+        --chart-1: 220 70% 50%;
+        --chart-2: 160 60% 45%;
+        --chart-3: 30 80% 55%;
+        --chart-4: 280 65% 60%;
+        --chart-5: 340 75% 55%;
+    }
+
+    /* Typography - Clean Sans-Serif */
+    h1,
+    h2,
+    h3,
+    .font-headline {
+        font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+        letter-spacing: -0.02em;
+        /* Tight tracking for modern look */
+    }
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+
+    body {
+        @apply bg-background text-foreground;
+    }
+}

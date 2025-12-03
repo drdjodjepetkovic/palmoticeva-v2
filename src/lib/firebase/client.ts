@@ -27,12 +27,27 @@ function isFirebaseConfigured(config: typeof firebaseConfig): boolean {
 }
 
 // Properly initialize Firebase and export instances
-const app: FirebaseApp = getApps().length ? getApp() : initializeApp(firebaseConfig);
+let app: FirebaseApp;
+let auth: Auth;
+let db: Firestore;
+let storage: FirebaseStorage;
+let googleProvider: GoogleAuthProvider;
 
-const auth: Auth = getAuth(app);
-const db: Firestore = getFirestore(app);
-const storage: FirebaseStorage = getStorage(app);
-const googleProvider = new GoogleAuthProvider();
+try {
+    app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+    auth = getAuth(app);
+    db = getFirestore(app);
+    storage = getStorage(app);
+    googleProvider = new GoogleAuthProvider();
+} catch (error) {
+    console.error("Firebase initialization failed:", error);
+    // Fallback to prevent app crash, but functionality will be broken
+    app = {} as any;
+    auth = {} as any;
+    db = {} as any;
+    storage = {} as any;
+    googleProvider = {} as any;
+}
 
 let analytics: Analytics | null = null;
 let messaging: Messaging | null = null;

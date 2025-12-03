@@ -1,248 +1,168 @@
 "use client";
 
-import { useLanguage } from "@/context/language-context";
-import React, { useState, Suspense, useMemo, useEffect } from "react";
-import { useContent } from "@/hooks/use-content";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useAuth } from "@/context/auth-context";
-import { getAllBadges } from '@/lib/data/content';
-import { useSearchParams } from "next/navigation";
-import AppWalkthrough from "@/components/onboarding/app-walkthrough";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from '@/components/ui/dialog';
+import { useAuth } from "@/features/auth/auth-context";
+import { useContent } from "@/features/content/content-context";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import dynamic from "next/dynamic";
-
-// Components
-import { GamificationSection } from "@/components/home/gamification-section";
-import { HealthCorner } from "@/components/home/health-corner";
-import { DashboardCards } from "@/components/home/dashboard-cards";
-import { CycleSummarySection } from "@/components/home/cycle-summary-section";
-import { HomePageCards } from "@/components/home/home-page-cards";
-import { GreetingSection } from "@/components/home/greeting-section";
-import { AiConciergeCard } from "@/components/home/ai-concierge-card";
-import { CircularCycleTracker } from "@/components/home/circular-cycle-tracker";
-
-// Hooks
-import { useCycleData } from "@/hooks/use-cycle-data";
-import { GamificationDialog } from "@/components/gamification/gamification-dialog";
-import { UserService } from "@/lib/services/user-service";
-import { useToast } from "@/hooks/use-toast";
-
-const AiAssistant = dynamic(() => import("@/components/ai/ai-assistant"), {
-  ssr: false,
-});
-
-const contentIds = [
-  'hero_main_text',
-  'hero_button_text',
-  'homepage_notifications_title',
-  'homepage_notifications_view_all',
-  'homepage_notifications_none',
-  'homepage_calendar_card_title',
-  'homepage_calendar_card_desc',
-  'homepage_smart_calendar_title',
-  'homepage_smart_calendar_desc',
-  'homepage_about_card_title',
-  'homepage_about_card_desc',
-  'badge_our_patient_title',
-  'badge_our_patient_desc',
-  'badge_explorer_title',
-  'badge_explorer_desc',
-  'badge_routine_queen_title',
-  'badge_routine_queen_desc',
-  'badge_punctual_title',
-  'badge_punctual_desc',
-  'badge_ambassador_title',
-  'badge_ambassador_desc',
-  'badge_golden_recommendation_title',
-  'badge_golden_recommendation_desc',
-  'badge_installer_title',
-  'badge_installer_desc',
-  'homepage_cycle_summary_title',
-  'homepage_cycle_empty_state',
-  'averagePeriod',
-  'averageCycle',
-  'legendPeriodStart',
-  'legendFertileStart',
-  'legendOvulation',
-  'legendFertileEnd',
-  'homepage_appointment_card_title',
-  'homepage_appointment_card_desc',
-  'promotions_card_title',
-  'promotions_card_desc',
-  'faq_card_title',
-  'faq_card_desc',
-  'rate_us_card_title',
-  'rate_us_card_desc',
-  'share_app_card_title',
-  'share_app_card_desc',
-  'share_link_copied_toast',
-  'gamification_dialog_title',
-  'gamification_dialog_desc',
-  'gamification_dialog_button',
-  'homepage_articles_card_title',
-  'homepage_articles_card_desc',
-  'health_corner_title',
-  'health_corner_read_more',
-  'fact_1',
-  'fact_2',
-  'fact_3',
-  'fact_4',
-  'fact_5',
-  'greeting_morning',
-  'greeting_afternoon',
-  'greeting_evening',
-  'greeting_default',
-];
-
-function HomePageInternal() {
-  const { language } = useLanguage();
-  const { user, userProfile } = useAuth();
-  const searchParams = useSearchParams();
-
-  const { content, loading: contentLoading } = useContent(contentIds);
-  const { cycleData, loading: cycleLoading } = useCycleData();
-  const [isGamificationDialogOpen, setIsGamificationDialogOpen] = useState(false);
-  const { toast } = useToast();
-
-  const showTour = searchParams.get('tour') === 'true';
-
-  const T_el = (id: string, fallback?: string): React.ReactNode => {
-    if (contentLoading) return <Skeleton className="h-4 w-24 inline-block" />;
-    return content[id] || fallback || `[${id}]`;
-  };
-
-  if (showTour) {
-    return <AppWalkthrough />;
-  }
-
-  const allBadges = useMemo(() => getAllBadges(userProfile, cycleData?.cycles?.length || 0), [userProfile, cycleData?.cycles?.length]);
-
-  useEffect(() => {
-    if (!userProfile || !user) return;
-
-    const currentUnlocked = new Set(userProfile.unlockedBadges || []);
-    const newBadges: string[] = [];
-
-    allBadges.forEach(badge => {
-      if (badge.unlocked && !currentUnlocked.has(badge.key)) {
-        newBadges.push(badge.key);
-      }
-    });
-
-    if (newBadges.length > 0) {
-      // Update user profile
-      const updatedUnlockedBadges = [...(userProfile.unlockedBadges || []), ...newBadges];
-      UserService.updateUserProfile(user.uid, { unlockedBadges: updatedUnlockedBadges });
-
-      // Show toast for each new badge
-      newBadges.forEach(badgeKey => {
-        const badge = allBadges.find(b => b.key === badgeKey);
-        if (badge) {
-          toast({
-            title: T_el('gamification_dialog_title') as string, // Or a specific "New Badge Unlocked!" string
-            description: `${T_el(badge.titleKey)}`,
-            variant: "default", // or "success" if available
-          });
-        }
-      });
-    }
-  }, [userProfile, user, toast, allBadges]);
-
-  const [isAiAssistantOpen, setIsAiAssistantOpen] = useState(false);
-
-  // Calculate cycle data for the tracker
-  const lastCycle = cycleData?.cycles?.[0];
-  const lastPeriodStart = lastCycle ? new Date(lastCycle.startDate) : null;
-  const today = new Date();
-  const currentDay = lastPeriodStart
-    ? Math.floor((today.getTime() - lastPeriodStart.getTime()) / (1000 * 60 * 60 * 24)) + 1
-    : 1;
-
-  // Simple estimation for fertile window (standard 14 days before next period)
-  const cycleLen = cycleData?.avgCycleLength || 28;
-  const ovulationDay = cycleLen - 14;
-  const fertileStart = ovulationDay - 5;
-  const fertileEnd = ovulationDay + 1;
-
-  return (
-    <>
-      <div className="container mx-auto px-4 md:px-6 py-4 h-full">
-        <h1 className="sr-only">Palmotićeva –– savremena medicina i iskustvo - centar za ginekologiju i hirurgiju</h1>
-        <div className="flex flex-col gap-6 h-full">
-
-          {/* AI Concierge Card */}
-          <AiConciergeCard
-            t={T_el}
-            onOpenAi={() => setIsAiAssistantOpen(true)}
-            onBookAppointment={() => setIsAiAssistantOpen(true)} // For now, open AI to help book
-          />
-
-          {/* Circular Cycle Tracker */}
-          {user && (
-            <CircularCycleTracker
-              currentDay={currentDay}
-              cycleLength={cycleLen}
-              periodLength={cycleData?.avgPeriodLength || 5}
-              fertileWindowStart={fertileStart}
-              fertileWindowEnd={fertileEnd}
-              ovulationDay={ovulationDay}
-              t={T_el}
-            />
-          )}
-
-          {user && <GamificationSection t={T_el} onOpenDialog={() => setIsGamificationDialogOpen(true)} badges={allBadges} />}
-
-          <HealthCorner t={T_el} language={language} />
-
-          <DashboardCards t={T_el} language={language} />
-
-          <HomePageCards t={T_el} language={language} />
-
-        </div>
-      </div>
-
-      {/* AI Assistant Modal */}
-      <Dialog open={isAiAssistantOpen} onOpenChange={setIsAiAssistantOpen}>
-        <DialogContent className="sm:max-w-[425px] h-[80vh] p-0 gap-0 overflow-hidden bg-background/95 backdrop-blur-xl border-none shadow-2xl">
-          <div className="h-full w-full flex flex-col">
-            <div className="flex items-center justify-between p-4 border-b bg-white/50 backdrop-blur-md z-10">
-              <div className="flex items-center gap-2">
-                <span className="font-headline font-bold text-lg text-primary">Palmotićeva AI</span>
-              </div>
-              <DialogClose asChild>
-                <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full hover:bg-black/5">
-                  <span className="sr-only">Close</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x h-4 w-4"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
-                </Button>
-              </DialogClose>
-            </div>
-            <div className="flex-1 min-h-0 relative">
-              <Suspense fallback={<Skeleton className="h-full w-full" />}>
-                <AiAssistant />
-              </Suspense>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
-
-      {user && (
-        <GamificationDialog
-          open={isGamificationDialogOpen}
-          onOpenChange={setIsGamificationDialogOpen}
-          badges={allBadges}
-          t={T_el}
-        />
-      )}
-    </>
-  );
-}
+import Link from "next/link";
+import { FeatureCard } from "@/components/ui/feature-card";
+import { Calendar, CalendarDays, FileText, HelpCircle, Stethoscope, ArrowRight } from "lucide-react";
+import { articlesData } from "@/features/content/data/articles";
+import Image from "next/image";
+import { Card, CardContent } from "@/components/ui/card";
 
 export default function HomePage() {
-  return (
-    <Suspense>
-      <HomePageInternal />
-    </Suspense>
-  );
+    const { user, userProfile } = useAuth();
+    const { t, language } = useContent();
+
+    // Get latest 2 articles
+    const latestArticles = articlesData.slice(0, 2);
+
+    return (
+        <div className="flex flex-col min-h-screen">
+            {/* Hero Section */}
+            <section className="relative bg-gradient-to-b from-primary/5 to-background pt-12 pb-16 md:pt-20 md:pb-24 overflow-hidden">
+                <div className="container px-4 md:px-6 relative z-10">
+                    <div className="max-w-3xl space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-700">
+                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold tracking-tight text-foreground">
+                            {userProfile?.displayName ? (
+                                <>
+                                    {t.dashboard.greeting}, <span className="text-primary">{userProfile.displayName}</span>
+                                </>
+                            ) : (
+                                <>
+                                    {t.dashboard.brand_prefix} <span className="text-primary italic">{t.dashboard.brand_suffix}</span>
+                                </>
+                            )}
+                        </h1>
+                        <p className="text-xl text-muted-foreground max-w-2xl leading-relaxed">
+                            {user
+                                ? t.dashboard.hero_subtitle_user
+                                : t.dashboard.hero_subtitle_guest}
+                        </p>
+
+                        {!user && (
+                            <div className="flex flex-wrap gap-4 pt-4">
+                                <Button size="lg" className="rounded-full px-8 shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all" asChild>
+                                    <Link href={`/${language}/login`}>{t.auth.login}</Link>
+                                </Button>
+                                <Button size="lg" variant="outline" className="rounded-full px-8" asChild>
+                                    <Link href={`/${language}/appointments`}>{t.about.booking_button}</Link>
+                                </Button>
+                            </div>
+                        )}
+                    </div>
+                </div>
+
+                {/* Decorative background elements */}
+                <div className="absolute top-0 right-0 -translate-y-1/4 translate-x-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl -z-10" />
+                <div className="absolute bottom-0 left-0 translate-y-1/4 -translate-x-1/4 w-[300px] h-[300px] bg-accent/10 rounded-full blur-3xl -z-10" />
+            </section>
+
+            {/* Dashboard Grid */}
+            <section className="container px-4 md:px-6 -mt-12 relative z-20 pb-16">
+                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+                    <FeatureCard
+                        title={t.nav.calendar}
+                        description={user ? t.dashboard.features.calendar_desc_user : t.dashboard.features.calendar_desc_guest}
+                        icon={Calendar}
+                        href={`/${language}/calendar`}
+                        variant="highlight"
+                        actionText={user ? t.dashboard.features.calendar_action_user : t.dashboard.features.calendar_action_guest}
+                    />
+                    <FeatureCard
+                        title={t.nav.appointments}
+                        description={t.dashboard.features.appointments_desc}
+                        icon={CalendarDays}
+                        href={`/${language}/appointments`}
+                        actionText={t.dashboard.features.appointments_action}
+                    />
+                    <FeatureCard
+                        title={t.pricelist.title}
+                        description={t.dashboard.features.pricelist_desc}
+                        icon={FileText}
+                        href={`/${language}/pricelist`}
+                        actionText={t.dashboard.features.pricelist_action}
+                    />
+                    <FeatureCard
+                        title={t.faq.title}
+                        description={t.dashboard.features.faq_desc}
+                        icon={HelpCircle}
+                        href={`/${language}/faq`}
+                        actionText={t.dashboard.features.faq_action}
+                    />
+                </div>
+            </section>
+
+            {/* Latest Articles Section */}
+            <section className="bg-muted/30 py-16 md:py-24">
+                <div className="container px-4 md:px-6">
+                    <div className="flex flex-col md:flex-row items-end justify-between mb-10 gap-4">
+                        <div>
+                            <h2 className="text-3xl font-serif font-bold text-primary mb-2">{t.articles.title}</h2>
+                            <p className="text-muted-foreground">{t.articles.subtitle}</p>
+                        </div>
+                        <Button variant="ghost" className="group" asChild>
+                            <Link href={`/${language}/articles`}>
+                                {t.articles.back_button.replace('Nazad na', 'Vidi').replace('Back to', 'See').replace('Назад ко', 'Смотреть')}
+                                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                            </Link>
+                        </Button>
+                    </div>
+
+                    <div className="grid gap-8 md:grid-cols-2">
+                        {latestArticles.map((article) => (
+                            <Link key={article.slug} href={`/${language}/articles/${article.slug}`} className="group block h-full">
+                                <Card className="h-full overflow-hidden border-none shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-1 bg-background">
+                                    <div className="flex flex-col md:flex-row h-full">
+                                        <div className="relative w-full md:w-2/5 aspect-video md:aspect-auto bg-muted">
+                                            <Image
+                                                src={article.coverImage}
+                                                alt={article.title[language] || article.title['sr']}
+                                                fill
+                                                className="object-contain transition-transform duration-500 group-hover:scale-105"
+                                            />
+                                        </div>
+                                        <CardContent className="flex-1 p-6 flex flex-col justify-center">
+                                            <div className="text-xs font-semibold text-primary mb-2 uppercase tracking-wider">
+                                                {article.category?.[language] || "Ginekologija"}
+                                            </div>
+                                            <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors line-clamp-2">
+                                                {article.title[language] || article.title['sr']}
+                                            </h3>
+                                            <p className="text-muted-foreground text-sm line-clamp-2 mb-4">
+                                                {article.excerpt[language] || article.excerpt['sr']}
+                                            </p>
+                                            <div className="flex items-center text-sm font-medium text-primary mt-auto">
+                                                {t.articles.read_more}
+                                            </div>
+                                        </CardContent>
+                                    </div>
+                                </Card>
+                            </Link>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* CTA Section */}
+            <section className="py-16 md:py-24 bg-primary text-primary-foreground relative overflow-hidden">
+                <div className="container px-4 md:px-6 relative z-10 text-center">
+                    <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6">{t.dashboard.cta_title}</h2>
+                    <p className="text-primary-foreground/80 text-lg max-w-2xl mx-auto mb-8">
+                        {t.dashboard.cta_subtitle}
+                    </p>
+                    <div className="flex flex-wrap justify-center gap-4">
+                        <Button size="lg" variant="secondary" className="rounded-full px-8 text-primary font-bold shadow-lg" asChild>
+                            <Link href={`/${language}/appointments`}>{t.about.booking_button}</Link>
+                        </Button>
+                        <Button size="lg" variant="outline" className="rounded-full px-8 border-primary-foreground/30 hover:bg-primary-foreground/10 text-primary-foreground" asChild>
+                            <Link href={`/${language}/faq`}>{t.faq.cta_button}</Link>
+                        </Button>
+                    </div>
+                </div>
+                {/* Background Pattern */}
+                <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]" />
+            </section>
+        </div>
+    );
 }

@@ -2,12 +2,16 @@
 
 import React, { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { getAiLogs, type AiLog } from '@/app/actions/admin-actions';
+import { getAiLogs, type AiLog } from '@/lib/actions/admin-actions';
 import { Loader2, MessageSquare, Activity, Calendar } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { useLanguage } from "@/features/content/context/language-context";
+import { useContent } from "@/features/content/content-context";
 
 export default function AiInsights() {
+    const { language } = useLanguage();
+    const { t } = useContent();
     const [logs, setLogs] = useState<AiLog[]>([]);
     const [loading, setLoading] = useState(true);
     const [stats, setStats] = useState({ total: 0, topTopic: '', actionCount: 0 });
@@ -73,32 +77,32 @@ export default function AiInsights() {
             <div className="grid gap-4 md:grid-cols-3">
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Ukupno Interakcija</CardTitle>
+                        <CardTitle className="text-sm font-medium">{t.admin.total_interactions}</CardTitle>
                         <MessageSquare className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">{stats.total}</div>
-                        <p className="text-xs text-muted-foreground">u poslednjih 100 upita</p>
+                        <p className="text-xs text-muted-foreground">{t.admin.last_100_queries}</p>
                     </CardContent>
                 </Card>
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Izvršene Akcije</CardTitle>
+                        <CardTitle className="text-sm font-medium">{t.admin.actions_performed}</CardTitle>
                         <Calendar className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">{stats.actionCount}</div>
-                        <p className="text-xs text-muted-foreground">Logovanje ciklusa / Zakazivanje</p>
+                        <p className="text-xs text-muted-foreground">{t.admin.actions_desc}</p>
                     </CardContent>
                 </Card>
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Top Tema</CardTitle>
+                        <CardTitle className="text-sm font-medium">{t.admin.top_topics}</CardTitle>
                         <Activity className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold capitalize">{stats.topTopic}</div>
-                        <p className="text-xs text-muted-foreground">Najčešća ključna reč</p>
+                        <p className="text-xs text-muted-foreground">{t.admin.top_topic_desc}</p>
                     </CardContent>
                 </Card>
             </div>
@@ -106,9 +110,9 @@ export default function AiInsights() {
             <div className="grid gap-4 md:grid-cols-7">
                 <Card className="col-span-4">
                     <CardHeader>
-                        <CardTitle>Nedavne Interakcije</CardTitle>
+                        <CardTitle>{t.admin.recent_interactions}</CardTitle>
                         <CardDescription>
-                            Šta korisnici pitaju AI asistenta.
+                            {t.admin.recent_interactions_desc}
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -118,7 +122,7 @@ export default function AiInsights() {
                                     <div key={log.id} className="flex flex-col space-y-2 border-b pb-4 last:border-0 last:pb-0">
                                         <div className="flex items-center justify-between">
                                             <span className="text-xs text-muted-foreground">
-                                                {log.timestamp ? new Date(log.timestamp).toLocaleString('sr-RS') : 'N/A'}
+                                                {log.timestamp ? new Date(log.timestamp).toLocaleString(language === 'sr' ? 'sr-RS' : (language === 'ru' ? 'ru-RU' : 'en-US')) : 'N/A'}
                                             </span>
                                             {log.action && (
                                                 <Badge variant="secondary" className="text-[10px]">
@@ -141,9 +145,9 @@ export default function AiInsights() {
 
                 <Card className="col-span-3">
                     <CardHeader>
-                        <CardTitle>Popularne Teme</CardTitle>
+                        <CardTitle>{t.admin.popular_topics}</CardTitle>
                         <CardDescription>
-                            Ključne reči iz pitanja korisnika.
+                            {t.admin.popular_topics_desc}
                         </CardDescription>
                     </CardHeader>
                     <CardContent>

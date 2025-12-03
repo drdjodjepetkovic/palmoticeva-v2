@@ -15,17 +15,16 @@ export default function Error({
     }, [error]);
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-[50vh] p-4 text-center">
-            <h2 className="text-2xl font-bold mb-4">Nešto je pošlo po zlu!</h2>
-            <p className="text-muted-foreground mb-6">Došlo je do greške prilikom učitavanja stranice.</p>
-            <Button
-                onClick={
-                    // Attempt to recover by trying to re-render the segment
-                    () => reset()
-                }
-            >
-                Pokušaj ponovo
-            </Button>
+        <div className="flex min-h-screen flex-col items-center justify-center p-4 text-center">
+            <h2 className="mb-4 text-2xl font-bold">Nešto je pošlo po zlu!</h2>
+            <p className="mb-8 text-muted-foreground">
+                Došlo je do greške prilikom učitavanja aplikacije.
+                <br />
+                <span className="text-xs font-mono bg-muted p-1 rounded mt-2 block max-w-md mx-auto overflow-auto">
+                    {error.message}
+                </span>
+            </p>
+            <Button onClick={() => reset()}>Pokušaj ponovo</Button>
         </div>
     );
 }

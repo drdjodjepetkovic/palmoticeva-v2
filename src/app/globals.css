@@ -3,147 +3,80 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    /* Soft Modernism - Warm Alabaster & Soft Stone */
-    --background: 40 20% 98%;
-    /* #FAFAF9 - Warm Alabaster */
-    --foreground: 24 5% 26%;
-    /* #44403C - Warm Dark Gray */
+    :root {
+        --background: 0 0% 100%;
+        /* Pure White */
+        --foreground: 222 47% 11%;
+        /* Dark Blue/Gray */
 
-    --card: 0 0% 100%;
-    --card-foreground: 24 5% 26%;
+        --card: 0 0% 100%;
+        --card-foreground: 222 47% 11%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 24 5% 26%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 222 47% 11%;
 
-    --primary: 175 40% 40%;
-    /* Deep Teal */
-    --primary-foreground: 0 0% 100%;
+        --primary: 199 89% 48%;
+        /* Bright Medical Blue (Azure) */
+        --primary-foreground: 210 40% 98%;
 
-    --secondary: 24 10% 90%;
-    /* Light Warm Gray */
-    --secondary-foreground: 24 5% 26%;
+        --secondary: 210 40% 96.1%;
+        /* Cool Gray */
+        --secondary-foreground: 222 47% 11%;
 
-    --muted: 24 10% 95%;
-    --muted-foreground: 24 5% 45%;
+        --muted: 210 40% 96.1%;
+        --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 24 20% 90%;
-    /* Warm Accent */
-    --accent-foreground: 24 5% 26%;
+        --accent: 340 82% 94%;
+        /* Light Pink Accent */
+        --accent-foreground: 340 40% 40%;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
+        --destructive: 0 84.2% 60.2%;
+        --destructive-foreground: 210 40% 98%;
 
-    --border: 24 10% 90%;
-    --input: 24 10% 90%;
-    --ring: 175 40% 40%;
+        --border: 214.3 31.8% 91.4%;
+        --input: 214.3 31.8% 91.4%;
+        --ring: 199 89% 48%;
 
-    --radius: 0.75rem;
-  }
+        --radius: 0.5rem;
+    }
+
+    .dark {
+        --background: 222 47% 11%;
+        --foreground: 210 40% 98%;
+
+        --card: 222 47% 11%;
+        --card-foreground: 210 40% 98%;
+
+        --popover: 222 47% 11%;
+        --popover-foreground: 210 40% 98%;
+
+        --primary: 199 89% 48%;
+        --primary-foreground: 222 47% 11%;
+
+        --secondary: 217.2 32.6% 17.5%;
+        --secondary-foreground: 210 40% 98%;
+
+        --muted: 217.2 32.6% 17.5%;
+        --muted-foreground: 215 20.2% 65.1%;
+
+        --accent: 340 40% 20%;
+        --accent-foreground: 210 40% 98%;
+
+        --destructive: 0 62.8% 30.6%;
+        --destructive-foreground: 210 40% 98%;
+
+        --border: 217.2 32.6% 17.5%;
+        --input: 217.2 32.6% 17.5%;
+        --ring: 199 89% 48%;
+    }
 }
 
-/* Lux Theme */
-.theme-lux {
-  --background: 30 15% 5%;
-  --foreground: 40 30% 85%;
-  --card: 30 15% 10%;
-  --card-foreground: 40 30% 85%;
-  --popover: 30 15% 5%;
-  --popover-foreground: 40 30% 85%;
-  --primary: 45 90% 60%;
-  --primary-foreground: 30 15% 5%;
-  --secondary: 30 15% 20%;
-  --secondary-foreground: 40 30% 85%;
-  --muted: 30 15% 15%;
-  --muted-foreground: 40 30% 60%;
-  --accent: 45 90% 70%;
-  --accent-foreground: 30 15% 5%;
-  --destructive: 0 60% 50%;
-  --destructive-foreground: 0 0% 100%;
-  --border: 45 90% 25%;
-  --input: 45 90% 15%;
-  --ring: 45 90% 60%;
-  --radius: 0.5rem;
-}
+@layer base {
+    * {
+        @apply border-border;
+    }
 
-/* Apple Theme - Inspired by iOS */
-.theme-apple {
-  --background: 240 5% 96%;
-  --foreground: 240 5% 10%;
-  --card: 0 0% 100% / 0.7;
-  /* Semi-transparent white for "frosted glass" effect */
-  --card-foreground: 240 5% 10%;
-  --popover: 0 0% 100% / 0.8;
-  --popover-foreground: 240 5% 10%;
-  --primary: 217 91% 60%;
-  --primary-foreground: 0 0% 100%;
-  --secondary: 240 5% 90%;
-  --secondary-foreground: 240 5% 10%;
-  --muted: 240 5% 90% / 0.7;
-  --muted-foreground: 240 5% 45%;
-  --accent: 217 91% 65%;
-  --accent-foreground: 240 5% 10%;
-  --destructive: 0 84% 60%;
-  --destructive-foreground: 0 0% 98%;
-  --border: 240 5% 80% / 0.5;
-  --input: 0 0% 100% / 0.5;
-  --ring: 217 91% 60%;
-  --radius: 0.8rem;
-
-  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-  background-size: 400% 400%;
-  animation: gradient 15s ease infinite;
-}
-
-.theme-apple .bg-card,
-.theme-apple .bg-popover,
-.theme-apple .bg-muted {
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-@keyframes splash-pulse {
-
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  50% {
-    opacity: 0.8;
-    transform: scale(1.05);
-  }
-}
-
-/* Custom Scrollbar for Sidebar/Content */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  @apply bg-muted-foreground/20 rounded-full;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  @apply bg-muted-foreground/40;
+    body {
+        @apply bg-background text-foreground;
+    }
 }

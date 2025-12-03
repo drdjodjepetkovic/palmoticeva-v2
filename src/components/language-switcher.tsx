@@ -1,43 +1,34 @@
-
 "use client";
 
-import { useLanguage } from "@/context/language-context";
+import { useLanguage } from "@/features/content/context/language-context";
 import { cn } from "@/lib/utils";
-import type { LanguageCode } from "@/types/content";
+import type { AppLanguage } from "@/core/types";
 
-const languageNames: Record<LanguageCode, string> = {
-  "en": "ENG",
-  "se": "СРБ",
-  "sr": "SRB",
-  "ru": "РУС",
-};
+export function LanguageSwitcher() {
+    const { language, setLanguage } = useLanguage();
 
-export default function LanguageSwitcher() {
-  const { language, setLanguage } = useLanguage();
+    const languages: { code: AppLanguage; label: string }[] = [
+        { code: 'sr', label: 'SRB' },
+        { code: 'en', label: 'ENG' },
+        { code: 'ru', label: 'РУС' },
+    ];
 
-  const languages = [
-    { code: 'se', label: 'SRB (Ćir)' },
-    { code: 'sr', label: 'SRB (Lat)' },
-    { code: 'en', label: 'ENG' },
-    { code: 'ru', label: 'РУС' },
-  ];
-
-  return (
-    <div className="flex items-center rounded-lg border bg-muted p-1">
-      {languages.map((lang) => (
-        <button
-          key={lang.code}
-          onClick={() => setLanguage(lang.code as LanguageCode)}
-          className={cn(
-            "flex-1 rounded-md px-3 py-1.5 text-xs font-medium transition-all",
-            language === lang.code
-              ? "bg-background text-foreground shadow-sm"
-              : "text-muted-foreground hover:bg-background/50 hover:text-foreground"
-          )}
-        >
-          {lang.label}
-        </button>
-      ))}
-    </div>
-  );
+    return (
+        <div className="flex items-center rounded-lg border bg-muted p-1">
+            {languages.map((lang) => (
+                <button
+                    key={lang.code}
+                    onClick={() => setLanguage(lang.code)}
+                    className={cn(
+                        "flex-1 rounded-md px-3 py-1.5 text-xs font-medium transition-all",
+                        language === lang.code
+                            ? "bg-background text-foreground shadow-sm"
+                            : "text-muted-foreground hover:bg-background/50 hover:text-foreground"
+                    )}
+                >
+                    {lang.label}
+                </button>
+            ))}
+        </div>
+    );
 }
