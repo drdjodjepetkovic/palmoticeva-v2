@@ -36,7 +36,7 @@ export function LoginView() {
             {/* Left/Top: Nature Image */}
             <div className="relative h-[40vh] w-full md:h-full md:w-1/2 lg:w-3/5 bg-muted">
                 <Image
-                    src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=2080&auto=format&fit=crop"
+                    src="/images/mural.webp"
                     alt="Medical clean abstract background"
                     fill
                     className="object-cover"

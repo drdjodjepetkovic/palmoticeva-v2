@@ -99,7 +99,7 @@ export const aboutPageContent: AboutPageContent = {
         },
         members: [
             {
-                avatar: "https://firebasestorage.googleapis.com/v0/b/palmoticeva-portal.firebasestorage.app/o/images%2Fboba.webp?alt=media&token=38a83fd8-e02b-448e-b8b0-cdf6e1a50741",
+                avatar: "/images/boba.webp",
                 name: {
                     en: "Mr sci. med. Slobodanka Petković",
                     sr: "Mr sci. med. Slobodanka Petković",
@@ -144,7 +144,7 @@ Osnivanjem ordinacije 1998. godine, dr Petković je stvorila mesto gde se svaka 
                 }
             },
             {
-                avatar: "https://firebasestorage.googleapis.com/v0/b/palmoticeva-portal.firebasestorage.app/o/images%2Fdjordje.webp?alt=media&token=d071d742-1b66-454c-821a-62d3c5a84b59",
+                avatar: "/images/djordje.png",
                 name: {
                     en: "Spec. dr. med. Đorđe Petković",
                     sr: "Spec. dr. med. Đorđe Petković",

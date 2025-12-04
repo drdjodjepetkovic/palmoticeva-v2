@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Lora } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils"; // We need to create this util or inline it
+import { MobileStickyBar } from "@/components/layout/mobile-sticky-bar";
 // import { Toaster } from "@/components/ui/toaster"; // Will add later
 
 const inter = Inter({ subsets: ["latin", "cyrillic"], variable: "--font-inter" });
@@ -36,6 +37,7 @@ export default function RootLayout({
                 )}
             >
                 {children}
+                <MobileStickyBar />
                 {/* <Toaster /> */}
             </body>
         </html>

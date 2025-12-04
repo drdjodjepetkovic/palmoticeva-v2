@@ -33,15 +33,16 @@ export function Header() {
 
     return (
         <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-            <div className="container flex h-16 items-center justify-between">
+            <div className="container flex h-20 items-center justify-between">
                 <div className="flex items-center gap-2">
                     <Link href={`/${language}`} className="flex items-center space-x-2">
-                        <span className="font-serif text-lg md:text-xl font-bold text-primary">{t.common.brand}</span>
+                        {/* Use the new SVG logo */}
+                        <img src="/images/logo.svg" alt={t.common.brand} className="h-12 w-auto" />
                     </Link>
                 </div>
 
-                <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
-                    <Link href={`/${language}`} className="transition-colors hover:text-primary">
+                <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
+                    <Link href={`/${language}`} className="transition-colors hover:text-primary font-semibold">
                         {t.nav.home}
                     </Link>
                     <Link href={`/${language}/about`} className="transition-colors hover:text-primary">
@@ -49,6 +50,9 @@ export function Header() {
                     </Link>
                     <Link href={`/${language}/pricelist`} className="transition-colors hover:text-primary">
                         {t.nav.pricelist}
+                    </Link>
+                    <Link href={`/${language}/contact`} className="transition-colors hover:text-primary">
+                        {t.nav.contact || "Kontakt"}
                     </Link>
                     {user && (
                         <Link href={`/${language}/calendar`} className="transition-colors hover:text-primary">
@@ -58,6 +62,15 @@ export function Header() {
                 </nav>
 
                 <div className="flex items-center gap-4">
+                    {/* Guest Booking Button - Prominent */}
+                    {!user && (
+                        <Button variant="default" className="hidden md:inline-flex font-bold px-6 rounded-full shadow-md" asChild>
+                            <Link href={`/${language}/appointments`}>
+                                {t.about.booking_button || "Zakaži termin"}
+                            </Link>
+                        </Button>
+                    )}
+
                     {user && (
                         <Button variant="ghost" size="icon" className="relative" asChild>
                             <Link href={`/${language}/profile/notifications`}>
@@ -115,15 +128,15 @@ export function Header() {
                             </DropdownMenuContent>
                         </DropdownMenu>
                     ) : (
-                        <Link href={`/${language}/login`}>
-                            <Button size="sm" className="hidden md:inline-flex">{t.auth.login}</Button>
-                            <Button size="icon" className="md:hidden">
-                                <User className="h-5 w-5" />
-                            </Button>
+                        <Link href={`/${language}/login`} className="text-sm font-medium text-muted-foreground hover:text-primary hidden md:block">
+                            {t.auth.login}
                         </Link>
                     )}
+                    <Button size="icon" className="md:hidden">
+                        <Menu className="h-5 w-5" />
+                    </Button>
                 </div>
             </div>
-        </header >
+        </header>
     );
 }

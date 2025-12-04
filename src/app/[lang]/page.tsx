@@ -9,6 +9,8 @@ import { Calendar, CalendarDays, FileText, HelpCircle, Stethoscope, ArrowRight }
 import { articlesData } from "@/features/content/data/articles";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
+import { TeamSection } from "@/features/content/components/about/team-section";
+import { aboutPageContent } from "@/features/content/data/about";
 
 export default function HomePage() {
     const { user, userProfile } = useAuth();
@@ -20,77 +22,52 @@ export default function HomePage() {
     return (
         <div className="flex flex-col min-h-screen">
             {/* Hero Section */}
-            <section className="relative bg-gradient-to-b from-primary/5 to-background pt-12 pb-16 md:pt-20 md:pb-24 overflow-hidden">
-                <div className="container px-4 md:px-6 relative z-10">
-                    <div className="max-w-3xl space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-700">
-                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold tracking-tight text-foreground">
-                            {userProfile?.displayName ? (
-                                <>
-                                    {t.dashboard.greeting}, <span className="text-primary">{userProfile.displayName}</span>
-                                </>
-                            ) : (
-                                <>
-                                    {t.dashboard.brand_prefix} <span className="text-primary italic">{t.dashboard.brand_suffix}</span>
-                                </>
-                            )}
-                        </h1>
-                        <p className="text-xl text-muted-foreground max-w-2xl leading-relaxed">
-                            {user
-                                ? t.dashboard.hero_subtitle_user
-                                : t.dashboard.hero_subtitle_guest}
-                        </p>
+            {/* Hero Section */}
+            <section className="relative bg-gradient-to-b from-blue-50 to-white pt-16 pb-20 md:pt-24 md:pb-32 overflow-hidden">
+                <div className="container px-4 md:px-6 relative z-10 text-center md:text-left">
+                    <div className="flex flex-col md:flex-row items-center gap-12">
+                        <div className="max-w-3xl space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700 flex-1">
+                            <div className="inline-block rounded-full bg-blue-100 px-3 py-1 text-sm font-semibold text-blue-800 mb-2">
+                                27 Godina Poverenja
+                            </div>
+                            <h1 className="text-4xl md:text-6xl font-serif font-bold tracking-tight text-slate-900 leading-tight">
+                                Ginekološka ordinacija <br />
+                                <span className="text-blue-600 italic">Palmotićeva</span>
+                            </h1>
+                            <p className="text-lg md:text-xl text-slate-600 max-w-2xl leading-relaxed">
+                                Vrhunska stručnost, savremena dijagnostika i posvećenost Vašem zdravlju.
+                                Vaše poverenje je naša najveća preporuka.
+                            </p>
 
-                        {!user && (
-                            <div className="flex flex-wrap gap-4 pt-4">
-                                <Button size="lg" className="rounded-full px-8 shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all" asChild>
-                                    <Link href={`/${language}/login`}>{t.auth.login}</Link>
+                            <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center md:justify-start">
+                                <Button size="lg" className="rounded-full px-8 py-6 text-lg shadow-xl shadow-blue-200 bg-blue-600 hover:bg-blue-700 transition-all" asChild>
+                                    <Link href={`/${language}/appointments`}>
+                                        {t.about.booking_button || "Zakaži termin"}
+                                    </Link>
                                 </Button>
-                                <Button size="lg" variant="outline" className="rounded-full px-8" asChild>
-                                    <Link href={`/${language}/appointments`}>{t.about.booking_button}</Link>
+                                <Button size="lg" variant="outline" className="rounded-full px-8 py-6 text-lg border-2" asChild>
+                                    <Link href={`/${language}/contact`}>
+                                        Pozovite nas
+                                    </Link>
                                 </Button>
                             </div>
-                        )}
+                        </div>
+
+                        {/* Hero Image / Illustration Placeholder until we place Doctors below */}
+                        <div className="hidden md:block flex-1 relative">
+                            {/* We will place Doctors here in Phase 2, for now keep it clean or add a subtle graphic */}
+                        </div>
                     </div>
                 </div>
 
                 {/* Decorative background elements */}
-                <div className="absolute top-0 right-0 -translate-y-1/4 translate-x-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl -z-10" />
-                <div className="absolute bottom-0 left-0 translate-y-1/4 -translate-x-1/4 w-[300px] h-[300px] bg-accent/10 rounded-full blur-3xl -z-10" />
+                <div className="absolute top-0 right-0 -translate-y-1/4 translate-x-1/4 w-[600px] h-[600px] bg-blue-100/50 rounded-full blur-3xl -z-10" />
+                <div className="absolute bottom-0 left-0 translate-y-1/4 -translate-x-1/4 w-[400px] h-[400px] bg-indigo-50/50 rounded-full blur-3xl -z-10" />
             </section>
 
-            {/* Dashboard Grid */}
+            {/* Services Quick Links (Replacing Dashboard Grid) */}
             <section className="container px-4 md:px-6 -mt-12 relative z-20 pb-16">
-                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                    <FeatureCard
-                        title={t.nav.calendar}
-                        description={user ? t.dashboard.features.calendar_desc_user : t.dashboard.features.calendar_desc_guest}
-                        icon={Calendar}
-                        href={`/${language}/calendar`}
-                        variant="highlight"
-                        actionText={user ? t.dashboard.features.calendar_action_user : t.dashboard.features.calendar_action_guest}
-                    />
-                    <FeatureCard
-                        title={t.nav.appointments}
-                        description={t.dashboard.features.appointments_desc}
-                        icon={CalendarDays}
-                        href={`/${language}/appointments`}
-                        actionText={t.dashboard.features.appointments_action}
-                    />
-                    <FeatureCard
-                        title={t.pricelist.title}
-                        description={t.dashboard.features.pricelist_desc}
-                        icon={FileText}
-                        href={`/${language}/pricelist`}
-                        actionText={t.dashboard.features.pricelist_action}
-                    />
-                    <FeatureCard
-                        title={t.faq.title}
-                        description={t.dashboard.features.faq_desc}
-                        icon={HelpCircle}
-                        href={`/${language}/faq`}
-                        actionText={t.dashboard.features.faq_action}
-                    />
-                </div>
+                {/* This space is reserved for the Team Section in Phase 2 */}
             </section>
 
             {/* Latest Articles Section */}
