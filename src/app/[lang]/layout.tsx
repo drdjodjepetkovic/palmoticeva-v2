@@ -1,6 +1,7 @@
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { MobileNav } from "@/components/layout/mobile-nav";
+import { MobileStickyBar } from "@/components/layout/mobile-sticky-bar";
 import { AuthProvider } from "@/features/auth/auth-context";
 import { LanguageProvider } from "@/features/content/context/language-context";
 import type { AppLanguage } from "@/core/types";
@@ -37,6 +38,7 @@ export default function Layout({
                                 <Footer />
                                 <AiWidget />
                                 <MobileNav />
+                                <MobileStickyBar />
                                 <GlobalCycleDialog />
                             </div>
                         </ThemeProvider>
