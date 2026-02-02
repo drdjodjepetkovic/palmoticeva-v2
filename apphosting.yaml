@@ -16,7 +16,7 @@ env:
   - variable: GEMINI_API_KEY
     secret: gemini-api-key
   - variable: NEXT_PUBLIC_FIREBASE_API_KEY
-    value: AIzaSyAJ4uOND3fqcB_tk5kQOsRlJhwYQPn69AE
+    value: AIzaSyDfj-5v3iXJBzIfeFmAh7cDbPSPD4Y3Jw0
   - variable: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
     value: palmoticeva-portal.firebaseapp.com
   - variable: NEXT_PUBLIC_FIREBASE_PROJECT_ID
