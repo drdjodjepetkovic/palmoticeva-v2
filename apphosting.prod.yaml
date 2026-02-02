@@ -1,0 +1,11 @@
+env:
+  - variable: NEXT_PUBLIC_FIREBASE_API_KEY
+    value: AIzaSyAOL8BHg4CV6r3CCRjAVuiyXXPkp7aOpq0
+    availability:
+      - BUILD
+      - RUNTIME
+  - variable: FIREBASE_WEBAPP_CONFIG
+    value: '{"apiKey":"AIzaSyAOL8BHg4CV6r3CCRjAVuiyXXPkp7aOpq0","appId":"1:103093476920:web:26dc1dcc28a049b56d90cd","authDomain":"palmoticeva-portal.firebaseapp.com","messagingSenderId":"103093476920","projectId":"palmoticeva-portal","storageBucket":"palmoticeva-portal.firebasestorage.app"}'
+    availability:
+      - BUILD
+      - RUNTIME
