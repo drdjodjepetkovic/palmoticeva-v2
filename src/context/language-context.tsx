@@ -18,7 +18,11 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 export const useLanguage = () => {
   const context = useContext(LanguageContext);
   if (context === undefined) {
-    throw new Error('useLanguage must be used within a LanguageProvider');
+    // Fallback for when used outside of provider (e.g. during static build of error pages)
+    return {
+      language: DEFAULT_LANGUAGE,
+      setLanguage: () => console.warn('setLanguage called outside of LanguageProvider')
+    };
   }
   return context;
 };

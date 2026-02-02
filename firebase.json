@@ -3,17 +3,7 @@
     "source": ".",
     "ignore": [
       "firebase.json",
-      "**/.*",
       "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "app": {
-          "backendId": "palmoticeva-portal-backend",
-          "region": "us-central1"
-        }
-      }
     ]
   },
   "firestore": {

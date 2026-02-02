@@ -1,0 +1,16 @@
+[debug] [2026-02-02T14:36:41.808Z] ----------------------------------------------------------------------
+[debug] [2026-02-02T14:36:41.809Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\djord\popravka api\palmoticeva-v2\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2026-02-02T14:36:41.809Z] CLI Version:   13.35.1
+[debug] [2026-02-02T14:36:41.809Z] Platform:      win32
+[debug] [2026-02-02T14:36:41.809Z] Node Version:  v20.11.1
+[debug] [2026-02-02T14:36:41.809Z] Time:          Mon Feb 02 2026 15:36:41 GMT+0100 (Srednjeevropsko standardno vreme)
+[debug] [2026-02-02T14:36:41.809Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-02-02T14:36:41.923Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-02-02T14:36:41.923Z] > authorizing via signed-in user (djordje007@gmail.com)
+[debug] [2026-02-02T14:36:41.923Z] [iam] checking project palmoticeva-portal for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2026-02-02T14:36:41.924Z] Checked if tokens are valid: true, expires at: 1770046043450
+[debug] [2026-02-02T14:36:41.924Z] Checked if tokens are valid: true, expires at: 1770046043450
+[debug] [2026-02-02T14:36:41.925Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/palmoticeva-portal:testIamPermissions [none]
+[debug] [2026-02-02T14:36:41.925Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/palmoticeva-portal:testIamPermissions x-goog-quota-user=projects/palmoticeva-portal
+[debug] [2026-02-02T14:36:41.925Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/palmoticeva-portal:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update"]}
