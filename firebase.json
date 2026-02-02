@@ -23,11 +23,5 @@
       "host": "127.0.0.1"
     },
     "singleProjectMode": true
-  },
-  "functions": [
-    {
-      "source": "functions",
-      "codebase": "default"
-    }
-  ]
+  }
 }
