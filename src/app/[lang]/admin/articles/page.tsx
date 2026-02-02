@@ -18,7 +18,7 @@ import Link from 'next/link';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { useToast } from '@/hooks/use-toast';
 import { deleteArticle } from '@/lib/actions/admin-actions';
-import { revalidatePath } from 'next/cache';
+
 
 
 function ArticlesAdminSkeleton() {
@@ -77,11 +77,11 @@ export default function ArticlesAdminPage() {
   const handleDelete = async (slug: string) => {
     const result = await deleteArticle(slug);
     if (result.success) {
-        toast({ title: "Uspeh!", description: "Članak je uspešno obrisan." });
-        // Optimistically update UI
-        setArticles(prev => prev.filter(a => a.slug !== slug));
+      toast({ title: "Uspeh!", description: "Članak je uspešno obrisan." });
+      // Optimistically update UI
+      setArticles(prev => prev.filter(a => a.slug !== slug));
     } else {
-        toast({ variant: "destructive", title: "Greška", description: `Brisanje nije uspelo: ${result.error}` });
+      toast({ variant: "destructive", title: "Greška", description: `Brisanje nije uspelo: ${result.error}` });
     }
   }
 
@@ -120,8 +120,8 @@ export default function ArticlesAdminPage() {
               </div>
               <Button asChild>
                 <Link href={`/${language}/admin/articles/new`}>
-                    <PlusCircle className="mr-2 h-4 w-4" />
-                    Dodaj novi članak
+                  <PlusCircle className="mr-2 h-4 w-4" />
+                  Dodaj novi članak
                 </Link>
               </Button>
             </CardHeader>
@@ -160,28 +160,28 @@ export default function ArticlesAdminPage() {
                             <DropdownMenuContent align="end">
                               <DropdownMenuItem asChild>
                                 <Link href={`/${language}/admin/articles/edit/${article.slug}`}>
-                                    <Pencil className="mr-2 h-4 w-4" />
-                                    Izmeni
+                                  <Pencil className="mr-2 h-4 w-4" />
+                                  Izmeni
                                 </Link>
                               </DropdownMenuItem>
                               <AlertDialog>
                                 <AlertDialogTrigger asChild>
-                                   <DropdownMenuItem onSelect={(e) => e.preventDefault()} className="text-destructive">
-                                      <Trash2 className="mr-2 h-4 w-4" />
-                                      Obriši
+                                  <DropdownMenuItem onSelect={(e) => e.preventDefault()} className="text-destructive">
+                                    <Trash2 className="mr-2 h-4 w-4" />
+                                    Obriši
                                   </DropdownMenuItem>
                                 </AlertDialogTrigger>
                                 <AlertDialogContent>
-                                    <AlertDialogHeader>
-                                        <AlertDialogTitle>Da li ste sigurni?</AlertDialogTitle>
-                                        <AlertDialogDescription>
-                                            Ova akcija se ne može opozvati. Članak će biti trajno obrisan.
-                                        </AlertDialogDescription>
-                                    </AlertDialogHeader>
-                                    <AlertDialogFooter>
-                                        <AlertDialogCancel>Otkaži</AlertDialogCancel>
-                                        <AlertDialogAction onClick={() => handleDelete(article.slug)}>Obriši</AlertDialogAction>
-                                    </AlertDialogFooter>
+                                  <AlertDialogHeader>
+                                    <AlertDialogTitle>Da li ste sigurni?</AlertDialogTitle>
+                                    <AlertDialogDescription>
+                                      Ova akcija se ne može opozvati. Članak će biti trajno obrisan.
+                                    </AlertDialogDescription>
+                                  </AlertDialogHeader>
+                                  <AlertDialogFooter>
+                                    <AlertDialogCancel>Otkaži</AlertDialogCancel>
+                                    <AlertDialogAction onClick={() => handleDelete(article.slug)}>Obriši</AlertDialogAction>
+                                  </AlertDialogFooter>
                                 </AlertDialogContent>
                               </AlertDialog>
                             </DropdownMenuContent>
