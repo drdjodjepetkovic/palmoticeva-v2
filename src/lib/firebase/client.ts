@@ -10,7 +10,7 @@ import type { User } from 'firebase/auth';
 
 // HARDCODED FIREBASE CONFIG - To ensure stability
 const firebaseConfig = {
-  apiKey: "AIzaSyAJ4uOND3fqcB_tk5kQOsRlJhwYQPn69AE",
+    apiKey: "AIzaSyAOL8BHg4CV6r3CCRjAVuiyXXPkp7aOpq0",
   authDomain: "palmoticeva-portal.firebaseapp.com",
   projectId: "palmoticeva-portal",
   storageBucket: "palmoticeva-portal.firebasestorage.app",
