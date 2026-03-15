@@ -369,23 +369,34 @@ function HomePageInternal() {
     <>
       <div className="container mx-auto px-4 md:px-6 py-4 h-full">
         <h1 className="sr-only">Palmotićeva –– savremena medicina i iskustvo - centar za ginekologiju i hirurgiju</h1>
-        <div className="flex flex-col gap-4 h-full">
-
-          <div className="flex-1 min-h-0 h-[500px]">
-            <Suspense fallback={<Skeleton className="h-full w-full rounded-lg" />}>
-              <AiAssistant />
-            </Suspense>
+        <div className="flex flex-col gap-8 h-full">
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 delay-150 fill-mode-both">
+            <div className="flex-1 min-h-0 h-[500px]">
+              <Suspense fallback={<Skeleton className="h-full w-full rounded-lg" />}>
+                <AiAssistant />
+              </Suspense>
+            </div>
           </div>
 
-          {user && <GamificationSection t={T_el} onOpenDialog={() => setIsGamificationDialogOpen(true)} badges={allBadges} />}
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300 fill-mode-both">
+            {user && <GamificationSection t={T_el} onOpenDialog={() => setIsGamificationDialogOpen(true)} badges={allBadges} />}
+          </div>
 
-          <HealthCorner t={T_el} language={language} />
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 delay-450 fill-mode-both">
+            <HealthCorner t={T_el} language={language} />
+          </div>
 
-          <DashboardCards t={T_el} language={language} />
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 delay-600 fill-mode-both">
+            <DashboardCards t={T_el} language={language} />
+          </div>
 
-          <CycleSummarySection t={T_el} language={language} cycleData={cycleData} loading={cycleLoading} />
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 delay-750 fill-mode-both">
+            <CycleSummarySection t={T_el} language={language} cycleData={cycleData} loading={cycleLoading} />
+          </div>
 
-          <HomePageCards t={T_el} language={language} />
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 delay-900 fill-mode-both">
+            <HomePageCards t={T_el} language={language} />
+          </div>
 
         </div>
       </div>

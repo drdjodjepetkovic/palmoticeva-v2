@@ -12,6 +12,7 @@ import type { ServiceCategory } from '@/lib/data/pricelist';
 import Link from 'next/link';
 import { Tooltip, TooltipProvider, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import * as LucideIcons from 'lucide-react';
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase/client';
 import { defaultPricelistData } from '@/lib/data/pricelist';
@@ -110,17 +111,66 @@ export default function PricelistPage() {
 
   return (
     <div className="container mx-auto px-4 md:px-6 py-12">
-      <header className="text-center mb-4"><h1 className="text-4xl font-headline font-bold">{T('pricelistTitle')}</h1></header>
+      <header className="text-center mb-12 animate-in fade-in slide-in-from-top-4 duration-1000">
+        <h1 className="text-4xl md:text-5xl font-headline font-bold mb-4">{T('pricelistTitle')}</h1>
+        <div className="w-24 h-1 bg-primary mx-auto rounded-full opacity-50" />
+      </header>
 
-      <div className="max-w-3xl mx-auto">
-        <div className="text-center mb-8">
-          <Button asChild variant="secondary" size="sm"><a href={PDF_URL} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2"><LucideIcons.Download className="h-4 w-4" /><span>{T('downloadPricelist')}</span></a></Button>
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-12 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200 fill-mode-both">
+          <Button asChild variant="outline" size="lg" className="rounded-full px-8 hover:bg-primary/5 border-primary/20 transition-all duration-300">
+            <a href={PDF_URL} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+              <LucideIcons.Download className="h-5 w-5" />
+              <span>{T('downloadPricelist')}</span>
+            </a>
+          </Button>
         </div>
 
-        <div className="sticky top-[65px] z-10 py-4 mb-8 bg-background/95 backdrop-blur-sm">
-          <div className="relative">
-            <LucideIcons.Search className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-            <Input type="text" placeholder={T('searchServices')} value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full text-base pr-10" />
+        {/* Quick Links Navigation */}
+        {!isLoading && allCategories.length > 0 && (
+          <div className="mb-8 animate-in fade-in delay-300 fill-mode-both">
+            <ScrollArea className="w-full whitespace-nowrap pb-4">
+              <div className="flex w-max space-x-4 px-1">
+                {allCategories.map((cat) => {
+                  const Icon = getIcon(cat.icon);
+                  return (
+                    <button
+                      key={cat.category_key}
+                      onClick={() => {
+                        const element = document.getElementById(cat.category_key);
+                        if (element) {
+                          const offset = 140; // sticky header + slack
+                          const elementPosition = element.getBoundingClientRect().top;
+                          const offsetPosition = elementPosition + window.pageYOffset - offset;
+                          window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                          });
+                        }
+                      }}
+                      className="flex items-center gap-2 px-4 py-2 rounded-full border border-primary/10 bg-background/40 backdrop-blur-sm hover:bg-primary/5 hover:border-primary/30 transition-all duration-300 text-sm font-medium"
+                    >
+                      <Icon className="h-4 w-4 text-primary" />
+                      {cat.category_name[language] || cat.category_name['se-lat']}
+                    </button>
+                  );
+                })}
+              </div>
+              <ScrollBar orientation="horizontal" className="hidden" />
+            </ScrollArea>
+          </div>
+        )}
+
+        <div className="sticky top-[65px] z-10 py-4 mb-12 bg-background/80 backdrop-blur-xl border-b border-primary/5 -mx-4 px-4 transition-all duration-300">
+          <div className="relative max-w-2xl mx-auto">
+            <LucideIcons.Search className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-primary/40" />
+            <Input
+              type="text"
+              placeholder={T('searchServices')}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full text-lg h-14 pr-12 rounded-2xl border-primary/10 bg-background/50 focus:bg-background/80 shadow-inner transition-all duration-300"
+            />
           </div>
         </div>
 
@@ -133,12 +183,26 @@ export default function PricelistPage() {
                 const Icon = getIcon(category.icon);
                 const isLastCategory = catIndex === filteredCategories.length - 1;
                 return (
-                  <Card key={category.category_key} ref={isLastCategory ? lastElementRef : null} className="shadow-lg">
-                    <CardHeader><CardTitle className="flex items-center gap-2 text-primary"><Icon className="h-6 w-6" />{category.category_name[language] || category.category_name['se-lat']}</CardTitle></CardHeader>
-                    <CardContent>
-                      <ul className="divide-y">
+                  <Card
+                    key={category.category_key}
+                    id={category.category_key}
+                    ref={isLastCategory ? lastElementRef : null}
+                    className="shadow-premium hover:shadow-premium-xl transition-all duration-500 border-primary/10 bg-background/60 backdrop-blur-xl group overflow-hidden animate-in fade-in slide-in-from-bottom-8 fill-mode-both"
+                    style={{ animationDelay: `${(catIndex % CATEGORIES_PER_PAGE) * 150}ms` }}
+                  >
+                    <CardHeader className="relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                      <CardTitle className="flex items-center gap-3 text-primary text-xl relative z-10">
+                        <div className="p-2 rounded-xl bg-primary/5 text-primary">
+                          <Icon className="h-6 w-6" />
+                        </div>
+                        {category.category_name[language] || category.category_name['se-lat']}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="relative z-10">
+                      <ul className="divide-y divide-primary/5">
                         {category.services.map((service, index) => (
-                          <li key={index} className="py-3 flex justify-between items-center gap-4">
+                          <li key={index} className="py-4 flex justify-between items-center gap-6 hover:bg-primary/[0.02] -mx-4 px-4 transition-colors duration-200">
                             <div className="flex-1 flex items-center gap-2 min-w-0">
                               <span className="text-foreground min-w-0 break-words text-sm">{service.name[language] || service.name['se-lat']}</span>
                               {service.slug && (

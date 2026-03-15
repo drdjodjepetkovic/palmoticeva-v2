@@ -335,8 +335,9 @@ export default function AiAssistant() {
   };
 
   return (
-    <Card className="h-full flex flex-col shadow-lg border-primary/20">
-      <CardContent className="p-4 flex-1 flex flex-col min-h-0">
+    <Card className="h-full flex flex-col shadow-2xl border-primary/20 bg-background/60 backdrop-blur-xl relative overflow-hidden group">
+      <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 via-transparent to-accent/5 pointer-events-none" />
+      <CardContent className="p-4 flex-1 flex flex-col min-h-0 relative">
         <ScrollArea className="flex-1 pr-4 -mr-4" ref={scrollAreaRef as any}>
           <div className="space-y-4">
             {messages.map((message, index) => (
@@ -354,8 +355,10 @@ export default function AiAssistant() {
                 )}
 
                 <div className={cn(
-                  "rounded-lg px-3 py-2 max-w-[85%]",
-                  message.role === 'user' ? "bg-primary text-primary-foreground" : "bg-muted"
+                  "rounded-2xl px-4 py-2.5 max-w-[85%] transition-all duration-300",
+                  message.role === 'user'
+                    ? "bg-gradient-to-tr from-primary to-primary/80 text-primary-foreground shadow-md hover:shadow-lg"
+                    : "bg-muted/80 backdrop-blur-sm border border-border/50 shadow-sm"
                 )}
                 >
                   <div
@@ -370,14 +373,14 @@ export default function AiAssistant() {
                         {message.recommendations.map((rec, i) => (
                           <div
                             key={i}
-                            className="bg-background/50 border border-primary/20 rounded-md p-3 cursor-pointer hover:bg-primary/10 transition-colors group"
+                            className="bg-background/40 backdrop-blur-sm border border-primary/20 rounded-xl p-3 cursor-pointer hover:bg-primary/5 hover:border-primary/40 transition-all duration-300 group/rec shadow-sm hover:shadow-md"
                             onClick={() => router.push(`/${language}/articles/${rec.slug}`)}
                           >
                             <div className="flex items-center justify-between">
-                              <h4 className="font-medium text-sm group-hover:text-primary transition-colors">{rec.title}</h4>
-                              <Send className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity text-primary -rotate-45" />
+                              <h4 className="font-medium text-sm group-hover/rec:text-primary transition-colors">{rec.title}</h4>
+                              <Send className="w-3 h-3 opacity-0 group-hover/rec:opacity-100 transition-all duration-300 text-primary -rotate-45 transform group-hover/rec:scale-110" />
                             </div>
-                            <p className="text-xs text-muted-foreground mt-1">{rec.reason}</p>
+                            <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{rec.reason}</p>
                           </div>
                         ))}
                       </div>
@@ -386,7 +389,12 @@ export default function AiAssistant() {
                   {message.role === 'model' && message.followUpQuestions && message.followUpQuestions.length > 0 && (
                     <div className="mt-3 flex flex-wrap gap-2">
                       {message.followUpQuestions?.map((q, i) => (
-                        q && <Badge key={i} variant="outline" className="cursor-pointer hover:bg-primary/20 bg-background/50 border-primary/30 text-primary" onClick={() => handleFollowUpClick(q)}>
+                        q && <Badge
+                          key={i}
+                          variant="outline"
+                          className="cursor-pointer hover:bg-primary/10 bg-background/40 backdrop-blur-sm border-primary/20 text-primary transition-all duration-300 hover:scale-105 active:scale-95 px-3 py-1"
+                          onClick={() => handleFollowUpClick(q)}
+                        >
                           {q}
                         </Badge>
                       ))}
@@ -431,7 +439,12 @@ export default function AiAssistant() {
                   <p className="text-sm">{getPersonalizedGreeting()}</p>
                   <div className="mt-3 flex flex-wrap gap-2">
                     {initialFollowUps.map((q, i) => (
-                      q && <Badge key={i} variant="outline" className="cursor-pointer hover:bg-primary/20 bg-background/50 border-primary/30 text-primary" onClick={() => handleFollowUpClick(q)}>
+                      q && <Badge
+                        key={i}
+                        variant="outline"
+                        className="cursor-pointer hover:bg-primary/10 bg-background/40 backdrop-blur-sm border-primary/20 text-primary transition-all duration-300 hover:scale-105 active:scale-95 px-3 py-1"
+                        onClick={() => handleFollowUpClick(q)}
+                      >
                         {q}
                       </Badge>
                     ))}
