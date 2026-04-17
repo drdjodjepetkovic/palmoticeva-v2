@@ -31,6 +31,11 @@ env:
     value: G-KQXYJHTF90
   - variable: NEXT_PUBLIC_VAPID_KEY
     value: BNLqFBE5eG05oNCQDFJ4n-1y4Kk9GfJq5lQW4g0p4X6h1s3Y1Z7x6d2m9N8w1t2n2t8Y9c0j0k8J7i6H5g4f3E2d1
+  # ⚠️⚠️⚠️ DEV PREVIEW ONLY — NIKAKO NE SPAJATI SA matrix-v2-upgrade GRANOM ⚠️⚠️⚠️
+  # Ovo usmerava zombie App Hosting backend na `dev-cloned` Firestore bazu.
+  # Pre merge-a u LIVE granu, obrisati ove dve linije. LIVE backend mora da koristi `(default)` bazu.
+  - variable: NEXT_PUBLIC_FIRESTORE_DB
+    value: dev-cloned
 run:
   # The command to build the application.
   # This is an optional field.
@@ -40,7 +45,9 @@ run:
   start: npm run start
   # Set the server timeout to 120 seconds.
   timeoutSeconds: 120
-cron:
-  - schedule: "every day 09:00"
-    uri: /api/cron/check-cycles
-    timezone: "Europe/Belgrade"
+# ⚠️ CRON ISKLJUČEN NA PREVIEW BACKEND-u — dev-cloned sadrži FCM tokene realnih pacijentica.
+# Pre merge-a u matrix-v2-upgrade granu, OBAVEZNO odkomentarisati cron blok ispod.
+# cron:
+#   - schedule: "every day 09:00"
+#     uri: /api/cron/check-cycles
+#     timezone: "Europe/Belgrade"
