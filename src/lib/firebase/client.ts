@@ -31,7 +31,14 @@ function isFirebaseConfigured(config: typeof firebaseConfig): boolean {
 const app: FirebaseApp = getApps().length ? getApp() : initializeApp(firebaseConfig);
 
 const auth: Auth = getAuth(app);
-const db: Firestore = getFirestore(app);
+const firestoreDbName = process.env.NEXT_PUBLIC_FIRESTORE_DB;
+const db: Firestore = firestoreDbName
+  ? getFirestore(app, firestoreDbName)
+  : getFirestore(app);
+
+if (typeof window !== 'undefined') {
+  console.log(`[Firebase] Firestore DB: ${firestoreDbName ?? '(default)'}`);
+}
 const storage: FirebaseStorage = getStorage(app);
 const googleProvider = new GoogleAuthProvider();
 
