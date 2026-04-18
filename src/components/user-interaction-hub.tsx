@@ -8,16 +8,11 @@ import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/use-auth';
 import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { db } from '@/lib/firebase/client';
-import { useContent } from '@/hooks/use-content';
 import { usePwaInstall } from '@/hooks/use-pwa-install';
-import { defaultContent } from '@/lib/data/default-content';
-import { useLanguage } from '@/context/language-context';
 
-const badgeContentIds = [
-  'badge_our_patient_title', 'badge_explorer_title', 'badge_routine_queen_title',
-  'badge_punctual_title', 'badge_ambassador_title', 'badge_golden_recommendation_title',
-  'badge_installer_title'
-];
+// NOTE: `useContent`, `defaultContent`, `useLanguage` imports + `badgeContentIds` const
+// removed 2026-04-18 when badge-unlocked toast was disabled (Package C / option A).
+// Restore them if gamification UI is re-enabled.
 
 /**
  * A central component that listens to events and triggers user-facing interactions
@@ -27,9 +22,7 @@ export function UserInteractionHub() {
   const { on, emit } = useEventBus();
   const { toast } = useToast();
   const { user, userProfile, setShowWalkthrough } = useAuth();
-  const { content } = useContent(badgeContentIds);
   const { canInstall } = usePwaInstall();
-  const { language } = useLanguage();
 
   // Listener for showing toasts
   useEffect(() => {
@@ -52,27 +45,25 @@ export function UserInteractionHub() {
           unlockedBadges: arrayUnion(payload.badgeKey)
         });
 
-        const contentKey = `badge_${payload.badgeKey}_title`;
-        let badgeTitle = content[contentKey];
-
-        // Fallback if content is not yet loaded
-        if (!badgeTitle) {
-          const defaultItem = defaultContent[contentKey];
-          if (defaultItem) {
-            badgeTitle = defaultItem[language] || defaultItem['se-lat'];
-          }
-        }
-
-        // Final fallback
-        if (!badgeTitle) {
-          badgeTitle = payload.badgeKey;
-        }
-
-        // Use the event bus to show the toast
-        emit(UserEventType.ToastShow, {
-          title: "Novi bedž otključan!",
-          description: `Zaslužili ste bedž: ${badgeTitle}`
-        });
+        // GAMIFICATION UI DISABLED 2026-04-18 per Đole decision (Package C, option A).
+        // Firestore write above is retained — badge tracking still happens silently, in case we re-enable UI later.
+        // Toast emission + content lookup intentionally commented out.
+        //
+        // const contentKey = `badge_${payload.badgeKey}_title`;
+        // let badgeTitle = content[contentKey];
+        // if (!badgeTitle) {
+        //   const defaultItem = defaultContent[contentKey];
+        //   if (defaultItem) {
+        //     badgeTitle = defaultItem[language] || defaultItem['se-lat'];
+        //   }
+        // }
+        // if (!badgeTitle) {
+        //   badgeTitle = payload.badgeKey;
+        // }
+        // emit(UserEventType.ToastShow, {
+        //   title: "Novi bedž otključan!",
+        //   description: `Zaslužili ste bedž: ${badgeTitle}`
+        // });
 
       } catch (error) {
         console.error("Failed to unlock badge:", error);
@@ -80,7 +71,7 @@ export function UserInteractionHub() {
     });
 
     return unsubscribe;
-  }, [on, user, userProfile, content, emit, language]);
+  }, [on, user, userProfile]);
 
   // Listener for starting the app walkthrough
   useEffect(() => {

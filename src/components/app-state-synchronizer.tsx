@@ -17,7 +17,7 @@ export function AppStateSynchronizer() {
         if (loading) return;
 
         // Apply theme from user profile or local storage
-        const theme = userProfile?.preferredTheme || localStorage.getItem("app-theme") || "theme-default";
+        const theme = userProfile?.preferredTheme || localStorage.getItem("app-theme") || "theme-london";
         const currentTheme = document.body.className.match(/theme-\w+/)?.[0];
         if (theme !== currentTheme) {
             document.body.className = cn(document.body.className.replace(/theme-\w+/g, ''), theme);

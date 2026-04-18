@@ -127,19 +127,18 @@ function DashboardCards({ t, language }: { t: (id: string, fallback?: string) =>
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      <div className="relative rounded-xl p-1.5 bg-gradient-to-br from-cyan-400 via-purple-500 to-pink-500 animate-gradient">
-        <Link href={`/${language}/menstrual-calendar`} className="h-full block">
-          <Card className="flex flex-col h-full hover:shadow-xl transition-all duration-300 bg-card text-card-foreground">
-            <CardContent className="flex-grow flex items-center p-4 gap-4">
-              <CalendarHeart className="h-10 w-10 text-primary flex-shrink-0" />
-              <div>
-                <CardTitle className="text-base font-bold">{t('homepage_smart_calendar_title')}</CardTitle>
-                <div className="text-xs text-muted-foreground">{t('homepage_smart_calendar_desc')}</div>
-              </div>
-            </CardContent>
-          </Card>
-        </Link>
-      </div>
+      {/* Rainbow gradient wrapper replaced 2026-04-18 with London-themed accent border (Package A brand alignment). */}
+      <Link href={`/${language}/menstrual-calendar`} className="h-full block">
+        <Card className="flex flex-col h-full hover:shadow-xl transition-all duration-300 bg-card text-card-foreground border-l-4 border-accent">
+          <CardContent className="flex-grow flex items-center p-4 gap-4">
+            <CalendarHeart className="h-10 w-10 text-primary flex-shrink-0" />
+            <div>
+              <CardTitle className="text-base font-bold">{t('homepage_smart_calendar_title')}</CardTitle>
+              <div className="text-xs text-muted-foreground">{t('homepage_smart_calendar_desc')}</div>
+            </div>
+          </CardContent>
+        </Card>
+      </Link>
 
       <Link href={linkTarget} className="h-full block">
         <Card className="flex flex-col h-full hover:bg-muted/50 transition-colors">
@@ -377,7 +376,10 @@ function HomePageInternal() {
             </Suspense>
           </div>
 
-          {user && <GamificationSection t={T_el} onOpenDialog={() => setIsGamificationDialogOpen(true)} badges={allBadges} />}
+          {/* GAMIFICATION UI DISABLED 2026-04-18 per Đole decision (Package C, option A).
+              Badge strip hidden from homepage; badge tracking still runs silently via UserInteractionHub.
+              Restore this line to re-enable the UI. */}
+          {/* {user && <GamificationSection t={T_el} onOpenDialog={() => setIsGamificationDialogOpen(true)} badges={allBadges} />} */}
 
           <HealthCorner t={T_el} language={language} />
 
