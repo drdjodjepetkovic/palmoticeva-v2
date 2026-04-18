@@ -24,7 +24,7 @@ export function MobileBottomNav() {
   ];
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 h-16 border-t bg-card text-card-foreground shadow-[0_-2px_10px_rgba(0,0,0,0.1)] z-50">
+    <div className="fixed bottom-0 left-0 right-0 h-16 bg-primary text-primary-foreground shadow-[0_-2px_12px_rgba(0,40,74,0.2)] z-50">
       <div className="grid h-full grid-cols-4">
         {navItems.map((item) => {
           const Icon = item.icon;
@@ -38,7 +38,7 @@ export function MobileBottomNav() {
                 key={item.labelKey} 
                 className={cn(
                     "flex flex-col items-center justify-center text-center text-xs font-medium transition-colors hover:bg-accent",
-                    isActive ? "text-primary" : "text-muted-foreground"
+                    isActive ? "text-accent" : "text-primary-foreground/70"
                 )}
                 target={isExternal ? '_self' : undefined}
             >

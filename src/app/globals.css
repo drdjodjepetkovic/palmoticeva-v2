@@ -7,9 +7,9 @@
   /* 2026-04-18 — paleta usaglašena sa PalmLondon repo (palmoticeva.com):
      lc-navy #002C51, lc-teal #00A3AD, bela pozadina (nije cream). */
   .theme-london {
-    --background: 0 0% 100%;             /* Bela — kao palmoticeva.com */
+    --background: 208 55% 92%;           /* lc-blue-light #DEEAF5 — palmoticeva.com hero bg */
     --foreground: 208 47% 12%;           /* lc-text #1a2b3c */
-    --card: 0 0% 100%;                   /* Bela cards */
+    --card: 0 0% 100%;                   /* Bele kartice — iskaču preko plave pozadine */
     --card-foreground: 208 47% 12%;
     --popover: 0 0% 100%;
     --popover-foreground: 208 47% 12%;
