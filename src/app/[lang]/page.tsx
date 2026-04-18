@@ -222,17 +222,18 @@ function HealthCorner({ t, language }: { t: (id: string, fallback?: string) => R
 
   if (!randomFactId) return null;
 
+  // 2026-04-18 — Clinical Atelier Kutak Zdravlja: bg-muted (theme-aware blue-light), teal accent title, default CTA (sad teal)
   return (
-    <Card className="bg-blue-500/10 border-blue-500/20">
+    <Card className="bg-muted">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-blue-700 dark:text-blue-400">
+        <CardTitle className="flex items-center gap-2 text-accent">
           <Lightbulb className="h-6 w-6" />
           {t('health_corner_title', 'Kutak Zdravlja')}
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="text-sm text-blue-800 dark:text-blue-300">{t(randomFactId)}</div>
-        <Button asChild variant="secondary" className="bg-white/80 text-blue-600 hover:bg-white">
+        <div className="text-sm text-foreground/80">{t(randomFactId)}</div>
+        <Button asChild>
           <Link href={`/${language}/articles`}>
             {t('health_corner_read_more', 'Pročitajte sve članke...')} <ArrowRight className="h-4 w-4 ml-2" />
           </Link>
