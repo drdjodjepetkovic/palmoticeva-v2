@@ -47,6 +47,13 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   // Handle initial language detection for guests
   useEffect(() => {
     if (!loading && !user) {
+      // External referral (UTM) — path locale wins, persist it as new preference
+      if (typeof window !== 'undefined' &&
+          new URLSearchParams(window.location.search).has('utm_source')) {
+        localStorage.setItem('language', initialLang);
+        return;
+      }
+
       const storedLang = localStorage.getItem('language') as LanguageCode;
       if (storedLang && SUPPORTED_LANGUAGES.includes(storedLang) && storedLang !== initialLang) {
         const newPathname = pathname.replace(`/${initialLang}`, `/${storedLang}`);
