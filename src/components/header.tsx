@@ -90,7 +90,7 @@ export default function Header() {
         <div className="flex items-center gap-6">
             {/* 2026-04-18 — logo ikonica uklonjena po korisnikovom zahtevu; ostaje samo PALMOTIĆEVA wordmark. */}
             <Link href={`/${language}/`} className="flex items-center font-bold text-lg no-underline">
-              <span className="font-body text-primary-foreground text-[18px] md:text-[20px] font-medium tracking-[0.1em] uppercase whitespace-nowrap">{T('header_brand')}</span>
+              <span className="font-body text-primary-foreground text-[18px] md:text-[20px] font-medium tracking-[0.1em] uppercase whitespace-nowrap">{T('header_brand')} +</span>
             </Link>
         </div>
         <div className="flex items-center gap-2 md:gap-4">

@@ -10,7 +10,7 @@ import { useContent } from "@/hooks/use-content";
 import { useEffect, useState, useCallback } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase/client';
-import { type Article, type ArticlesContent, defaultArticlesData } from '@/lib/data/content/articles';
+import { type Article, defaultArticlesData } from '@/lib/data/content/articles';
 import { Skeleton } from '@/components/ui/skeleton';
 import { format, type Locale } from 'date-fns';
 import { sr, ru, srLatn, enUS } from 'date-fns/locale';
@@ -26,18 +26,8 @@ const localeMap: Record<LanguageCode, Locale> = {
 function ArticlePageSkeleton() {
   return (
     <div className="bg-muted/30">
-      <div className="container mx-auto max-w-3xl px-4 py-12 md:py-16">
-        <div className="mb-8">
-          <Skeleton className="h-10 w-40" />
-        </div>
-        <header className="mb-8 text-center">
-          <Skeleton className="h-12 w-full mx-auto mb-4" />
-          <div className="flex items-center justify-center gap-4">
-            <Skeleton className="h-5 w-24" />
-            <Skeleton className="h-5 w-24" />
-          </div>
-        </header>
-        <Skeleton className="aspect-video w-full rounded-lg mb-8" />
+      <Skeleton className="w-full min-h-[360px] lg:min-h-[480px]" />
+      <div className="container mx-auto max-w-3xl px-4 py-10 md:py-12">
         <div className="space-y-4">
           <Skeleton className="h-6 w-full" />
           <Skeleton className="h-6 w-5/6" />
@@ -46,58 +36,18 @@ function ArticlePageSkeleton() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default function ArticlePage() {
-  const params = useParams();
-  const { language } = useLanguage();
-  const { content: t, loading: tLoading } = useContent(['article_back_button']);
-
-  const [article, setArticle] = useState<Article | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  const slug = params.slug as string;
-
-  const fetchArticle = useCallback(async () => {
-    setLoading(true);
-    try {
-      const docRef = doc(db, 'articles', slug);
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        setArticle(docSnap.data() as Article);
-      } else {
-        console.log("Article not found in 'articles' collection, checking fallback...");
-        // Fallback to local data if not found in DB (e.g. for static pages not yet in DB)
-        const foundArticle = defaultArticlesData.articles.find(a => a.slug === slug);
-        if (foundArticle) {
-          setArticle(foundArticle);
-        } else {
-          setArticle(null);
-        }
-      }
-    } catch (error) {
-      console.error("Error fetching article:", error);
-      setArticle(null);
-    } finally {
-      setLoading(false);
-    }
-  }, [slug]);
-
-  useEffect(() => {
-    fetchArticle();
-  }, [fetchArticle]);
-
-
-  if (loading) {
-    return <ArticlePageSkeleton />;
-  }
-
-  if (!article) {
-    notFound();
-  }
-
+function FirestoreArticleView({
+  article,
+  language,
+  backLabel,
+}: {
+  article: Article;
+  language: LanguageCode;
+  backLabel: string;
+}) {
   const title = article.title[language] || article.title['se-lat'];
   const content = article.content[language] || article.content['se-lat'];
   const author = article.author[language] || article.author['se-lat'];
@@ -110,7 +60,7 @@ export default function ArticlePage() {
             <Button asChild variant="outline">
               <Link href={`/${language}/articles`}>
                 <ArrowLeft className="h-4 w-4 mr-2" />
-                {tLoading ? '...' : t['article_back_button']}
+                {backLabel}
               </Link>
             </Button>
           </div>
@@ -144,11 +94,48 @@ export default function ArticlePage() {
             className="prose prose-lg dark:prose-invert max-w-none mx-auto prose-p:leading-relaxed prose-headings:text-primary prose-a:text-primary hover:prose-a:underline"
             dangerouslySetInnerHTML={{ __html: content }}
           />
-
         </article>
       </div>
     </div>
   );
 }
 
-export const revalidate = 3600; // Revalidate every hour by default
+export default function ArticlePage() {
+  const params = useParams();
+  const { language } = useLanguage();
+  const { content: t, loading: tLoading } = useContent(['article_back_button']);
+
+  const slug = params.slug as string;
+  const [article, setArticle] = useState<Article | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  const fetchFirestoreArticle = useCallback(async () => {
+    setLoading(true);
+    try {
+      const docRef = doc(db, 'articles', slug);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        setArticle(docSnap.data() as Article);
+      } else {
+        const foundArticle = defaultArticlesData.articles.find((a) => a.slug === slug);
+        setArticle(foundArticle || null);
+      }
+    } catch (error) {
+      console.error("Error fetching article:", error);
+      setArticle(null);
+    } finally {
+      setLoading(false);
+    }
+  }, [slug]);
+
+  useEffect(() => {
+    fetchFirestoreArticle();
+  }, [fetchFirestoreArticle]);
+
+  const backLabel = tLoading ? '...' : (t['article_back_button'] || 'Nazad na članke');
+
+  if (loading) return <ArticlePageSkeleton />;
+  if (!article) notFound();
+
+  return <FirestoreArticleView article={article} language={language} backLabel={backLabel} />;
+}

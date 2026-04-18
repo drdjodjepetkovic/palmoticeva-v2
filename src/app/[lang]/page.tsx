@@ -84,11 +84,12 @@ const contentIds = [
   'homepage_articles_card_desc',
   'health_corner_title',
   'health_corner_read_more',
-  'fact_1',
-  'fact_2',
-  'fact_3',
-  'fact_4',
-  'fact_5',
+  'fact_1', 'fact_2', 'fact_3', 'fact_4', 'fact_5',
+  'fact_6', 'fact_7', 'fact_8', 'fact_9', 'fact_10',
+  'fact_11', 'fact_12', 'fact_13', 'fact_14', 'fact_15',
+  'fact_16', 'fact_17', 'fact_18', 'fact_19', 'fact_20',
+  'fact_21', 'fact_22', 'fact_23', 'fact_24', 'fact_25',
+  'fact_26', 'fact_27', 'fact_28', 'fact_29', 'fact_30',
   'gamification_title',
   'gamification_details_button'
 ];

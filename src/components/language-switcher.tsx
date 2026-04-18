@@ -33,9 +33,6 @@ export default function LanguageSwitcher() {
         <DropdownMenuItem onClick={() => setLanguage("se-lat")}>
           SRB
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setLanguage("se")}>
-          СРБ
-        </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setLanguage("en")}>
           ENG
         </DropdownMenuItem>
