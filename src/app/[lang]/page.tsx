@@ -188,7 +188,7 @@ function CycleSummarySection({ t, language, cycleData, loading }: { t: (id: stri
     return (
       <Card>
         <CardHeader className="p-4">
-          <CardTitle className="text-base">{t('homepage_cycle_summary_title', 'Pregled Ciklusa')}</CardTitle>
+          <CardTitle className="text-base section-title">{t('homepage_cycle_summary_title', 'Pregled Ciklusa')}</CardTitle>
         </CardHeader>
         <CardContent className="p-4 pt-0 text-center text-sm text-muted-foreground">
           {t('homepage_cycle_empty_state', 'Unesite svoj prvi ciklus u kalendar da biste ovde videli pregled.')}
@@ -200,7 +200,7 @@ function CycleSummarySection({ t, language, cycleData, loading }: { t: (id: stri
   return (
     <Card>
       <CardHeader className="p-4">
-        <CardTitle className="text-base">{t('homepage_cycle_summary_title', 'Pregled Ciklusa')}</CardTitle>
+        <CardTitle className="text-base section-title">{t('homepage_cycle_summary_title', 'Pregled Ciklusa')}</CardTitle>
       </CardHeader>
       <CardContent className="p-4 pt-0">
         <CycleStats avgPeriodLength={cycleData.avgPeriodLength} avgCycleLength={cycleData.avgCycleLength} t={t} />
@@ -298,7 +298,8 @@ function HomePageCards({ t, language }: { t: (id: string, fallback?: string) => 
           >
             <Card className="h-full hover:bg-muted/50 transition-colors">
               <CardContent className="p-4 flex flex-col items-center text-center gap-2">
-                <Icon className="h-6 w-6 text-primary mb-1" />
+                {/* 2026-04-18 — ikonice teal (accent) da matchuje palmoticeva.com glavni akcent */}
+                <Icon className="h-6 w-6 text-accent mb-1" />
                 <h3 className="text-sm font-bold leading-tight">{t(card.titleKey, card.titleKey)}</h3>
                 <div className="text-xs text-muted-foreground">{t(card.descKey, card.descKey)}</div>
               </CardContent>
@@ -371,7 +372,8 @@ function HomePageInternal() {
         <h1 className="sr-only">Palmotićeva –– savremena medicina i iskustvo - centar za ginekologiju i hirurgiju</h1>
         <div className="flex flex-col gap-4 h-full">
 
-          <div className="flex-1 min-h-0 h-[500px]">
+          {/* 2026-04-18 — hero zona: bg-muted wrapper matchuje palmoticeva.com top-of-page svetlo plavu pozadinu. AiAssistant card sedi unutra. */}
+          <div className="flex-1 min-h-0 h-[500px] bg-muted rounded-xl p-3">
             <Suspense fallback={<Skeleton className="h-full w-full rounded-lg" />}>
               <AiAssistant />
             </Suspense>
