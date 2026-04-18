@@ -296,7 +296,8 @@ function HomePageCards({ t, language }: { t: (id: string, fallback?: string) => 
             }}
             className="block"
           >
-            <Card className="h-full hover:bg-muted/50 transition-colors">
+            {/* 2026-04-18 — teal top-border 3px: razlikovni signal za action/navigacione kartice (Clinical Atelier pattern, mirror .section-title left-bar). */}
+            <Card className="h-full hover:bg-muted/50 transition-colors border-t-[3px] border-t-accent">
               <CardContent className="p-4 flex flex-col items-center text-center gap-2">
                 {/* 2026-04-18 — naslov i body matchuju "Moja Obaveštenja" karticu: text-base semibold naslov, text-sm body, oba navy (bez muted-foreground). */}
                 <Icon className="h-6 w-6 text-accent mb-1" />
