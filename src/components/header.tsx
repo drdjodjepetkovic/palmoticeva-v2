@@ -82,16 +82,20 @@ export default function Header() {
 
   return (
     <>
-    <header className="bg-card border-b sticky top-0 z-50">
+    {/* 2026-04-18 — header navy bar usaglašen sa palmoticeva.com (PalmLondon TopBar):
+        bg-primary (lc-navy), beli tekst, PALMOTIĆEVA logotip + WebP ikonica.
+        Funkcionalnost (sticky, dropdown, login, lang) — netaknuta. */}
+    <header className="bg-primary border-b border-white/10 sticky top-0 z-50">
       <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
         <div className="flex items-center gap-6">
-            <Link href={`/${language}/`} className="flex items-center gap-2 font-bold text-lg">
-              <span className="font-headline bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">{T('header_brand')}</span>
+            {/* 2026-04-18 — logo ikonica uklonjena po korisnikovom zahtevu; ostaje samo PALMOTIĆEVA wordmark. */}
+            <Link href={`/${language}/`} className="flex items-center font-bold text-lg no-underline">
+              <span className="font-body text-primary-foreground text-[18px] md:text-[20px] font-medium tracking-[0.1em] uppercase whitespace-nowrap">{T('header_brand')} +</span>
             </Link>
         </div>
         <div className="flex items-center gap-2 md:gap-4">
           {user && (
-             <Button asChild variant="outline" className="text-primary border-primary/50 hover:bg-primary/10 hover:text-primary">
+             <Button asChild variant="outline" className="bg-transparent text-primary-foreground border-white/30 hover:bg-white/10 hover:text-primary-foreground">
               <Link href={`/${language}/menstrual-calendar`} className="gap-2">
                 <CalendarDays className="h-4 w-4" />
                 <span className="hidden sm:inline">{T('header_nav_calendar')}</span>
@@ -104,7 +108,7 @@ export default function Header() {
           ) : user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+                <Button variant="ghost" className="relative h-10 w-10 rounded-full text-primary-foreground hover:bg-white/10 hover:text-primary-foreground">
                   <Avatar className="h-10 w-10">
                     <AvatarImage src={userProfile?.photoURL || ''} alt={userProfile?.displayName || ''} />
                     <AvatarFallback>{getInitials(userProfile?.displayName)}</AvatarFallback>
@@ -148,7 +152,7 @@ export default function Header() {
              <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button onClick={handleSignIn} disabled={!isConfigured} variant="default" size="icon">
+                  <Button onClick={handleSignIn} disabled={!isConfigured} variant="default" size="icon" className="bg-accent text-accent-foreground hover:bg-accent/90">
                     <LogIn />
                     <span className="sr-only">{T('header_button_signin')}</span>
                   </Button>

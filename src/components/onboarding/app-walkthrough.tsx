@@ -2,7 +2,7 @@
 "use client";
 
 import * as React from "react";
-import { X, Languages, CalendarHeart, Award, ArrowRight, BookOpen, CalendarPlus } from "lucide-react";
+import { X, Languages, CalendarHeart, ArrowRight, BookOpen, CalendarPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/auth-context";
 import { doc, updateDoc } from "firebase/firestore";
@@ -29,8 +29,6 @@ const getStepPosition = (step: number): React.CSSProperties => {
       return { top: '55%', left: '50%', transform: 'translateX(-50%)' };
     case 2: // Bottom Nav
       return { bottom: '80px', left: '50%', transform: 'translateX(-50%)' };
-    case 3: // Badges
-      return { top: '65%', left: '50%', transform: 'translateX(-50%)' };
     default:
       return { top: '50%', left: '50%', transform: 'translate(-50%, -50%)' };
   }
@@ -60,11 +58,6 @@ export default function AppWalkthrough() {
       title: "Cenovnik i Zakazivanje",
       description: "Pogledajte cenovnik usluga ili zakažite Vaš pregled sa lakoćom.",
       icon: BookOpen,
-    },
-    {
-      title: "Sakupljajte Bedževe",
-      description: "Sakupite sve bedževe i osvojite nagradu za vernost!",
-      icon: Award,
     },
   ];
   

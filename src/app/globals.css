@@ -3,6 +3,33 @@
 @tailwind utilities;
 
 @layer base {
+  /* London Theme — Clinical Atelier (default for new users) */
+  /* 2026-04-18 — paleta usaglašena sa PalmLondon repo (palmoticeva.com):
+     lc-navy #002C51, lc-teal #00A3AD, bela pozadina (nije cream). */
+  .theme-london {
+    --background: 208 55% 92%;           /* lc-blue-light #DEEAF5 — palmoticeva.com hero bg */
+    --foreground: 208 47% 12%;           /* lc-text #1a2b3c */
+    --card: 0 0% 100%;                   /* Bele kartice — iskaču preko plave pozadine */
+    --card-foreground: 208 47% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 208 47% 12%;
+    --primary: 208 100% 16%;             /* lc-navy #002C51 */
+    --primary-foreground: 0 0% 100%;     /* Bela na navy */
+    --secondary: 183 36% 85%;            /* Light mint derived from lc-green #99CCCF */
+    --secondary-foreground: 208 100% 16%;
+    --muted: 210 30% 96%;                /* lc-blue-light, blaga */
+    --muted-foreground: 208 25% 35%;     /* lc-text-mid */
+    --accent: 184 100% 34%;              /* lc-teal #00A3AD */
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 210 16% 90%;
+    --input: 210 16% 90%;
+    --ring: 208 100% 16%;
+    --radius: 0.75rem;
+    --shadow-atelier: 0 8px 24px rgba(0, 40, 74, 0.06);
+  }
+
   /* Default Light Theme */
   .theme-default {
     --background: 210 20% 98%;
@@ -138,6 +165,12 @@
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-headline;
+  }
+
+  /* 2026-04-18 — Clinical Atelier section header: Roboto Slab + teal left bar.
+     Opt-in — dodaje se na konkretne h2 (ili div) naslove sekcija kad se hoće PalmLondon izgled. */
+  .section-title {
+    @apply font-headline border-l-4 border-accent pl-3;
   }
 
   .theme-apple {

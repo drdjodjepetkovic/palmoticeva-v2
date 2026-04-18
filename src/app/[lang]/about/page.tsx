@@ -78,7 +78,7 @@ export default function AboutPage() {
     <div className="bg-muted/40 py-12 md:py-16">
       <div className="container mx-auto px-4 md:px-6 space-y-12">
         <header className="text-center">
-          <h1 className="text-4xl md:text-5xl font-headline font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary via-purple-500 to-pink-500">
+          <h1 className="text-4xl md:text-5xl font-headline font-bold tracking-tight text-primary">
             {content.title?.[language]}
           </h1>
         </header>

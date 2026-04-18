@@ -71,6 +71,10 @@ export default {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
       },
+      boxShadow: {
+        // 2026-04-18 — Clinical Atelier shadow iz PalmLondon (var definisan u globals.css .theme-london)
+        atelier: 'var(--shadow-atelier)',
+      },
       keyframes: {
         'accordion-down': {
           from: {

@@ -84,11 +84,12 @@ const contentIds = [
   'homepage_articles_card_desc',
   'health_corner_title',
   'health_corner_read_more',
-  'fact_1',
-  'fact_2',
-  'fact_3',
-  'fact_4',
-  'fact_5',
+  'fact_1', 'fact_2', 'fact_3', 'fact_4', 'fact_5',
+  'fact_6', 'fact_7', 'fact_8', 'fact_9', 'fact_10',
+  'fact_11', 'fact_12', 'fact_13', 'fact_14', 'fact_15',
+  'fact_16', 'fact_17', 'fact_18', 'fact_19', 'fact_20',
+  'fact_21', 'fact_22', 'fact_23', 'fact_24', 'fact_25',
+  'fact_26', 'fact_27', 'fact_28', 'fact_29', 'fact_30',
   'gamification_title',
   'gamification_details_button'
 ];
@@ -127,19 +128,18 @@ function DashboardCards({ t, language }: { t: (id: string, fallback?: string) =>
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      <div className="relative rounded-xl p-1.5 bg-gradient-to-br from-cyan-400 via-purple-500 to-pink-500 animate-gradient">
-        <Link href={`/${language}/menstrual-calendar`} className="h-full block">
-          <Card className="flex flex-col h-full hover:shadow-xl transition-all duration-300 bg-card text-card-foreground">
-            <CardContent className="flex-grow flex items-center p-4 gap-4">
-              <CalendarHeart className="h-10 w-10 text-primary flex-shrink-0" />
-              <div>
-                <CardTitle className="text-base font-bold">{t('homepage_smart_calendar_title')}</CardTitle>
-                <div className="text-xs text-muted-foreground">{t('homepage_smart_calendar_desc')}</div>
-              </div>
-            </CardContent>
-          </Card>
-        </Link>
-      </div>
+      {/* Rainbow gradient wrapper replaced 2026-04-18 with London-themed accent border (Package A brand alignment). */}
+      <Link href={`/${language}/menstrual-calendar`} className="h-full block">
+        <Card className="flex flex-col h-full hover:shadow-xl transition-all duration-300 bg-card text-card-foreground border-l-4 border-accent">
+          <CardContent className="flex-grow flex items-center p-4 gap-4">
+            <CalendarHeart className="h-10 w-10 text-primary flex-shrink-0" />
+            <div>
+              <CardTitle className="text-base font-bold">{t('homepage_smart_calendar_title')}</CardTitle>
+              <div className="text-xs text-muted-foreground">{t('homepage_smart_calendar_desc')}</div>
+            </div>
+          </CardContent>
+        </Card>
+      </Link>
 
       <Link href={linkTarget} className="h-full block">
         <Card className="flex flex-col h-full hover:bg-muted/50 transition-colors">
@@ -189,7 +189,7 @@ function CycleSummarySection({ t, language, cycleData, loading }: { t: (id: stri
     return (
       <Card>
         <CardHeader className="p-4">
-          <CardTitle className="text-base">{t('homepage_cycle_summary_title', 'Pregled Ciklusa')}</CardTitle>
+          <CardTitle className="text-base section-title">{t('homepage_cycle_summary_title', 'Pregled Ciklusa')}</CardTitle>
         </CardHeader>
         <CardContent className="p-4 pt-0 text-center text-sm text-muted-foreground">
           {t('homepage_cycle_empty_state', 'Unesite svoj prvi ciklus u kalendar da biste ovde videli pregled.')}
@@ -201,10 +201,10 @@ function CycleSummarySection({ t, language, cycleData, loading }: { t: (id: stri
   return (
     <Card>
       <CardHeader className="p-4">
-        <CardTitle className="text-base">{t('homepage_cycle_summary_title', 'Pregled Ciklusa')}</CardTitle>
+        <CardTitle className="text-base section-title">{t('homepage_cycle_summary_title', 'Pregled Ciklusa')}</CardTitle>
       </CardHeader>
       <CardContent className="p-4 pt-0">
-        <CycleStats avgPeriodLength={cycleData.avgPeriodLength} avgCycleLength={cycleData.avgCycleLength} t={t} />
+        <CycleStats avgPeriodLength={cycleData.avgPeriodLength} avgCycleLength={cycleData.avgCycleLength} t={t} language={language} />
         <div className="mt-4">
           <CycleLegend cycles={cycleData.cycles} avgCycleLength={cycleData.avgCycleLength} language={language as any} t={t as (key: string) => string} />
         </div>
@@ -214,7 +214,14 @@ function CycleSummarySection({ t, language, cycleData, loading }: { t: (id: stri
 }
 
 function HealthCorner({ t, language }: { t: (id: string, fallback?: string) => React.ReactNode, language: string }) {
-  const facts = useMemo(() => ['fact_1', 'fact_2', 'fact_3', 'fact_4', 'fact_5'], []);
+  const facts = useMemo(() => [
+    'fact_1', 'fact_2', 'fact_3', 'fact_4', 'fact_5',
+    'fact_6', 'fact_7', 'fact_8', 'fact_9', 'fact_10',
+    'fact_11', 'fact_12', 'fact_13', 'fact_14', 'fact_15',
+    'fact_16', 'fact_17', 'fact_18', 'fact_19', 'fact_20',
+    'fact_21', 'fact_22', 'fact_23', 'fact_24', 'fact_25',
+    'fact_26', 'fact_27', 'fact_28', 'fact_29', 'fact_30',
+  ], []);
   const [randomFactId, setRandomFactId] = React.useState('');
 
   useEffect(() => {
@@ -223,17 +230,18 @@ function HealthCorner({ t, language }: { t: (id: string, fallback?: string) => R
 
   if (!randomFactId) return null;
 
+  // 2026-04-18 — Kutak Zdravlja: bela kartica (kao ostale) — iskače preko light blue page bg.
   return (
-    <Card className="bg-blue-500/10 border-blue-500/20">
+    <Card>
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-blue-700 dark:text-blue-400">
+        <CardTitle className="flex items-center gap-2 text-accent">
           <Lightbulb className="h-6 w-6" />
           {t('health_corner_title', 'Kutak Zdravlja')}
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="text-sm text-blue-800 dark:text-blue-300">{t(randomFactId)}</div>
-        <Button asChild variant="secondary" className="bg-white/80 text-blue-600 hover:bg-white">
+        <div className="text-sm text-foreground/80">{t(randomFactId)}</div>
+        <Button asChild>
           <Link href={`/${language}/articles`}>
             {t('health_corner_read_more', 'Pročitajte sve članke...')} <ArrowRight className="h-4 w-4 ml-2" />
           </Link>
@@ -296,11 +304,13 @@ function HomePageCards({ t, language }: { t: (id: string, fallback?: string) => 
             }}
             className="block"
           >
-            <Card className="h-full hover:bg-muted/50 transition-colors">
+            {/* 2026-04-18 — teal top-border 3px: razlikovni signal za action/navigacione kartice (Clinical Atelier pattern, mirror .section-title left-bar). */}
+            <Card className="h-full hover:bg-muted/50 transition-colors border-t-[3px] border-t-accent">
               <CardContent className="p-4 flex flex-col items-center text-center gap-2">
-                <Icon className="h-6 w-6 text-primary mb-1" />
-                <h3 className="text-sm font-bold leading-tight">{t(card.titleKey, card.titleKey)}</h3>
-                <div className="text-xs text-muted-foreground">{t(card.descKey, card.descKey)}</div>
+                {/* 2026-04-18 — naslov i body matchuju "Moja Obaveštenja" karticu: text-base semibold naslov, text-sm body, oba navy (bez muted-foreground). */}
+                <Icon className="h-6 w-6 text-accent mb-1" />
+                <h3 className="text-base font-semibold leading-tight tracking-tight">{t(card.titleKey, card.titleKey)}</h3>
+                <div className="text-sm">{t(card.descKey, card.descKey)}</div>
               </CardContent>
             </Card>
           </Link>
@@ -371,13 +381,17 @@ function HomePageInternal() {
         <h1 className="sr-only">Palmotićeva –– savremena medicina i iskustvo - centar za ginekologiju i hirurgiju</h1>
         <div className="flex flex-col gap-4 h-full">
 
+          {/* 2026-04-18 — AiAssistant sedi na light blue page bg; unutrašnja Card daje beli kontrast. Wrapper bez bg. */}
           <div className="flex-1 min-h-0 h-[500px]">
             <Suspense fallback={<Skeleton className="h-full w-full rounded-lg" />}>
               <AiAssistant />
             </Suspense>
           </div>
 
-          {user && <GamificationSection t={T_el} onOpenDialog={() => setIsGamificationDialogOpen(true)} badges={allBadges} />}
+          {/* GAMIFICATION UI DISABLED 2026-04-18 per Đole decision (Package C, option A).
+              Badge strip hidden from homepage; badge tracking still runs silently via UserInteractionHub.
+              Restore this line to re-enable the UI. */}
+          {/* {user && <GamificationSection t={T_el} onOpenDialog={() => setIsGamificationDialogOpen(true)} badges={allBadges} />} */}
 
           <HealthCorner t={T_el} language={language} />
 

@@ -43,6 +43,8 @@ next-env.d.ts
 .npm-cache
 git-filter-repo
 firestore-debug.log
+firebase-debug.log
+firebase-debug.*.log
 *.bat
 
 # secrets

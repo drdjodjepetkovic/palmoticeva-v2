@@ -502,7 +502,8 @@ function AppointmentsPageContent() {
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="w-full text-lg py-6 bg-gradient-to-r from-cyan-400 to-violet-500 transition-all duration-300 hover:shadow-lg hover:shadow-violet-500/30 active:scale-95" disabled={form.formState.isSubmitting}>
+              {/* 2026-04-18 — Clinical Atelier CTA: default Button varijanta (navy bg-primary + white text) + shadow-atelier -> shadow-md hover. Rainbow cyan->violet gradient uklonjen, konflikt sa brand paletom. */}
+              <Button type="submit" className="w-full text-lg py-6 shadow-atelier hover:shadow-md transition-all duration-200 active:scale-[0.98]" disabled={form.formState.isSubmitting}>
                  {form.formState.isSubmitting && <Loader2 className="mr-2 h-5 w-5 animate-spin" />}
                  {T('appointments_submit_button')}
               </Button>

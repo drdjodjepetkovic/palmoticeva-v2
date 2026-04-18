@@ -7,7 +7,7 @@ import { AuthProvider } from '@/context/auth-context';
 import { Toaster } from '@/components/ui/toaster';
 import { cn } from '@/lib/utils';
 import Script from 'next/script';
-import { Inter, Press_Start_2P } from 'next/font/google';
+import { Outfit, Roboto_Slab, Press_Start_2P } from 'next/font/google';
 import { AppStateSynchronizer } from '@/components/app-state-synchronizer';
 import { TourHandler } from '@/components/tour-handler';
 import { Suspense } from 'react';
@@ -17,14 +17,16 @@ import { UserInteractionHub } from '@/components/user-interaction-hub';
 import { PwaInstallToast } from '@/components/pwa-install-toast';
 
 
-const inter = Inter({
-  subsets: ['latin', 'cyrillic'],
+// 2026-04-18 — fontovi usaglašeni sa palmoticeva.com (PalmLondon repo): Outfit za body, Roboto Slab za naslove.
+const inter = Outfit({
+  subsets: ['latin'],
   variable: '--font-body',
   display: 'swap',
 });
 
-const headlineFont = Inter({
+const headlineFont = Roboto_Slab({
   subsets: ['latin', 'cyrillic'],
+  weight: ['400', '700'],
   variable: '--font-headline',
   display: 'swap',
 });
@@ -102,7 +104,9 @@ const jsonLd = {
 
 function RootLayoutContent({ children }: { children: React.ReactNode }) {
   const { language } = useLanguage();
-  const iconUrl = "https://firebasestorage.googleapis.com/v0/b/palmoticeva-portal.firebasestorage.app/o/images%2Fflavicon.ico?alt=media&token=91f4d2eb-869f-48d3-a5fc-c0fc7188753f";
+  // 2026-04-18 — favicon sada dolazi iz lokalnog `src/app/favicon.ico` (Next.js App Router auto-pickup), kopiran iz PalmLondon repo-a.
+  // Stari Firebase Storage URL ostavljen u istoriji za rollback ako bude trebalo.
+  const iconUrl = "/favicon.ico";
 
   return (
     <html lang={language} suppressHydrationWarning>

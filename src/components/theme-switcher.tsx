@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Apple, Code, Flower, Gem, Sun } from "lucide-react"
+import { Apple, Code, Flower, Gem, Landmark, Sun } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/hooks/use-auth";
@@ -9,10 +9,11 @@ import { doc, updateDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase/client";
 import { Tooltip, TooltipProvider, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
-type Theme = "theme-default" | "theme-matrix" | "theme-flower" | "theme-lux" | "theme-apple";
+type Theme = "theme-london" | "theme-default" | "theme-matrix" | "theme-flower" | "theme-lux" | "theme-apple";
 
 const themes: { name: Theme, label: string, icon: React.ElementType }[] = [
-    { name: "theme-default", label: "Default", icon: Sun },
+    { name: "theme-london", label: "London", icon: Landmark },
+    { name: "theme-default", label: "Ocean", icon: Sun },
     { name: "theme-flower", label: "Flower", icon: Flower },
     { name: "theme-apple", label: "Apple", icon: Apple },
     { name: "theme-lux", label: "Lux", icon: Gem },
@@ -21,10 +22,10 @@ const themes: { name: Theme, label: string, icon: React.ElementType }[] = [
 
 export default function ThemeSwitcher() {
   const { user, userProfile } = useAuth();
-  const [currentTheme, setCurrentTheme] = React.useState<Theme>("theme-default");
+  const [currentTheme, setCurrentTheme] = React.useState<Theme>("theme-london");
 
   React.useEffect(() => {
-    const savedTheme = userProfile?.preferredTheme || localStorage.getItem("app-theme") || "theme-default";
+    const savedTheme = userProfile?.preferredTheme || localStorage.getItem("app-theme") || "theme-london";
     const theme = savedTheme as Theme;
     
     setCurrentTheme(theme);

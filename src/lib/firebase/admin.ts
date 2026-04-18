@@ -2,7 +2,7 @@
 import admin from 'firebase-admin';
 import { getMessaging } from 'firebase-admin/messaging';
 import { getApp, getApps, initializeApp } from 'firebase-admin/app';
-import { FieldValue } from 'firebase-admin/firestore';
+import { FieldValue, getFirestore as getAdminFirestore } from 'firebase-admin/firestore';
 
 
 // This is a safeguard to prevent re-initializing the app
@@ -29,7 +29,12 @@ if (!admin.apps.length) {
 const app = getApps().length > 0 ? getApp() : initializeApp();
 
 const authAdmin = admin.auth();
-const dbAdmin = admin.firestore();
+const adminDbName = process.env.NEXT_PUBLIC_FIRESTORE_DB;
+const dbAdmin = adminDbName
+  ? getAdminFirestore(adminDbName)
+  : getAdminFirestore();
+
+console.log(`[Firebase Admin] Firestore DB: ${adminDbName ?? '(default)'}`);
 const messagingAdmin = getMessaging(app);
 
 export { authAdmin, dbAdmin, messagingAdmin, FieldValue };
