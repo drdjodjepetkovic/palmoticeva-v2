@@ -203,7 +203,7 @@ function CycleSummarySection({ t, language, cycleData, loading }: { t: (id: stri
         <CardTitle className="text-base section-title">{t('homepage_cycle_summary_title', 'Pregled Ciklusa')}</CardTitle>
       </CardHeader>
       <CardContent className="p-4 pt-0">
-        <CycleStats avgPeriodLength={cycleData.avgPeriodLength} avgCycleLength={cycleData.avgCycleLength} t={t} />
+        <CycleStats avgPeriodLength={cycleData.avgPeriodLength} avgCycleLength={cycleData.avgCycleLength} t={t} language={language} />
         <div className="mt-4">
           <CycleLegend cycles={cycleData.cycles} avgCycleLength={cycleData.avgCycleLength} language={language as any} t={t as (key: string) => string} />
         </div>
@@ -222,9 +222,9 @@ function HealthCorner({ t, language }: { t: (id: string, fallback?: string) => R
 
   if (!randomFactId) return null;
 
-  // 2026-04-18 — Clinical Atelier Kutak Zdravlja: bg-muted (theme-aware blue-light), teal accent title, default CTA (sad teal)
+  // 2026-04-18 — Kutak Zdravlja: bela kartica (kao ostale) — iskače preko light blue page bg.
   return (
-    <Card className="bg-muted">
+    <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-accent">
           <Lightbulb className="h-6 w-6" />
@@ -298,10 +298,10 @@ function HomePageCards({ t, language }: { t: (id: string, fallback?: string) => 
           >
             <Card className="h-full hover:bg-muted/50 transition-colors">
               <CardContent className="p-4 flex flex-col items-center text-center gap-2">
-                {/* 2026-04-18 — ikonice teal (accent) da matchuje palmoticeva.com glavni akcent */}
+                {/* 2026-04-18 — naslov i body matchuju "Moja Obaveštenja" karticu: text-base semibold naslov, text-sm body, oba navy (bez muted-foreground). */}
                 <Icon className="h-6 w-6 text-accent mb-1" />
-                <h3 className="text-sm font-bold leading-tight">{t(card.titleKey, card.titleKey)}</h3>
-                <div className="text-xs text-muted-foreground">{t(card.descKey, card.descKey)}</div>
+                <h3 className="text-base font-semibold leading-tight tracking-tight">{t(card.titleKey, card.titleKey)}</h3>
+                <div className="text-sm">{t(card.descKey, card.descKey)}</div>
               </CardContent>
             </Card>
           </Link>
@@ -372,8 +372,8 @@ function HomePageInternal() {
         <h1 className="sr-only">Palmotićeva –– savremena medicina i iskustvo - centar za ginekologiju i hirurgiju</h1>
         <div className="flex flex-col gap-4 h-full">
 
-          {/* 2026-04-18 — hero zona: bg-muted wrapper matchuje palmoticeva.com top-of-page svetlo plavu pozadinu. AiAssistant card sedi unutra. */}
-          <div className="flex-1 min-h-0 h-[500px] bg-muted rounded-xl p-3">
+          {/* 2026-04-18 — AiAssistant sedi na light blue page bg; unutrašnja Card daje beli kontrast. Wrapper bez bg. */}
+          <div className="flex-1 min-h-0 h-[500px]">
             <Suspense fallback={<Skeleton className="h-full w-full rounded-lg" />}>
               <AiAssistant />
             </Suspense>

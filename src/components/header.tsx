@@ -2,7 +2,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import React, { useState } from "react";
 import { signInWithPopup, signOut } from "firebase/auth";
 import { auth, googleProvider, isConfigured } from "@/lib/firebase/client";
@@ -89,8 +88,8 @@ export default function Header() {
     <header className="bg-primary border-b border-white/10 sticky top-0 z-50">
       <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
         <div className="flex items-center gap-6">
-            <Link href={`/${language}/`} className="flex items-center gap-2.5 font-bold text-lg no-underline">
-              <Image src="/logolondon.webp" alt="Palmotićeva logo" width={40} height={40} priority className="rounded-md shrink-0 h-9 w-9 object-cover" />
+            {/* 2026-04-18 — logo ikonica uklonjena po korisnikovom zahtevu; ostaje samo PALMOTIĆEVA wordmark. */}
+            <Link href={`/${language}/`} className="flex items-center font-bold text-lg no-underline">
               <span className="font-body text-primary-foreground text-[18px] md:text-[20px] font-medium tracking-[0.1em] uppercase whitespace-nowrap">{T('header_brand')}</span>
             </Link>
         </div>
