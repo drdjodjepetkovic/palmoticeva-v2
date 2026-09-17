@@ -1,0 +1,19 @@
+# Settings-only file (not a multi-package workspace).
+# pnpm 10+ ignores dependency lifecycle scripts unless they are allowlisted.
+# App Hosting / Cloud Build fails with ERR_PNPM_IGNORED_BUILDS without this.
+# onlyBuiltDependencies: pnpm 10
+# allowBuilds: pnpm 10.26+ / 11+
+onlyBuiltDependencies:
+  - '@firebase/util'
+  - '@sentry/cli'
+  - protobufjs
+  - re2
+  - sharp
+  - unrs-resolver
+allowBuilds:
+  '@firebase/util': true
+  '@sentry/cli': true
+  protobufjs: true
+  re2: true
+  sharp: true
+  unrs-resolver: true
